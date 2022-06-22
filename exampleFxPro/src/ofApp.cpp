@@ -23,6 +23,8 @@ void ofApp::setup() {
 //--------------------------------------------------------------
 void ofApp::update() {
 	ofSetWindowTitle(ofToString(ofGetFrameRate()));
+
+	fx.update();
 }
 
 //--------------------------------------------------------------
@@ -51,9 +53,12 @@ void ofApp::draw() {
 	// end scene and draw
 	fx.end();
 
+	//light.disable();
+
 	//----
 
 	fx.drawGui();
+	fx.drawImGui();
 }
 
 //--------------------------------------------------------------

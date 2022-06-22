@@ -678,6 +678,12 @@ void ofxPostProcessingManager::setupGui(){
     btnSave.addListener(this,&ofxPostProcessingManager::savePresetPressed);
 
     gdisableAllHandler();
+
+
+    //--
+
+    params.setName("ofxPostProcessingManager");
+    params.add(gui.getParameter());
 }
 
 //---------------------------------------------------------------------------------------

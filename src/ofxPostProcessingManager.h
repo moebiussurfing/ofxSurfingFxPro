@@ -210,6 +210,10 @@ private:
     /*ofParameterGroup gFogGroup;
     ofxFloatSlider gFogfogStart, gFogfogEnd;
     ofxVec4Slider gFogfogColor;*/
+
+    public:
+    ofParameterGroup params;
+
 };
 
 

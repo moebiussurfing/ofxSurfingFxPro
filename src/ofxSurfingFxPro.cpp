@@ -17,13 +17,16 @@ void ofxSurfingFxPro::exit() {
 //--------------------------------------------------------------
 void ofxSurfingFxPro::setup() {
 
-	ofxSurfingHelpers::setThemeDarkMini_ofxGui();
+	ofxSurfingHelpers::setThemeDark_ofxGui();
+	//ofxSurfingHelpers::setThemeDarkMini_ofxGui();
 
 	// setup manager
 	manager.setup(ofGetWidth(), ofGetHeight());
 
 	// Load Settings
 	manager.loadSettings();
+
+	guiManager.setup();
 }
 
 //--------------------------------------------------------------
@@ -37,19 +40,14 @@ void ofxSurfingFxPro::update() {
 	manager.updateValues();
 }
 
-////--------------------------------------------------------------
-//void ofxSurfingFxPro::draw() {
-//	ofEnableDepthTest();
-//
-//	//manager.dra
-//}
-
 //--------------------------------------------------------------
 void ofxSurfingFxPro::drawGui() {
 
 	ofDisableDepthTest();
 
-	if (!hideGui) manager.drawGui();
+	if (!hideGui) {
+		manager.drawGui();
+	}
 
 	//if (!hideGui) {
 	//	manager.drawGui();
@@ -61,6 +59,20 @@ void ofxSurfingFxPro::drawGui() {
 	//	// Otherwise FPS draws continously
 	//	manager.hideGui();
 	//}
+}
+//--------------------------------------------------------------
+void ofxSurfingFxPro::drawImGui()
+{
+	guiManager.begin();
+	{
+		if (guiManager.beginWindow(bGui))
+		{
+			guiManager.AddGroup(manager.params);
+
+			guiManager.endWindow();
+		}
+	}
+	guiManager.end();
 }
 
 //---------------------------------------

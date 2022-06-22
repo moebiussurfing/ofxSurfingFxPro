@@ -7,6 +7,7 @@
 
 #include "ofxSurfingHelpers.h"
 #include "ofxSurfing_ofxGui.h"
+#include "ofxSurfingImGui.h"
 
 class ofxSurfingFxPro {
 
@@ -17,7 +18,7 @@ public:
 
 	void setup();
 	void update();
-	//void draw();
+	void drawImGui();
 	void drawGui();
 	void keyPressed(int key);
 	void windowResized(int w, int h);
@@ -32,4 +33,11 @@ public:
 
 	bool hideGui;
 	bool automateEffects;
+
+	//ofParameterGroup& getParams() {
+	//	manager.params;
+	//}
+
+	ofParameter<bool> bGui{ "Show Gui", true };
+	ofxSurfing_ImGui_Manager guiManager;
 };
