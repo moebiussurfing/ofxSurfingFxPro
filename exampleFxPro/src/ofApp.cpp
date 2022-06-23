@@ -70,11 +70,14 @@ void ofApp::drawGui()
 
 	guiManager.begin();
 	{
-		float pad = 5;
-		ImVec2 sz = ImVec2(250, 400);
-		ImVec2 pos = ImVec2(ofGetWidth() - sz.x - pad, pad);
-		ImGui::SetNextWindowPos(pos, ImGuiCond_Once);
-		ImGui::SetNextWindowSize(sz, ImGuiCond_Once);
+		// Window shape
+		{
+			float pad = 5;
+			ImVec2 sz = ImVec2(250, 400);
+			ImVec2 pos = ImVec2(ofGetWidth() - sz.x - pad, pad);
+			ImGui::SetNextWindowPos(pos, ImGuiCond_FirstUseEver);
+			ImGui::SetNextWindowSize(sz, ImGuiCond_FirstUseEver);
+		}
 
 		if (guiManager.beginWindow("ofApp"))
 		{

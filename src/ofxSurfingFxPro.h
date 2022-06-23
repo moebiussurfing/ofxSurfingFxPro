@@ -8,6 +8,7 @@
 #include "ofxSurfingHelpers.h"
 #include "ofxSurfing_ofxGui.h"
 #include "ofxSurfingImGui.h"
+#include "ofxSurfingPresets.h"
 
 class ofxSurfingFxPro {
 
@@ -18,7 +19,7 @@ public:
 
 	void setup();
 	void update();
-	void drawImGui();
+
 	void drawGui();
 	void keyPressed(int key);
 	void windowResized(int w, int h);
@@ -33,6 +34,11 @@ public:
 	ofxDC_Utilities notifier;
 
 	void doRandom();
+	
+	void drawImGui();
+	void drawImGuiMain();
+	void drawImGuiToggles();
+	void drawImGuiControls();
 
 	ofParameter<bool> bGui{ "FxPro", true};
 	ofParameter<bool> bGui_Internal{ "Gui Internal", false };
@@ -60,4 +66,5 @@ public:
 	//	manager.params;
 	//}
 
+	ofxSurfingPresets presetsManager;
 };

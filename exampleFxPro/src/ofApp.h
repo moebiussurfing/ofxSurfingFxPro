@@ -1,17 +1,27 @@
+
+/*
+
+	TODO:
+
+	add log slider for speed
+	add guiWorkflow toggle
+	link player window. rename. clean
+	try to link presets window to parent fx pro
+	add group presets for params
+	add minimize and folders for helpers. settings.. collapse
+	add randomizer addon
+	add store settings bools no params. ofxPugiXML, ofxTOML
+	player: copy drop down list to main window
+
+*/
+
+
 #pragma once
 
 #include "ofMain.h"
 
 #include "ofxSurfingFxPro.h"
 #include "ofxSurfingImGui.h"
-
-/*
-
-	TODO:
-	Add log slider for speed
-
-*/
-
 
 #define NUM_BOXES 100
 

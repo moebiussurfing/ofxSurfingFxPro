@@ -500,9 +500,9 @@ void ofxPostProcessingManager::setupGui()
 	ng = fxaa->getName() + prefixGroup;
 	ng = ofToUpper(ng);
 	gFxaaGroup.setName(ng);
-	gFxaaGroup.add(gFxaaDivMin.setup("REDUCE MIN DIV", 128.0, 1.0, 512.0)->getParameter());
-	gFxaaGroup.add(gFxaaDivMul.setup("REDUCE MULT DIV", 8.0, 1.0, 128.0)->getParameter());
-	gFxaaGroup.add(gFxaaSpanMax.setup("SPAN MAX", 8.0, 1.0, 128.0)->getParameter());
+	gFxaaGroup.add(gFxaaDivMin.setup("Red Min DIV", 128.0, 1.0, 512.0)->getParameter());
+	gFxaaGroup.add(gFxaaDivMul.setup("Red Mult DIV", 8.0, 1.0, 128.0)->getParameter());
+	gFxaaGroup.add(gFxaaSpanMax.setup("Span Max", 8.0, 1.0, 128.0)->getParameter());
 	gui.add(&bEnablers[0]);
 	gui.add(gFxaaGroup);
 
@@ -533,8 +533,8 @@ void ofxPostProcessingManager::setupGui()
 	ng = godRays->getName() + prefixGroup;
 	ng = ofToUpper(ng);
 	gGodRaysGroup.setName(ng);
-	gGodRaysGroup.add(gGodRaysLightDotView.setup("GodRays-Light", 0.3, 0.0, 1.0)->getParameter());
-	gGodRaysGroup.add(gLightPositionOnScreen.setup("Light Position", glm::vec3(0), glm::vec3(0), glm::vec3(1))->getParameter());
+	gGodRaysGroup.add(gGodRaysLightDotView.setup("Light", 0.3, 0.0, 1.0)->getParameter());
+	gGodRaysGroup.add(gLightPositionOnScreen.setup("Pos", glm::vec3(0), glm::vec3(0), glm::vec3(1))->getParameter());
 	gui.add(&bEnablers[5]);
 	gui.add(gGodRaysGroup);
 
@@ -545,14 +545,14 @@ void ofxPostProcessingManager::setupGui()
 	ng = ssao->getName() + prefixGroup;
 	ng = ofToUpper(ng);
 	gSsaoGroup.setName(ng);
-	gSsaoGroup.add(gSsaofogEnabled.setup("Enable Fog", false)->getParameter());
+	gSsaoGroup.add(gSsaofogEnabled.setup("ENABLE Fog", false)->getParameter());
 	gSsaoGroup.add(gSsaofogNear.setup("Fog Near", 1, 0, 2000)->getParameter());
 	gSsaoGroup.add(gSsaofogFar.setup("Fog Far", 1000, 0, 2000)->getParameter());
-	gSsaoGroup.add(gSsaocameraNear.setup("Camera Near", 1, 0, 2000)->getParameter());
-	gSsaoGroup.add(gSsaocameraFar.setup("Camera Far", 1000, 0, 2000)->getParameter());
-	gSsaoGroup.add(gSsaoonlyAO.setup("Enable-Ao", false)->getParameter());
-	gSsaoGroup.add(gSsaoAoClamp.setup("Ssao-AoClamp", 0.65, 0.0, 1.0)->getParameter());
-	gSsaoGroup.add(gSsaoLumInfluence.setup("Ssao-LumInfluence", 0.25, 0.0, 1.0)->getParameter());
+	gSsaoGroup.add(gSsaocameraNear.setup("Cam Near", 1, 0, 2000)->getParameter());
+	gSsaoGroup.add(gSsaocameraFar.setup("Cam Far", 1000, 0, 2000)->getParameter());
+	gSsaoGroup.add(gSsaoonlyAO.setup("ENABLE Ao", false)->getParameter());
+	gSsaoGroup.add(gSsaoAoClamp.setup("AoClamp", 0.65, 0.0, 1.0)->getParameter());
+	gSsaoGroup.add(gSsaoLumInfluence.setup("LumInfluence", 0.25, 0.0, 1.0)->getParameter());
 	gui.add(&bEnablers[7]);
 	gui.add(gSsaoGroup);
 
@@ -560,7 +560,7 @@ void ofxPostProcessingManager::setupGui()
 	ng = zoomBlur->getName() + prefixGroup;
 	ng = ofToUpper(ng);
 	gZoomBlurGroup.setName(ng);
-	gZoomBlurGroup.add(gZoomCenterXY.setup("Zoom Center XY", glm::vec2(0.5, 0.5), glm::vec2(0, 0), glm::vec2(1, 1))->getParameter());
+	gZoomBlurGroup.add(gZoomCenterXY.setup("Center XY", glm::vec2(0.5, 0.5), glm::vec2(0, 0), glm::vec2(1, 1))->getParameter());
 	//gui.add(gZoomClamp.setup("Clamp",1,0,1));
 	//gui.add(gZoomDecay.setup("Decay",0.9,0,1));
 	gZoomBlurGroup.add(gZoomWeight.setup("Weight", 0.25, 0, 1)->getParameter());
@@ -610,8 +610,8 @@ void ofxPostProcessingManager::setupGui()
 	gGlicthGroup.add(gGlitchSeed.setup("Seed", 0.02, 0, 1)->getParameter());
 	gGlicthGroup.add(gGlitchSeedX.setup("Seed X", 0.02, 0, 1)->getParameter());
 	gGlicthGroup.add(gGlitchSeedY.setup("Seed Y", 0.02, 0, 1)->getParameter());
-	gGlicthGroup.add(gGlitchDistX.setup("Distortion X", 0.02, -1, 1)->getParameter());
-	gGlicthGroup.add(gGlitchDistY.setup("Distortion Y", 0.02, -1, 1)->getParameter());
+	gGlicthGroup.add(gGlitchDistX.setup("Distort X", 0.02, -1, 1)->getParameter());
+	gGlicthGroup.add(gGlitchDistY.setup("Distort Y", 0.02, -1, 1)->getParameter());
 	gGlicthGroup.add(gGlitchCol.setup("Column", 0.03, 0, 1)->getParameter());
 	gui.add(&bEnablers[12]);
 	gui.add(gGlicthGroup);
@@ -620,8 +620,8 @@ void ofxPostProcessingManager::setupGui()
 	ng = badTv->getName() + prefixGroup;
 	ng = ofToUpper(ng);
 	gBadTVGroup.setName(ng);
-	gBadTVGroup.add(gBadTvDist.setup("Distortion 1", 3.0, 0.0, 20.0)->getParameter());
-	gBadTVGroup.add(gBadTvDist2.setup("Distortion 2", 5.0, 0.0, 20.0)->getParameter());
+	gBadTVGroup.add(gBadTvDist.setup("Distort 1", 3.0, 0.0, 20.0)->getParameter());
+	gBadTVGroup.add(gBadTvDist2.setup("Distort 2", 5.0, 0.0, 20.0)->getParameter());
 	gBadTVGroup.add(gBadTvSpeed.setup("Speed", 3.0, 0.0, 20.0)->getParameter());
 	gBadTVGroup.add(gBadTvRoll.setup("Roll Speed", 0.1, 0.0, 1.0)->getParameter());
 	gui.add(&bEnablers[13]);

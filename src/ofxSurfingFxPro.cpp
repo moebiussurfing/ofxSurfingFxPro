@@ -43,6 +43,7 @@ void ofxSurfingFxPro::setup()
 	guiManager.addWindowSpecial(bGui);
 	guiManager.addWindowSpecial(bGui_Toggles);
 	guiManager.addWindowSpecial(bGui_Controls);
+	guiManager.addWindowSpecial(presetsManager.bGui);
 
 	guiManager.startup();
 
@@ -68,6 +69,11 @@ void ofxSurfingFxPro::setup()
 
 	// Get notified when toggles changed!
 	ofAddListener(manager.params_Toggles.parameterChangedE(), this, &ofxSurfingFxPro::Changed_Enablers);
+
+	//--
+	// 
+	// Presets
+	presetsManager.addGroup(manager.params_Toggles);
 }
 
 //--------------------------------------------------------------
@@ -76,7 +82,8 @@ void ofxSurfingFxPro::refreshStyles()
 	guiManager.clearStyles();
 
 	// Customize all toggles inside the group 
-	guiManager.AddStyleGroupForBools(manager.params_Toggles, OFX_IM_TOGGLE_BIG_BORDER_BLINK);
+	guiManager.AddStyleGroupForBools(manager.params_Toggles, OFX_IM_TOGGLE_BORDER_BLINK);
+	//guiManager.AddStyleGroupForBools(manager.params_Toggles, OFX_IM_TOGGLE_BIG_BORDER_BLINK);
 
 	// Hide groups header
 	guiManager.AddStyleGroup(manager.params_Toggles, OFX_IM_GROUP_HIDDEN_HEADER);
@@ -232,6 +239,70 @@ void ofxSurfingFxPro::drawGui() {
 	{
 		manager.drawDebug();
 	}
+
+	presetsManager.draw(); // Draw Gui
+}
+
+//--------------------------------------------------------------
+void ofxSurfingFxPro::drawImGuiMain()
+{
+	IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_SMALL;
+
+	if (guiManager.beginWindowSpecial(bGui))
+	{
+		guiManager.AddLabelHuge("Fx Pro");
+		guiManager.Add(bGui_Toggles, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
+		guiManager.Add(bGui_Controls, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
+		guiManager.AddSpacing();
+		guiManager.Add(presetsManager.bGui, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
+
+		guiManager.AddSpacingSeparated();
+		guiManager.Add(guiManager.getGuiToggleOrganizer(), OFX_IM_TOGGLE_ROUNDED_SMALL);
+		guiManager.AddSpacingBigSeparated();
+
+		guiManager.AddLabelBig("Helpers", true, true);
+		guiManager.Add(bRandom, OFX_IM_BUTTON);
+		guiManager.Add(manager.gdisableAll, OFX_IM_BUTTON);
+		guiManager.Add(bAutomate, OFX_IM_TOGGLE_BORDER_BLINK);
+		guiManager.AddSpacingBigSeparated();
+
+		guiManager.AddLabelBig("Settings", true, true);
+		guiManager.Add(manager.btnLoad);
+		guiManager.Add(manager.btnSave);
+		guiManager.AddSpacingBigSeparated();
+
+		guiManager.AddLabelBig("Debug", true, true);
+		guiManager.Add(bGui_Internal, OFX_IM_TOGGLE_ROUNDED_MINI);
+		guiManager.Add(bDebug, OFX_IM_TOGGLE_ROUNDED_MINI);
+
+		guiManager.endWindowSpecial();
+	}
+}
+
+//--------------------------------------------------------------
+void ofxSurfingFxPro::drawImGuiControls()
+{
+	IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_MEDIUM;
+
+	if (guiManager.beginWindowSpecial(bGui_Controls))
+	{
+		guiManager.AddGroup(manager.params_Controls);
+
+		guiManager.endWindowSpecial();
+	}
+}
+
+//--------------------------------------------------------------
+void ofxSurfingFxPro::drawImGuiToggles()
+{
+	IMGUI_SUGAR__WINDOWS_CONSTRAINTSW;
+
+	if (guiManager.beginWindowSpecial(bGui_Toggles))
+	{
+		guiManager.AddGroup(manager.params_Toggles);
+
+		guiManager.endWindowSpecial();
+	}
 }
 
 //--------------------------------------------------------------
@@ -240,63 +311,19 @@ void ofxSurfingFxPro::drawImGui()
 	guiManager.begin();
 	{
 		//--
-
-		// Main
 		
-		IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_SMALL;
-
-		if (guiManager.beginWindowSpecial(bGui))
-		{
-			guiManager.AddLabelHuge("Fx Pro");
-			guiManager.Add(bGui_Toggles, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
-			guiManager.Add(bGui_Controls, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
-			guiManager.AddSpacing();
-			guiManager.Add(guiManager.getGuiToggleOrganizer(), OFX_IM_TOGGLE_ROUNDED_SMALL);
-			guiManager.AddSpacingBigSeparated();
-
-			guiManager.AddLabelBig("Helpers", true, true);
-			guiManager.Add(bRandom, OFX_IM_BUTTON);
-			guiManager.Add(manager.gdisableAll, OFX_IM_BUTTON);
-			guiManager.Add(bAutomate, OFX_IM_TOGGLE_BORDER_BLINK);
-			guiManager.AddSpacingBigSeparated();
-
-			guiManager.AddLabelBig("Settings", true, true);
-			guiManager.Add(manager.btnLoad);
-			guiManager.Add(manager.btnSave);
-			guiManager.AddSpacingBigSeparated();
-
-			guiManager.AddLabelBig("Debug", true, true);
-			guiManager.Add(bGui_Internal, OFX_IM_TOGGLE_ROUNDED_MINI);
-			guiManager.Add(bDebug, OFX_IM_TOGGLE_ROUNDED_MINI);
-
-			guiManager.endWindowSpecial();
-		}
-
+		// Main
+		drawImGuiMain();
+		
 		//--
 
 		// Toggles 
+		drawImGuiToggles();
 		
-		IMGUI_SUGAR__WINDOWS_CONSTRAINTSW;
-
-		if (guiManager.beginWindowSpecial(bGui_Toggles))
-		{
-			guiManager.AddGroup(manager.params_Toggles);
-
-			guiManager.endWindowSpecial();
-		}
-
 		//--
 		
 		// Controls
-
-		IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_BIG;
-
-		if (guiManager.beginWindowSpecial(bGui_Controls))
-		{
-			guiManager.AddGroup(manager.params_Controls);
-
-			guiManager.endWindowSpecial();
-		}
+		drawImGuiControls();
 	}
 	guiManager.end();
 }
