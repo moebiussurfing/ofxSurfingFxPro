@@ -12,14 +12,14 @@ ofxPostProcessingManager::~ofxPostProcessingManager() {
 
 //--------------------------------------------------------------
 void ofxPostProcessingManager::processOpenFileSelection(ofFileDialogResult openFileResult) {
-	ofLogVerbose("getName(): " + openFileResult.getName());
-	ofLogVerbose("getPath(): " + openFileResult.getPath());
+	ofLogNotice(__FUNCTION__) << "getName(): " + openFileResult.getName();
+	ofLogNotice(__FUNCTION__) << "getPath(): " + openFileResult.getPath();
 
 	ofFile file(openFileResult.getPath());
 
 	if (file.exists()) {
 
-		ofLogVerbose("The file exists - now checking the type via file extension");
+		ofLogNotice(__FUNCTION__) << "The file exists - now checking the type via file extension";
 		string fileExtension = ofToUpper(file.getExtension());
 
 		//We only want images
@@ -33,41 +33,39 @@ void ofxPostProcessingManager::processOpenFileSelection(ofFileDialogResult openF
 void ofxPostProcessingManager::loadPreset() {
 	ofFileDialogResult openFileResult = ofSystemLoadDialog("Select fxSettings .json file");
 
-	//Check if the user opened a file
+	// Check if the user opened a file
 	if (openFileResult.bSuccess) {
 
-		ofLogVerbose("User selected a file");
+		ofLogNotice(__FUNCTION__) << "User selected a file";
 
-		//We have a file, check it and process it
+		// We have a file, check it and process it
 		processOpenFileSelection(openFileResult);
-
 	}
 	else {
-		ofLogVerbose("User hit cancel");
+		ofLogNotice(__FUNCTION__) << "User hit cancel";
 	}
 }
 
 //--------------------------------------------------------------
 void ofxPostProcessingManager::savePresetPressed() {
-	//Open the Open File Dialog
+	// Open the Open File Dialog
 	ofFileDialogResult saveFileResult = ofSystemSaveDialog("fxSettings_" + ofGetTimestampString() + ".json", "Save your file");
 	if (saveFileResult.bSuccess) {
-		ofLog() << "FX Preset Saved As " << saveFileResult.filePath;
+		ofLogNotice(__FUNCTION__) << "FX Preset Saved As " << saveFileResult.filePath;
 		gui.saveToFile(saveFileResult.filePath);
 	}
-
 }
 
 //--------------------------------------------------------------
-int ofxPostProcessingManager::getEffectNum() {
+int ofxPostProcessingManager::getAmountEffects() {
 	return post.getPasses().size();
 }
 
 //--------------------------------------------------------------
 void ofxPostProcessingManager::saveSettings(std::string fileName) {
 	gui.saveToFile(fileName);
-	ofLog() << "------------------------------------------------";
-	ofLog() << "Settings saved as " << fileName;
+	ofLogNotice(__FUNCTION__) << "------------------------------------------------";
+	ofLogNotice(__FUNCTION__) << "Settings saved as " << fileName;
 }
 
 //--------------------------------------------------------------
@@ -79,8 +77,8 @@ void ofxPostProcessingManager::loadSettings(std::string fileName) {
 	else {
 		gui.loadFromFile(fileName);
 	}
-	ofLog() << "------------------------------------------------";
-	ofLog() << "Settings loaded as " << fileName;
+	ofLogNotice(__FUNCTION__) << "------------------------------------------------";
+	ofLogNotice(__FUNCTION__) << "Settings loaded as " << fileName;
 }
 
 //--------------------------------------------------------------
@@ -88,7 +86,7 @@ void ofxPostProcessingManager::setup(int w, int h) {
 
 	post.init(w, h);
 
-	reInit();
+	initializeFX();
 
 	//---------
 
@@ -96,7 +94,7 @@ void ofxPostProcessingManager::setup(int w, int h) {
 }
 
 //--------------------------------------------------------------
-void ofxPostProcessingManager::reInit() {
+void ofxPostProcessingManager::initializeFX() {
 
 	// 2 dof
 	//dof = post.createPass<DofPass>();
@@ -190,22 +188,24 @@ void ofxPostProcessingManager::reInit() {
 	//fogFilter = post.createPass<FogPass>();
 }
 
-//---------------------------------------
-// SWTICH EFFECT
-//---------------------------------------
-
 //--------------------------------------------------------------
-void ofxPostProcessingManager::switchFX(int postId) {
+void ofxPostProcessingManager::doToggleFX(int postId) {
+	if (postId >= bEnablers.size()) return;
+	
 	bEnablers[postId] = !bEnablers[postId];
 	post[postId]->setEnabled(bEnablers[postId]);
 }
 
-//---------------------------------------
-// UPDATE EFFECT PARAMETERS
-//---------------------------------------
+//--------------------------------------------------------------
+void ofxPostProcessingManager::doPowerFX(int postId, bool bState) {
+	if (postId >= bEnablers.size()) return;
+
+	bEnablers[postId] = bState;
+	post[postId]->setEnabled(bEnablers[postId]);
+}
 
 //--------------------------------------------------------------
-void ofxPostProcessingManager::updateValues() {
+void ofxPostProcessingManager::updateFX() {
 
 	// 0 FXAA
 	if (post[0]->getEnabled()) {
@@ -451,20 +451,31 @@ void ofxPostProcessingManager::windowResized(int w, int h) {
 
 	//post.getPasses().clear();
 	post.init(w, h);
-	//reInit();
+	//initializeFX();
 }
 
 //--------------------------------------------------------------
-void ofxPostProcessingManager::disableAll() {
+void ofxPostProcessingManager::doEnableNone() {
 	for (int i = 0; i < post.size(); i++) {
 		bEnablers[i] = false;
 		post[i]->setEnabled(bEnablers[i]);
 	}
 }
+//--------------------------------------------------------------
+void ofxPostProcessingManager::doEnableAll() {
+	for (int i = 0; i < post.size(); i++) {
+		bEnablers[i] = true;
+		post[i]->setEnabled(bEnablers[i]);
+	}
+}
 
 //--------------------------------------------------------------
-void ofxPostProcessingManager::gdisableAllHandler() {
-	disableAll();
+void ofxPostProcessingManager::Changed_bNone() {
+	doEnableNone();
+}
+//--------------------------------------------------------------
+void ofxPostProcessingManager::Changed_bAll() {
+	doEnableAll();
 }
 
 //--------------------------------------------------------------
@@ -478,7 +489,8 @@ void ofxPostProcessingManager::setupGui()
 
 	gui.setup("POST FX", fileName);
 	gui.add(gDebugDraw.setup("DEBUG", true));
-	gui.add(gdisableAll);
+	gui.add(bAll);
+	gui.add(bNone);
 	gui.add(btnLoad);
 	gui.add(btnSave);
 
@@ -746,11 +758,14 @@ void ofxPostProcessingManager::setupGui()
 	//--
 
 	gui.minimizeAll();
-	gdisableAll.addListener(this, &ofxPostProcessingManager::gdisableAllHandler);
+	
+	bAll.addListener(this, &ofxPostProcessingManager::Changed_bAll);
+	bNone.addListener(this, &ofxPostProcessingManager::Changed_bNone);
+
 	btnLoad.addListener(this, &ofxPostProcessingManager::loadPreset);
 	btnSave.addListener(this, &ofxPostProcessingManager::savePresetPressed);
 
-	gdisableAllHandler();
+	doEnableNone();
 
 	//--
 
@@ -790,37 +805,37 @@ void ofxPostProcessingManager::setupGui()
 	params_Controls.add(gStrobberGroup);	// 18
 	params_Controls.add(gRimbLightGroup);	// 19
 
-// 00 Fxaa
-// 01 Bloom
-// 02 Kaleidoscope
-// 03 Noisewarp
-// 04 Pixelate
-// 05 GodRays
-// 06 LimbDarkening
-// 07 Ssao
-// 08 ZoomBlur
-// 09 gRGBShiftPass
-// 10 FilmGrainLines
-// 11 DotScreen
-// 12 Glitch
-// 13 Bad TV
-// 14 Color ACES Filmic Filter
-// 15 Noise Grains Filter
-// 16 TiltShift Filter
-// 17 SuperShader
-// 18 glitch Automated Filter
-// 19 gSpaceColor
-// 20 Dither Pass
-// 21 Color Invert Strobber
-// 22 SlantShift Pass
-// 23 Rimblight
-// 24 FogFilter
-// 
+	// 00 Fxaa
+	// 01 Bloom
+	// 02 Kaleidoscope
+	// 03 Noisewarp
+	// 04 Pixelate
+	// 05 GodRays
+	// 06 LimbDarkening
+	// 07 Ssao
+	// 08 ZoomBlur
+	// 09 gRGBShiftPass
+	// 10 FilmGrainLines
+	// 11 DotScreen
+	// 12 Glitch
+	// 13 Bad TV
+	// 14 Color ACES Filmic Filter
+	// 15 Noise Grains Filter
+	// 16 TiltShift Filter
+	// 17 SuperShader
+	// 18 glitch Automated Filter
+	// 19 gSpaceColor
+	// 20 Dither Pass
+	// 21 Color Invert Strobber
+	// 22 SlantShift Pass
+	// 23 Rimblight
+	// 24 FogFilter
+ 
 	//--
 
 	// All
 
-	params.setName("Fx Pro");
+	params.setName("oFX");
 	params.add(gui.getParameter());
 }
 

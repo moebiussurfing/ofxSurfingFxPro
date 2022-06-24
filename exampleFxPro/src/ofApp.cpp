@@ -4,27 +4,11 @@
 void ofApp::setup() {
 	ofSetBackgroundColor(0);
 	ofSetWindowPosition(-1920, 25);
+	
+	setupScene();
 
-	// Boxes
-	// create our own box mesh as there is a bug with
-	// normal scaling and ofDrawBox() at the moment
-	boxMesh = ofMesh::box(20, 20, 20);
-
-	// Setup box positions
-	for (unsigned i = 0; i < NUM_BOXES; ++i)
-	{
-		posns.push_back(ofVec3f(ofRandom(-300, 300), ofRandom(-300, 300), ofRandom(-300, 300)));
-		cols.push_back(ofColor::fromHsb(255 * i / (float)NUM_BOXES, 255, 255, 255));
-	}
-
-	// Cam
-	cam.disableMouseInput();
-	cam.setupPerspective();
-	cam.setPosition(0, -250, 500);
-	cam.lookAt(glm::vec3(0));
-
-	// Light
-	light.setPosition(0, -1000, 500);
+	// Fx
+	fx.setKeyFirstChar('q');
 
 	guiManager.setup();
 }
@@ -35,6 +19,7 @@ void ofApp::update() {
 
 	fx.update();
 }
+
 
 //--------------------------------------------------------------
 void ofApp::draw() {
@@ -70,10 +55,10 @@ void ofApp::drawGui()
 
 	guiManager.begin();
 	{
-		// Window shape
+		// Window Shape
 		{
 			float pad = 5;
-			ImVec2 sz = ImVec2(250, 400);
+			ImVec2 sz = ImVec2(250, 400); // final size could vary when auto resize is enabled...
 			ImVec2 pos = ImVec2(ofGetWidth() - sz.x - pad, pad);
 			ImGui::SetNextWindowPos(pos, ImGuiCond_FirstUseEver);
 			ImGui::SetNextWindowSize(sz, ImGuiCond_FirstUseEver);
@@ -83,21 +68,57 @@ void ofApp::drawGui()
 		{
 			guiManager.Add(fx.bGui, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
 
-			guiManager.AddSeparator();
+			guiManager.AddSpacingBigSeparated();
 
-			guiManager.AddLabelBig("Camera");
-			if (ImGui::Checkbox("Mouse", &bCam)) {
+			guiManager.AddLabelBig("Camera", true, true);
+			if (ImGui::Checkbox("Mouse", &bCam))
+			{
 				if (bCam) cam.enableMouseInput();
 				else cam.disableMouseInput();
 			}
-			ImGui::Checkbox("Light", &bLight);
-			ImGui::Checkbox("Rot", &bRot);
+			ImGui::Checkbox("Rotate", &bRot);
 			if (bRot) ImGui::SliderFloat("Speed", &speed, 0, 1);
+			ImGui::Checkbox("Light", &bLight);
 
 			guiManager.endWindow();
 		}
 	}
 	guiManager.end();
+}
+
+//--------------------------------------------------------------
+void ofApp::keyPressed(int key) {
+	fx.keyPressed(key);
+}
+
+//--------------------------------------------------------------
+void ofApp::windowResized(int w, int h) {
+	fx.windowResized(w, h);
+}
+
+//--------------------------------------------------------------
+void ofApp::setupScene() {
+
+	// Boxes
+	// create our own box mesh as there is a bug with
+	// normal scaling and ofDrawBox() at the moment
+	boxMesh = ofMesh::box(20, 20, 20);
+
+	// Setup box positions
+	for (unsigned i = 0; i < NUM_BOXES; ++i)
+	{
+		posns.push_back(ofVec3f(ofRandom(-300, 300), ofRandom(-300, 300), ofRandom(-300, 300)));
+		cols.push_back(ofColor::fromHsb(255 * i / (float)NUM_BOXES, 255, 255, 255));
+	}
+
+	// Cam
+	cam.disableMouseInput();
+	cam.setupPerspective();
+	cam.setPosition(0, -250, 500);
+	cam.lookAt(glm::vec3(0));
+
+	// Light
+	light.setPosition(0, -1000, 500);
 }
 
 //--------------------------------------------------------------
@@ -124,14 +145,4 @@ void ofApp::drawScene()
 	if (fx.bDebug) ofDrawAxis(100);
 
 	ofPopMatrix();
-}
-
-//--------------------------------------------------------------
-void ofApp::keyPressed(int key) {
-	fx.keyPressed(key);
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h) {
-	fx.windowResized(w, h);
 }

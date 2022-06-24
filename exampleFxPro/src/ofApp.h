@@ -2,16 +2,24 @@
 /*
 
 	TODO:
+	
+	fix recall app setings / presets positions
 
-	add log slider for speed
-	add guiWorkflow toggle
+	add app mode: fx / presets
+	add undo adon to presets manager
+	add randomizer addon to presets manager
+	log slider for speed, prob, rotate
+	key latch toggle
+	fix ImGui special windows
+		link between addons
+		main / master window
+	
 	link player window. rename. clean
 	try to link presets window to parent fx pro
-	add group presets for params
-	add minimize and folders for helpers. settings.. collapse
-	add randomizer addon
-	add store settings bools no params. ofxPugiXML, ofxTOML
-	player: copy drop down list to main window
+	group presets for params
+	minimize and folders for helpers. settings.. collapse
+
+	store settings bools, rotate, speed etc without params. ofxPugiXML, ofxTOML
 
 */
 
@@ -33,7 +41,10 @@ public:
 	void setup();
 	void update();
 	void draw();
+
 	void drawGui();
+
+	void setupScene();
 	void drawScene();
 
 	void keyPressed(int key);
@@ -55,4 +66,5 @@ public:
 	vector<ofVec3f> posns;
 	vector<ofColor> cols;
 	ofVboMesh boxMesh;
+
 };

@@ -24,19 +24,8 @@ void ofxSurfingFxPro::setPathGlobal(string s)//must call before setup. disabled 
 }
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::setup()
+void ofxSurfingFxPro::setupGui()
 {
-	ofxSurfingHelpers::setThemeDark_ofxGui();
-
-	// Setup manager
-	manager.setup(ofGetWidth(), ofGetHeight());
-
-	// Load Settings
-	manager.loadSettings();
-
-	//--
-
-	// Gui
 	guiManager.setWindowsMode(IM_GUI_MODE_WINDOWS_SPECIAL_ORGANIZER);
 	guiManager.setup();
 
@@ -47,33 +36,85 @@ void ofxSurfingFxPro::setup()
 
 	guiManager.startup();
 
-	refreshStyles();
+	bKeys_FX.makeReferenceTo(guiManager.bKeys);
 
 	//--
-	 
+
+	refreshStyles();
+}
+
+//--------------------------------------------------------------
+void ofxSurfingFxPro::setupParams()
+{
 	// Callbacks
 	params.setName("Callbacks");
 	params.add(bRandom);
+
 	ofAddListener(params.parameterChangedE(), this, &ofxSurfingFxPro::Changed);
 
+	//--
+
+	probFX.set("Prob", 0.5,0, 1);
+	probSpeed.set("Speed", 0.5,0, 1);
+
 	// Session Settings
-	params_AppSettings.setName("FxPro");
+	params_AppSettings.setName("oFX");
 	params_AppSettings.add(bGui);
 	params_AppSettings.add(bGui_Controls);
 	params_AppSettings.add(bGui_Toggles);
 	params_AppSettings.add(bGui_Internal);
+	params_AppSettings.add(probFX);
+	params_AppSettings.add(probSpeed);
 	params_AppSettings.add(bAutomate);
 	params_AppSettings.add(bDebug);
-
-	ofxSurfingHelpers::loadGroup(params_AppSettings, path_GLOBAL + path_Params_AppSettings);
 
 	// Get notified when toggles changed!
 	ofAddListener(manager.params_Toggles.parameterChangedE(), this, &ofxSurfingFxPro::Changed_Enablers);
 
 	//--
-	// 
+
 	// Presets
-	presetsManager.addGroup(manager.params_Toggles);
+
+	params_Preset.setName("oFX");
+	params_Preset.add(manager.params_Toggles);
+
+	// For performance issues or to reduce preset files sizes, we can exclude these by commenting!
+	//params_Preset.add(manager.params_Controls); 
+
+	presetsManager.addGroup(params_Preset);
+}
+
+//--------------------------------------------------------------
+void ofxSurfingFxPro::setup()
+{
+	ofxSurfingHelpers::setThemeDark_ofxGui();
+
+	// Setup manager
+	manager.setup(ofGetWidth(), ofGetHeight());
+
+	//--
+
+	// Gui
+	setupGui();
+
+	//--
+
+	setupParams();
+
+	//--
+
+	startup();
+}
+
+//--------------------------------------------------------------
+void ofxSurfingFxPro::startup()
+{
+	// Load Settings
+	//manager.loadSettings();
+
+	ofxSurfingHelpers::loadGroup(params_AppSettings, path_GLOBAL + path_Params_AppSettings);
+
+	setKeyFirstChar('1');
 }
 
 //--------------------------------------------------------------
@@ -82,8 +123,8 @@ void ofxSurfingFxPro::refreshStyles()
 	guiManager.clearStyles();
 
 	// Customize all toggles inside the group 
-	guiManager.AddStyleGroupForBools(manager.params_Toggles, OFX_IM_TOGGLE_BORDER_BLINK);
-	//guiManager.AddStyleGroupForBools(manager.params_Toggles, OFX_IM_TOGGLE_BIG_BORDER_BLINK);
+	//guiManager.AddStyleGroupForBools(manager.params_Toggles, OFX_IM_TOGGLE_BORDER_BLINK);
+	guiManager.AddStyleGroupForBools(manager.params_Toggles, OFX_IM_TOGGLE_BIG_BORDER_BLINK);
 
 	// Hide groups header
 	guiManager.AddStyleGroup(manager.params_Toggles, OFX_IM_GROUP_HIDDEN_HEADER);
@@ -186,41 +227,46 @@ void ofxSurfingFxPro::refreshStyles()
 	SurfingImGuiTypesGroups tON = OFX_IM_GROUP_COLLAPSED;
 	SurfingImGuiTypesGroups tOFF = OFX_IM_GROUP_HIDDEN;
 
-	guiManager.AddStyleGroup(manager.gFxaaGroup,		(manager.bEnablers[0] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gBloomGroup,		(manager.bEnablers[1] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gKaliGroup,		(manager.bEnablers[2] ? tON : tOFF), fg);
+	guiManager.AddStyleGroup(manager.gFxaaGroup, (manager.bEnablers[0] ? tON : tOFF), fg);
+	guiManager.AddStyleGroup(manager.gBloomGroup, (manager.bEnablers[1] ? tON : tOFF), fg);
+	guiManager.AddStyleGroup(manager.gKaliGroup, (manager.bEnablers[2] ? tON : tOFF), fg);
 
-	guiManager.AddStyleGroup(manager.gGodRaysGroup,		(manager.bEnablers[5] ? tON : tOFF), fg);
+	guiManager.AddStyleGroup(manager.gGodRaysGroup, (manager.bEnablers[5] ? tON : tOFF), fg);
 
-	guiManager.AddStyleGroup(manager.gSsaoGroup,		(manager.bEnablers[7] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gZoomBlurGroup,	(manager.bEnablers[8] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gRGBGroup,			(manager.bEnablers[9] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gFilmGrainGroup,	(manager.bEnablers[10] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gDotScreenGroup,	(manager.bEnablers[11] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gGlicthGroup,		(manager.bEnablers[12] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gBadTVGroup,		(manager.bEnablers[13] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gcolorACESGroup,	(manager.bEnablers[14] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gNoiseGroup,		(manager.bEnablers[15] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gTiltShiftGroup,	(manager.bEnablers[16] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gSupGroup,			(manager.bEnablers[17] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gGliAutoGroup,		(manager.bEnablers[18] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gSpaceColorGroup,	(manager.bEnablers[19] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gDitherGroup,		(manager.bEnablers[20] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gStrobberGroup,	(manager.bEnablers[21] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gRimbLightGroup,	(manager.bEnablers[22] ? tON : tOFF), fg);
+	guiManager.AddStyleGroup(manager.gSsaoGroup, (manager.bEnablers[7] ? tON : tOFF), fg);
+	guiManager.AddStyleGroup(manager.gZoomBlurGroup, (manager.bEnablers[8] ? tON : tOFF), fg);
+	guiManager.AddStyleGroup(manager.gRGBGroup, (manager.bEnablers[9] ? tON : tOFF), fg);
+	guiManager.AddStyleGroup(manager.gFilmGrainGroup, (manager.bEnablers[10] ? tON : tOFF), fg);
+	guiManager.AddStyleGroup(manager.gDotScreenGroup, (manager.bEnablers[11] ? tON : tOFF), fg);
+	guiManager.AddStyleGroup(manager.gGlicthGroup, (manager.bEnablers[12] ? tON : tOFF), fg);
+	guiManager.AddStyleGroup(manager.gBadTVGroup, (manager.bEnablers[13] ? tON : tOFF), fg);
+	guiManager.AddStyleGroup(manager.gcolorACESGroup, (manager.bEnablers[14] ? tON : tOFF), fg);
+	guiManager.AddStyleGroup(manager.gNoiseGroup, (manager.bEnablers[15] ? tON : tOFF), fg);
+	guiManager.AddStyleGroup(manager.gTiltShiftGroup, (manager.bEnablers[16] ? tON : tOFF), fg);
+	guiManager.AddStyleGroup(manager.gSupGroup, (manager.bEnablers[17] ? tON : tOFF), fg);
+	guiManager.AddStyleGroup(manager.gGliAutoGroup, (manager.bEnablers[18] ? tON : tOFF), fg);
+	guiManager.AddStyleGroup(manager.gSpaceColorGroup, (manager.bEnablers[19] ? tON : tOFF), fg);
+	guiManager.AddStyleGroup(manager.gDitherGroup, (manager.bEnablers[20] ? tON : tOFF), fg);
+	guiManager.AddStyleGroup(manager.gStrobberGroup, (manager.bEnablers[21] ? tON : tOFF), fg);
+	guiManager.AddStyleGroup(manager.gRimbLightGroup, (manager.bEnablers[22] ? tON : tOFF), fg);
 }
 
 //--------------------------------------------------------------
 void ofxSurfingFxPro::update()
 {
 	if (bAutomate)
-		if (notifier.notifyPerSecond(0.5))
+	{
+		float v = ofMap(probSpeed, 0, 1, 0.1, 4);
+		if (notifier.notifyPerSecond(v))
 		{
-			manager.disableAll();
-			manager.switchFX(int(ofRandom(manager.getEffectNum())));
-		}
+			doRandomFXAll(probFX);
 
-	manager.updateValues();
+			//manager.doEnableNone();
+			//manager.doToggleFX(int(ofRandom(manager.getAmountEffects())));
+		}
+	}
+
+	manager.updateFX();
 }
 
 //--------------------------------------------------------------
@@ -230,15 +276,8 @@ void ofxSurfingFxPro::drawGui() {
 
 	drawImGui();
 
-	if (bGui_Internal)
-	{
-		manager.drawGui();
-	}
-
-	if (bDebug)
-	{
-		manager.drawDebug();
-	}
+	if (bGui_Internal) manager.drawGui();
+	if (bDebug) manager.drawDebug();
 
 	presetsManager.draw(); // Draw Gui
 }
@@ -248,33 +287,52 @@ void ofxSurfingFxPro::drawImGuiMain()
 {
 	IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_SMALL;
 
+	//if (guiManager.beginWindow(bGui))
 	if (guiManager.beginWindowSpecial(bGui))
 	{
-		guiManager.AddLabelHuge("Fx Pro");
+		guiManager.AddLabelHuge("oFX");
+		guiManager.Add(guiManager.bMinimize, OFX_IM_TOGGLE_BUTTON_ROUNDED_MEDIUM);
+		guiManager.Add(bKeys_FX, OFX_IM_TOGGLE_BUTTON_ROUNDED_MEDIUM);
+		guiManager.AddSpacingBigSeparated();
+
+		guiManager.AddLabelBig("Panels", true, true);
 		guiManager.Add(bGui_Toggles, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
 		guiManager.Add(bGui_Controls, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
 		guiManager.AddSpacing();
 		guiManager.Add(presetsManager.bGui, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
-
 		guiManager.AddSpacingSeparated();
-		guiManager.Add(guiManager.getGuiToggleOrganizer(), OFX_IM_TOGGLE_ROUNDED_SMALL);
-		guiManager.AddSpacingBigSeparated();
 
-		guiManager.AddLabelBig("Helpers", true, true);
-		guiManager.Add(bRandom, OFX_IM_BUTTON);
-		guiManager.Add(manager.gdisableAll, OFX_IM_BUTTON);
-		guiManager.Add(bAutomate, OFX_IM_TOGGLE_BORDER_BLINK);
-		guiManager.AddSpacingBigSeparated();
+		if (!guiManager.bMinimize)
+		{
+			guiManager.Add(guiManager.getGuiToggleOrganizer(), OFX_IM_TOGGLE_ROUNDED);
+			guiManager.AddSpacingBigSeparated();
 
-		guiManager.AddLabelBig("Settings", true, true);
-		guiManager.Add(manager.btnLoad);
-		guiManager.Add(manager.btnSave);
-		guiManager.AddSpacingBigSeparated();
+			guiManager.AddLabelBig("Helpers", true, true);
+			guiManager.Add(manager.bNone, OFX_IM_BUTTON, 2, true);
+			guiManager.Add(manager.bAll, OFX_IM_BUTTON, 2);
 
-		guiManager.AddLabelBig("Debug", true, true);
-		guiManager.Add(bGui_Internal, OFX_IM_TOGGLE_ROUNDED_MINI);
-		guiManager.Add(bDebug, OFX_IM_TOGGLE_ROUNDED_MINI);
+			guiManager.AddSpacing();
+			guiManager.AddLabel("Randomizers", true, true);
+			guiManager.Add(probFX);
+			guiManager.Add(bRandom, OFX_IM_BUTTON);
+			guiManager.Add(probSpeed);
+			guiManager.Add(bAutomate, OFX_IM_TOGGLE_BORDER_BLINK);
+			guiManager.AddSpacingBigSeparated();
 
+			guiManager.AddLabelBig("Settings", true, true);
+			guiManager.Add(manager.btnLoad);
+			guiManager.Add(manager.btnSave);
+			guiManager.AddSpacingBigSeparated();
+
+			guiManager.AddLabelBig("Debug", true, true);
+			guiManager.Add(bGui_Internal, OFX_IM_TOGGLE_ROUNDED_MINI);
+			guiManager.Add(bDebug, OFX_IM_TOGGLE_ROUNDED_MINI);
+		}
+
+		guiManager.AddLabelBig("WORKFLOW", true, true);
+		guiManager.Add(bGuiWorkflow, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
+
+		//guiManager.endWindow();
 		guiManager.endWindowSpecial();
 	}
 }
@@ -311,17 +369,17 @@ void ofxSurfingFxPro::drawImGui()
 	guiManager.begin();
 	{
 		//--
-		
+
 		// Main
 		drawImGuiMain();
-		
+
 		//--
 
 		// Toggles 
 		drawImGuiToggles();
-		
+
 		//--
-		
+
 		// Controls
 		drawImGuiControls();
 	}
@@ -344,15 +402,18 @@ void ofxSurfingFxPro::end() {
 //--------------------------------------------------------------
 void ofxSurfingFxPro::keyPressed(int key)
 {
-	if (key == 'd') manager.disableAll();
+	if(bKeys_FX) keyPressedFX(key);
 
-	else if (key == '1') manager.loadSettings("1.json");
-	else if (key == '2') manager.loadSettings("2.json");
-	else if (key == '3') manager.loadSettings("3.json");
+	if (key == OF_KEY_BACKSPACE) manager.doEnableNone();
+	if (key == OF_KEY_RETURN) doRandomFXAll(probFX);
 
-	else if (key == 'g') bGui = !bGui;
-	else if (key == 'r') doRandom();
-	else if (key == 'a') bAutomate = !bAutomate;
+	//else if (key == '1') manager.loadSettings("1.json");
+	//else if (key == '2') manager.loadSettings("2.json");
+	//else if (key == '3') manager.loadSettings("3.json");
+
+	//else if (key == 'g') bGui = !bGui;
+	//else if (key == 'r') doRandomPickOne();
+	//else if (key == 'a') bAutomate = !bAutomate;
 }
 
 //--------------------------------------------------------------
@@ -371,10 +432,10 @@ void ofxSurfingFxPro::exit()
 }
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::doRandom() {
-	manager.disableAll();
-	int randId = int(ofRandom(manager.getEffectNum()));
-	manager.switchFX(randId);
+void ofxSurfingFxPro::doRandomPickOne() {
+	manager.doEnableNone();
+	int randId = int(ofRandom(manager.getAmountEffects()));
+	manager.doToggleFX(randId);
 }
 
 //--------------------------------------------------------------
@@ -388,7 +449,8 @@ void ofxSurfingFxPro::Changed(ofAbstractParameter& e)
 	{
 		bRandom = false;
 
-		doRandom();
+		//doRandomPickOne();
+		doRandomFXAll(probFX);
 	}
 }
 
@@ -399,5 +461,51 @@ void ofxSurfingFxPro::Changed_Enablers(ofAbstractParameter& e)
 
 	ofLogNotice(__FUNCTION__) << name << " : " << e;
 
-	refreshStyles();
+	if (bGuiWorkflow) refreshStyles();
+}
+
+//---
+
+//--------------------------------------------------------------
+void ofxSurfingFxPro::keyPressedFX(int key)
+{
+	char k0 = keyCommandsChars[keyFirstPos];
+
+	for (size_t k = 0; k < manager.getAmountEffects(); k++)
+	{
+		if (key == keyCommandsChars[k]) { doToggleFX(k); return; }
+	}
+}
+
+//--------------------------------------------------------
+void ofxSurfingFxPro::doToggleFX(int postId)
+{
+	manager.doToggleFX(postId);
+}
+
+//--------------------------------------------------------
+void ofxSurfingFxPro::doPowerFX(int postId, bool bState)
+{
+	manager.doPowerFX(postId, bState);
+}
+
+//--------------------------------------------------------------
+void ofxSurfingFxPro::doRandomFX(int postId, float prob)
+{
+	if (postId > manager.getAmountEffects()) return;
+
+	bool b = (bool)(ofRandom(1.0f) < prob);
+	manager.doPowerFX(postId, b);
+}
+
+//--------------------------------------------------------------
+void ofxSurfingFxPro::doRandomFXAll(float prob)
+{
+	//manager.doEnableNone();
+
+	for (int i = 0; i < manager.getAmountEffects(); i++)
+	{
+		bool b = (bool)(ofRandom(1.0f) < prob);
+		manager.doPowerFX(i, b);
+	}
 }

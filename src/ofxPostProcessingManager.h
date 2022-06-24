@@ -1,9 +1,10 @@
 #pragma once
 
-//#include "ofMain.h"
+#include "ofMain.h"
+
+#include "ofxGui.h"
 #include "ofxPostProcessing.h"
 #include "ofxDC_Utilities.h"
-#include "ofxGui.h"
 
 class ofxPostProcessingManager {
 
@@ -13,39 +14,42 @@ public:
 	~ofxPostProcessingManager();
 
 	void setup(int w, int h);
-
-	void updateValues();
-	void exit();
-
-	//void drawGui(int x, int y);
+	
 	void drawGui();
 	void drawDebug();
-	void hideGui();
-	void setupGui();
+	
+	void windowResized(int w, int h);
 
 	void begin();
 	void begin(ofCamera& cam);
-
 	void end();
 
-	void windowResized(int w, int h);
+	void updateFX();
+
+private:
+	
+	void setupGui();
+	void exit();
+
+public:
 
 	void saveSettings(string fileName);
 	void loadSettings(string fileName = "");
 
-	// DISABLE ALL EFFECTS
-	void disableAll();
+	// disable all effects
+	void doEnableNone();
+	void doEnableAll();
 
-	// SWITCH BETWEEN EFFECTS
-	void switchFX(int postId);
+	// switch state for an effect
+	void doToggleFX(int postId);
+	void doPowerFX(int postId, bool bState);
 
-	// GETTER & SETTERS
-	int getEffectNum();
-	int getGUIWidth();
-	glm::vec2 getGUIPos();
+	// getter & setters
+	int getAmountEffects();
+
+private:
 
 	ofxDC_Utilities utils;
-
 
 	FxaaPass::Ptr fxaa;
 	BloomPass::Ptr bloomPass;
@@ -84,7 +88,7 @@ public:
 
 private:
 
-	void reInit();
+	void initializeFX();
 
 	ofxPostProcessing post;
 
@@ -105,14 +109,16 @@ private:
 
 public:
 
-	ofParameter<void> btnLoad = { "LOAD" };
-	ofParameter<void> btnSave = { "SAVE" };
+	ofParameter<void> btnLoad = { "Load" };
+	ofParameter<void> btnSave = { "Save" };
 
-	ofParameter<void> gdisableAll = { "Disable All" };
+	ofParameter<void> bNone = { "None" };
+	ofParameter<void> bAll = { "All" };
 
 private:
 
-	void gdisableAllHandler();
+	void Changed_bNone();
+	void Changed_bAll();
 
 	string fileName;
 
