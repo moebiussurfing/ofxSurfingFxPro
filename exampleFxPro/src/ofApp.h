@@ -3,6 +3,7 @@
 
 	TODO:
 	
+	fix organizer window width
 	fix recall app setings / presets positions
 
 	add app mode: fx / presets
