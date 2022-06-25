@@ -7,6 +7,8 @@ ofxSurfingFxPro::ofxSurfingFxPro()
 	path_Params_AppSettings = "FxPro_Settings.xml";
 
 	setup();
+
+	ofSetLogLevel("ofxPostProcessingManager", OF_LOG_ERROR);
 }
 
 //--------------------------------------------------------------
@@ -27,6 +29,7 @@ void ofxSurfingFxPro::setPathGlobal(string s)//must call before setup. disabled 
 void ofxSurfingFxPro::setupGui()
 {
 	guiManager.setWindowsMode(IM_GUI_MODE_WINDOWS_SPECIAL_ORGANIZER);
+	guiManager.setName("FxPro");
 	guiManager.setup();
 
 	guiManager.addWindowSpecial(bGui);
@@ -54,11 +57,11 @@ void ofxSurfingFxPro::setupParams()
 
 	//--
 
-	probFX.set("Prob", 0.5,0, 1);
-	probSpeed.set("Speed", 0.5,0, 1);
+	probFX.set("Prob", 0.5, 0, 1);
+	probSpeed.set("Speed", 0.5, 0, 1);
 
 	// Session Settings
-	params_AppSettings.setName("oFX");
+	params_AppSettings.setName("FX PRO");
 	params_AppSettings.add(bGui);
 	params_AppSettings.add(bGui_Controls);
 	params_AppSettings.add(bGui_Toggles);
@@ -75,13 +78,24 @@ void ofxSurfingFxPro::setupParams()
 
 	// Presets
 
-	params_Preset.setName("oFX");
+	//TODO:
+	// fix recursive nested groups
+
+	/*
+	params_Preset.setName("FX PRO");
 	params_Preset.add(manager.params_Toggles);
 
 	// For performance issues or to reduce preset files sizes, we can exclude these by commenting!
-	//params_Preset.add(manager.params_Controls); 
+	//params_Preset.add(manager.params_Controls);
 
 	presetsManager.addGroup(params_Preset);
+	*/
+
+	presetsManager.addGroup(manager.params_Toggles);
+
+	//TODO:
+	// In some scenarios we will prefer to disable this mode.
+	presetsManager.setAutoLoadOnReTrig(false);
 }
 
 //--------------------------------------------------------------
@@ -94,12 +108,13 @@ void ofxSurfingFxPro::setup()
 
 	//--
 
-	// Gui
-	setupGui();
+	// Params
+	setupParams();
 
 	//--
 
-	setupParams();
+	// Gui
+	setupGui();
 
 	//--
 
@@ -266,6 +281,10 @@ void ofxSurfingFxPro::update()
 		}
 	}
 
+	if (presetsManager.isRetrigged()) {
+
+	}
+
 	manager.updateFX();
 }
 
@@ -290,7 +309,7 @@ void ofxSurfingFxPro::drawImGuiMain()
 	//if (guiManager.beginWindow(bGui))
 	if (guiManager.beginWindowSpecial(bGui))
 	{
-		guiManager.AddLabelHuge("oFX");
+		guiManager.AddLabelHuge("FX PRO");
 		guiManager.Add(guiManager.bMinimize, OFX_IM_TOGGLE_BUTTON_ROUNDED_MEDIUM);
 		guiManager.Add(bKeys_FX, OFX_IM_TOGGLE_BUTTON_ROUNDED_MEDIUM);
 		guiManager.AddSpacingBigSeparated();
@@ -310,9 +329,9 @@ void ofxSurfingFxPro::drawImGuiMain()
 			guiManager.AddLabelBig("Helpers", true, true);
 			guiManager.Add(manager.bNone, OFX_IM_BUTTON, 2, true);
 			guiManager.Add(manager.bAll, OFX_IM_BUTTON, 2);
+			guiManager.AddSpacingSeparated();
 
-			guiManager.AddSpacing();
-			guiManager.AddLabel("Randomizers", true, true);
+			guiManager.AddLabelBig("Randomizers", true, true);
 			guiManager.Add(probFX);
 			guiManager.Add(bRandom, OFX_IM_BUTTON);
 			guiManager.Add(probSpeed);
@@ -402,7 +421,7 @@ void ofxSurfingFxPro::end() {
 //--------------------------------------------------------------
 void ofxSurfingFxPro::keyPressed(int key)
 {
-	if(bKeys_FX) keyPressedFX(key);
+	if (bKeys_FX) keyPressedFX(key);
 
 	if (key == OF_KEY_BACKSPACE) manager.doEnableNone();
 	if (key == OF_KEY_RETURN) doRandomFXAll(probFX);

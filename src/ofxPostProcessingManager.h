@@ -40,6 +40,9 @@ public:
 	void doEnableNone();
 	void doEnableAll();
 
+	void doRefreshFX(); // applies toggle states. required when params are modified without triggering...
+	// pr.setWithoutEventNotifications(v);
+	 
 	// switch state for an effect
 	void doToggleFX(int postId);
 	void doPowerFX(int postId, bool bState);

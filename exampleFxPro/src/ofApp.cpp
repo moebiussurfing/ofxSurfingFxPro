@@ -10,6 +10,7 @@ void ofApp::setup() {
 	// Fx
 	fx.setKeyFirstChar('q');
 
+	guiManager.setName("ofApp");
 	guiManager.setup();
 }
 

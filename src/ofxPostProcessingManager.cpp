@@ -470,6 +470,15 @@ void ofxPostProcessingManager::doEnableAll() {
 }
 
 //--------------------------------------------------------------
+void ofxPostProcessingManager::doRefreshFX() {
+	ofLogNotice(__FUNCTION__);
+
+	for (int i = 0; i < post.size(); i++) {
+		post[i]->setEnabled(bEnablers[i]);
+	}
+}
+
+//--------------------------------------------------------------
 void ofxPostProcessingManager::Changed_bNone() {
 	doEnableNone();
 }
@@ -835,7 +844,7 @@ void ofxPostProcessingManager::setupGui()
 
 	// All
 
-	params.setName("oFX");
+	params.setName("FX PRO");
 	params.add(gui.getParameter());
 }
 

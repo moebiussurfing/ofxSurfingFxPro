@@ -45,7 +45,7 @@ public:
 	void drawImGuiToggles();
 	void drawImGuiControls();
 
-	ofParameter<bool> bGui{ "oFX", true };
+	ofParameter<bool> bGui{ "FX PRO", true };
 	ofParameter<bool> bGui_Internal{ "Gui Internal", false };
 	ofParameter<bool> bGui_Controls{ "CONTROLS", true };
 	ofParameter<bool> bGui_Toggles{ "TOGGLES", true };
@@ -62,13 +62,14 @@ public:
 	ofParameter<bool> bKeys_ModeToggle;
 
 	ofParameterGroup params;
-	void Changed(ofAbstractParameter& e);
 
+	// Callbacks
+	void Changed(ofAbstractParameter& e);
 	void Changed_Enablers(ofAbstractParameter& e);
 
 	ofxSurfing_ImGui_Manager guiManager;
 
-	// settings
+	// Settings
 	string path_GLOBAL; // this is to folder all files to avoid mixing with other add-ons data
 	void setPathGlobal(string s); // must call before setup. disabled by default
 	string path_Params_AppSettings;
