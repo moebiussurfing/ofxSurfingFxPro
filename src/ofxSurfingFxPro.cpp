@@ -450,12 +450,12 @@ void ofxSurfingFxPro::exit()
 	ofRemoveListener(manager.params_Toggles.parameterChangedE(), this, &ofxSurfingFxPro::Changed_Enablers);
 }
 
-//--------------------------------------------------------------
-void ofxSurfingFxPro::doRandomPickOne() {
-	manager.doEnableNone();
-	int randId = int(ofRandom(manager.getAmountEffects()));
-	manager.doToggleFX(randId);
-}
+////--------------------------------------------------------------
+//void ofxSurfingFxPro::doRandomPickOne() {
+//	manager.doEnableNone();
+//	int randId = int(ofRandom(manager.getAmountEffects()));
+//	manager.doToggleFX(randId);
+//}
 
 //--------------------------------------------------------------
 void ofxSurfingFxPro::Changed(ofAbstractParameter& e)
@@ -520,11 +520,14 @@ void ofxSurfingFxPro::doRandomFX(int postId, float prob)
 //--------------------------------------------------------------
 void ofxSurfingFxPro::doRandomFXAll(float prob)
 {
-	//manager.doEnableNone();
-
 	for (int i = 0; i < manager.getAmountEffects(); i++)
 	{
 		bool b = (bool)(ofRandom(1.0f) < prob);
 		manager.doPowerFX(i, b);
 	}
+
+	// Undo Engine
+#ifdef USE__OFX_SURFING__OFX_SURFING_UNDO_HELPER 
+	presetsManager.undoManager.doSaveUndoWhenAuto();
+#endif
 }

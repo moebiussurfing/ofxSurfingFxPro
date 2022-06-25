@@ -38,7 +38,7 @@ public:
 	ofxPostProcessingManager manager;
 	ofxDC_Utilities notifier;
 
-	void doRandomPickOne();
+	//void doRandomPickOne();
 
 	void drawImGui();
 	void drawImGuiMain();
