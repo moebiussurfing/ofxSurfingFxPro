@@ -56,7 +56,7 @@ void ofApp::drawGui()
 
 	guiManager.begin();
 	{
-		// Window Shape
+		// Set Window Shape
 		{
 			float pad = 5;
 			ImVec2 sz = ImVec2(250, 400); // final size could vary when auto resize is enabled...
