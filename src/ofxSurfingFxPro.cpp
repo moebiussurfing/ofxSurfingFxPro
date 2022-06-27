@@ -394,9 +394,14 @@ void ofxSurfingFxPro::drawImGuiMain()
 				guiManager.refreshLayout();
 				//guiManager.AddLabelBig("Randomizers", true, true);
 				guiManager.Add(randomProb);
-				guiManager.Add(bRandom, OFX_IM_BUTTON);
-				guiManager.Add(bPlayRandoms, OFX_IM_TOGGLE_BORDER_BLINK);
-				if (bPlayRandoms)guiManager.Add(playSpeed);
+				guiManager.Add(bRandom, OFX_IM_BUTTON_MEDIUM);
+				guiManager.AddTooltip("Randomize params but using Prob: \nbigger is too much toggles will be ON");
+
+				guiManager.Add(bPlayRandoms, OFX_IM_TOGGLE_MEDIUM_BORDER_BLINK);
+				if (bPlayRandoms) {
+					guiManager.Add(playSpeed);
+					guiManager.AddTooltip("Faster is 4 random trigs per second. \nSlower is one for each passed 2 seconds.");
+				}
 			}
 			guiManager.refreshLayout();
 			guiManager.AddSpacingSeparated();
@@ -502,8 +507,8 @@ void ofxSurfingFxPro::keyPressed(int key)
 
 	//--
 
-	if (key == OF_KEY_BACKSPACE) manager.doEnableNone();
-	if (key == OF_KEY_RETURN) doRandomFXAll(randomProb);
+	if (key == 'N') manager.doEnableNone();
+	if (key == 'R') doRandomFXAll(randomProb);
 
 	//else if (key == 'G') bGui = !bGui;
 }
