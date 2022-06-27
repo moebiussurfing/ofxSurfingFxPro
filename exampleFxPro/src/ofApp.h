@@ -2,25 +2,20 @@
 /*
 
 	TODO:
-	
-	fix recall app setings / presets positions
-	store controls splited
 
-	add app mode: fx / presets
-	add undo adon to presets manager
-	add randomizer addon to presets manager
-	log slider for speed, prob, rotate
-	key latch toggle
+	add app help box
+	randomizer addon to presets manager
+		or surfing mood
+	midi link
+	log silencers
+	add global disable to pick hide some fx and hide the others
+	app mode: fx / presets
+
 	fix ImGui special windows
 		link between addons
-		main / master window
-	
-	link player window. rename. clean
-	try to link presets window to parent fx pro
-	group presets for params
-	minimize and folders for helpers. settings.. collapse
-
-	store settings bools, rotate, speed etc without params. ofxPugiXML, ofxTOML
+		main / master window. fix re arranging windows on start..
+		link player window. rename. clean
+		try to link presets window to parent fx pro
 
 */
 
@@ -34,7 +29,7 @@
 
 #define NUM_BOXES 100
 
-class ofApp : public ofBaseApp 
+class ofApp : public ofBaseApp
 {
 
 public:
@@ -42,30 +37,53 @@ public:
 	void setup();
 	void update();
 	void draw();
+	void keyPressed(int key);
+	void keyReleased(int key);
+	void windowResized(int w, int h);
+	void exit();
 
+	ofParameter<bool> bGui{ "ofApp", true };
 	void drawGui();
 
 	void setupScene();
 	void drawScene();
 
-	void keyPressed(int key);
-	void windowResized(int w, int h);
-
-	ofxSurfing_ImGui_Manager guiManager;
-
-	ofxSurfingFxPro fx;
+	//--
 
 	// Camera
 	ofEasyCam cam;
-	bool bCam = false;
-	bool bRot = true;
-	float speed = 0.1f;
-	bool bLight = true;
 	ofLight light;
+	ofParameter<bool> bCamMouse{ "Mouse Camera", false };
+	ofParameter<bool> bRotate{ "Rotate" , true };
+	ofParameter<float> rotateSpeed{ "Speed", 0.1f , 0, 1 };
+	ofParameter<bool> bLight{ "Light", true };
+	ofParameterGroup params_Camera{ "Camera" };
+	ofEventListener listener_bCamMouse;
 
 	// Boxes
 	vector<ofVec3f> posns;
 	vector<ofColor> cols;
 	ofVboMesh boxMesh;
 
+	//--
+
+	// Webcam
+	ofVideoGrabber webcamGrab;
+	ofParameter<bool> bWebcamMode{ "Webcam Mode", true };
+	ofParameter <std::string> webcamDeviceName{ "WEBCAM_DEVICE_NAME", "" };
+	int _deviceIndex;
+	ofTrueTypeFont font;
+	void setupWebcamDevice();
+	void drawWebcam();
+	void drawWebcamInfo();
+	void exitWebcam();
+	void doNextWebcam();
+	void doRestartWebcam();
+	bool bDrawWebcamInfo = false;
+
+	//--
+
+	ofxSurfing_ImGui_Manager guiManager;
+
+	ofxSurfingFxPro fxPro;
 };

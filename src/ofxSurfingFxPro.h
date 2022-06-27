@@ -12,54 +12,82 @@
 
 class ofxSurfingFxPro
 {
-
 public:
 
 	ofxSurfingFxPro();
 	~ofxSurfingFxPro();
 
 	void setup();
+	void update();
+	void drawGui();
+
+private:
+
 	void setupParams();
 	void startup();
 	void setupGui();
-	void update();
 
-	void drawGui();
+public:
+
 	void keyPressed(int key);
+	void keyReleased(int key);
+
+private:
+
 	void keyPressedFX(int key);
+	void keyReleasedFX(int key);
+	bool bShiftPressed = false;
+
+public:
+
 	void windowResized(int w, int h);
+
+private:
+	
 	void exit();
-	void refreshStyles();
+	
+	void setupGuiStyles();
+
+public:
 
 	void begin();
 	void begin(ofCamera& cam);
 	void end();
+	
+private:
 
 	ofxPostProcessingManager manager;
-	ofxDC_Utilities notifier;
 
-	//void doRandomPickOne();
+	ofxDC_Utilities notifier;
 
 	void drawImGui();
 	void drawImGuiMain();
 	void drawImGuiToggles();
 	void drawImGuiControls();
 
+public:
+
 	ofParameter<bool> bGui{ "FX PRO", true };
+	ofParameter<bool> bDebug{ "Debug", false };
+
+	ofParameter<bool> bEnable{ "ENABLE", true };
+
+private:
+
+	ofEventListener listener_bEnable; // just to refresh GUI styles (will fade blink buttons when enabled)
+
 	ofParameter<bool> bGui_Internal{ "Gui Internal", false };
 	ofParameter<bool> bGui_Controls{ "CONTROLS", true };
 	ofParameter<bool> bGui_Toggles{ "TOGGLES", true };
 
-	ofParameter<bool> bRandom{ "Random", true };
-	ofParameter<bool> bAutomate{ "Automated", false };
-	ofParameter<bool> bDebug{ "Debug", false };
-	ofParameter<bool> bGuiWorkflow{ "GuiWorkflow", true }; // disable tab workflow to improve speed...
-
+	ofParameter<void> bRandom{ "RANDOM"};
 	ofParameter<float> probFX;
-	ofParameter<float> probSpeed;
+	ofParameter<bool> bPlayRandoms{ "PLAY RANDOMS", false };
+	ofParameter<float> playSpeed;
 
 	ofParameter<bool> bKeys_FX;
-	ofParameter<bool> bKeys_ModeToggle;
+	ofParameter<bool> bKeys_FX_ToggleMode;
+	ofParameter<bool> bGuiWorkflow{ "GuiWorkflow", true }; // disable tab workflow to improve speed...
 
 	ofParameterGroup params;
 
@@ -71,7 +99,13 @@ public:
 
 	// Settings
 	string path_GLOBAL; // this is to folder all files to avoid mixing with other add-ons data
+
+public:
+
 	void setPathGlobal(string s); // must call before setup. disabled by default
+
+private:
+
 	string path_Params_AppSettings;
 	ofParameterGroup params_AppSettings; // -> To store app settings between sessions
 
@@ -85,6 +119,8 @@ public:
 
 	//----
 
+public:
+
 	void doPowerFX(int postId, bool bState);
 	void doToggleFX(int postId);
 
@@ -93,12 +129,13 @@ public:
 
 	//----
 
+private:
+
 	// Key Commands
-	
+
 	// These methods allows to customize key commands assignments 
 	// In this case to trig the FX toggles.
 
-private:
 
 #define NUM_KEY_COMMANDS 36
 
@@ -108,7 +145,7 @@ private:
 	// or when colliding with other add-ons.
 
 	// Predefined picked keys to assign commands
-	char keysFullMap[NUM_KEY_COMMANDS] = { 
+	char keysFullMap[NUM_KEY_COMMANDS] = {
 	'1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
 	'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p',
 	'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l',
@@ -117,17 +154,18 @@ private:
 	int keyFirstPos = -1;
 	char keyFirstChar = '0';
 
-	vector<char> keyCommandsChars; // Prepared chars used as triggers
+	vector<char> keyCommandsChars; // Prepared chars that will be used as triggers.
 
 public:
 
-	// Customizable Key commands
+	// Default Keys
 	// '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
 	// 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p',
 	// 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l',
 	// 'z', 'x', 'c', 'v', 'b', 'n', 'm'
 
 	// Customizable keys to avoid collide with other key commands callbacks
+	// We set the first, next ones are correlative from the above default keys!
 	//--------------------------------------------------------------
 	void setKeyFirstChar(char kChar) {
 		int p = getKeyCommandPosition(kChar);
@@ -172,5 +210,32 @@ private:
 		}
 		return pos;
 	}
-		
+
+	// Mainly for displaying info purposes
+	//--------------------------------------------------------------
+	string getFirstKey() {
+		if (keyCommandsChars.size() != 0) return ofToString(keyCommandsChars[0]);
+		else return "-1";
+	}
+	//--------------------------------------------------------------
+	string getLastKey() {
+		if (keyCommandsChars.size() != 0)
+		{
+			int amountRequiredKeys = manager.getAmountEffects();
+			
+			string s;
+			if (amountRequiredKeys < keyCommandsChars.size()) {
+				s = keyCommandsChars[amountRequiredKeys - 1];
+				return s;
+			}
+			else {
+				// last key is before/less than the last FX
+				// we should need more key commands!
+				// some FX's don't have a key trigger.
+				return ofToString(keyCommandsChars.back());
+			}
+		}
+
+		else return "-1";
+	}
 };

@@ -112,11 +112,12 @@ private:
 
 public:
 
+	// not used. could be removed
 	ofParameter<void> btnLoad = { "Load" };
 	ofParameter<void> btnSave = { "Save" };
 
-	ofParameter<void> bNone = { "None" };
-	ofParameter<void> bAll = { "All" };
+	ofParameter<void> bNone = { "NONE" };
+	ofParameter<void> bAll = { "ALL" };
 
 private:
 
@@ -185,7 +186,6 @@ public:
 	ofxToggle gGlitchByp;
 
 	// LAVA FIRE
-
 
 	// BAD TV PASS
 	ofParameterGroup gBadTVGroup;

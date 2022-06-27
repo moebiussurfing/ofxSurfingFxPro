@@ -682,12 +682,12 @@ void ofxPostProcessingManager::setupGui()
 	gSupGroup.setName(ng);
 	gSupGroup.add(gSupGlowAmt.setup("Glow Amount", 0.5, 0., 1.)->getParameter());
 	gSupGroup.add(gSupGlowSize.setup("Glow Size", 4.0, 0., 20.)->getParameter());
-	gSupGroup.add(gSupVigOff.setup("Vignette Offset", 1.0, 0., 1.)->getParameter());
-	gSupGroup.add(gSupVigDark.setup("Vignette Darkness", 1.0, 0., 1.)->getParameter());
+	gSupGroup.add(gSupVigOff.setup("Vignt Offset", 1.0, 0., 1.)->getParameter());
+	gSupGroup.add(gSupVigDark.setup("Vignt Darkness", 1.0, 0., 1.)->getParameter());
 	gSupGroup.add(gSupBri.setup("Brightness", 0.0, -1., 1.)->getParameter());
 	gSupGroup.add(gSupCont.setup("Contrast", 0.0, -1., 1.)->getParameter());
 	gSupGroup.add(gSupSat.setup("Saturation", 0.0, 0., 1.)->getParameter());
-	gSupGroup.add(gRGBShfAmt.setup("RGB Shift Amount", 0.01, 0., 1.)->getParameter());
+	gSupGroup.add(gRGBShfAmt.setup("RGB Shift Amt", 0.01, 0., 1.)->getParameter());
 	gui.add(&bEnablers[17]);
 	gui.add(gSupGroup);
 

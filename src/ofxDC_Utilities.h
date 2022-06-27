@@ -90,7 +90,7 @@ public:
         int x = 0;
         int y = 0;
         
-        string fr = ofToString(ofGetFrameRate(),1);
+        string fr = ofToString(ofGetFrameRate(),0);
         
         switch(_position) {
             case TOP_LEFT:
