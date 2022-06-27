@@ -3,19 +3,23 @@
 
 	TODO:
 
+	fix undo path
+	fix guiManager path settings sometimes
+
 	add app help box
 	randomizer addon to presets manager
 		or surfing mood
-	midi link
-	log silencers
-	add global disable to pick hide some fx and hide the others
-	app mode: fx / presets
 
 	fix ImGui special windows
 		link between addons
 		main / master window. fix re arranging windows on start..
 		link player window. rename. clean
 		try to link presets window to parent fx pro
+	
+	midi link
+	log silencers
+	add global disable to pick hide some fx and hide the others
+	app mode: fx / presets. improve workflow keys/edit/midi..
 
 */
 
@@ -26,6 +30,7 @@
 
 #include "ofxSurfingFxPro.h"
 #include "ofxSurfingImGui.h"
+#include "SurfingWebcam.h"
 
 #define NUM_BOXES 100
 
@@ -42,6 +47,7 @@ public:
 	void windowResized(int w, int h);
 	void exit();
 
+	ofParameterGroup params_ofApp{ "ofApp" };
 	ofParameter<bool> bGui{ "ofApp", true };
 	void drawGui();
 
@@ -68,18 +74,9 @@ public:
 	//--
 
 	// Webcam
-	ofVideoGrabber webcamGrab;
+	SurfingWebcam webcam;
+	
 	ofParameter<bool> bWebcamMode{ "Webcam Mode", true };
-	ofParameter <std::string> webcamDeviceName{ "WEBCAM_DEVICE_NAME", "" };
-	int _deviceIndex;
-	ofTrueTypeFont font;
-	void setupWebcamDevice();
-	void drawWebcam();
-	void drawWebcamInfo();
-	void exitWebcam();
-	void doNextWebcam();
-	void doRestartWebcam();
-	bool bDrawWebcamInfo = false;
 
 	//--
 

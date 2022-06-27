@@ -81,7 +81,7 @@ private:
 	ofParameter<bool> bGui_Toggles{ "TOGGLES", true };
 
 	ofParameter<void> bRandom{ "RANDOM"};
-	ofParameter<float> probFX;
+	ofParameter<float> randomProb;
 	ofParameter<bool> bPlayRandoms{ "PLAY RANDOMS", false };
 	ofParameter<float> playSpeed;
 

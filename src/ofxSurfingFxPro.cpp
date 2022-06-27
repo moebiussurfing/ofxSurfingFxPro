@@ -60,7 +60,7 @@ void ofxSurfingFxPro::setupParams()
 
 	//--
 
-	probFX.set("Prob", 0.5f, 0.05f, 1);
+	randomProb.set("Prob", 0.5f, 0.05f, 1);
 	playSpeed.set("Speed", 0.5f, 0, 1);
 	bKeys_FX.set("KEYS FX", true);
 	bKeys_FX_ToggleMode.set("MODE TOGGLE", false);
@@ -77,6 +77,7 @@ void ofxSurfingFxPro::setupParams()
 	params_AppSettings.add(bEnable);
 	params_AppSettings.add(playSpeed);
 	params_AppSettings.add(bPlayRandoms);
+	params_AppSettings.add(randomProb);
 	//params_AppSettings.add(bDebug);
 
 	// Get notified when toggles changed!
@@ -298,10 +299,10 @@ void ofxSurfingFxPro::update()
 {
 	if (bPlayRandoms)
 	{
-		float v = ofMap(playSpeed, 0, 1, 0.1, 4);
+		float v = ofMap(playSpeed, 1, 0, 0.2f, 2.f);
 		if (notifier.notifyPerSecond(v))
 		{
-			doRandomFXAll(probFX);
+			doRandomFXAll(randomProb);
 
 			//manager.doEnableNone();
 			//manager.doToggleFX(int(ofRandom(manager.getAmountEffects())));
@@ -392,7 +393,7 @@ void ofxSurfingFxPro::drawImGuiMain()
 			{
 				guiManager.refreshLayout();
 				//guiManager.AddLabelBig("Randomizers", true, true);
-				guiManager.Add(probFX);
+				guiManager.Add(randomProb);
 				guiManager.Add(bRandom, OFX_IM_BUTTON);
 				guiManager.Add(bPlayRandoms, OFX_IM_TOGGLE_BORDER_BLINK);
 				if (bPlayRandoms)guiManager.Add(playSpeed);
@@ -502,7 +503,7 @@ void ofxSurfingFxPro::keyPressed(int key)
 	//--
 
 	if (key == OF_KEY_BACKSPACE) manager.doEnableNone();
-	if (key == OF_KEY_RETURN) doRandomFXAll(probFX);
+	if (key == OF_KEY_RETURN) doRandomFXAll(randomProb);
 
 	//else if (key == 'G') bGui = !bGui;
 }
@@ -542,7 +543,7 @@ void ofxSurfingFxPro::Changed(ofAbstractParameter& e)
 	if (name == bRandom.getName())
 	{
 
-		doRandomFXAll(probFX);
+		doRandomFXAll(randomProb);
 	}
 }
 
