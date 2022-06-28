@@ -130,7 +130,7 @@ void ofApp::drawGui()
 
 		if (guiManager.beginWindow("ofApp"))
 		{
-			guiManager.Add(fxPro.bGui, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
+			guiManager.Add(fxPro.bGui, OFX_IM_TOGGLE_ROUNDED_BIG);
 			guiManager.AddSpacingBigSeparated();
 
 			// Webcam

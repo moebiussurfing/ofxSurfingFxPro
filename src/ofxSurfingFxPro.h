@@ -9,6 +9,7 @@
 #include "ofxSurfing_ofxGui.h"
 #include "ofxSurfingImGui.h"
 #include "ofxSurfingPresets.h"
+#include "ofxSurfingRandomizer.h"
 
 class ofxSurfingFxPro
 {
@@ -96,6 +97,8 @@ private:
 	void Changed_Enablers(ofAbstractParameter& e);
 
 	ofxSurfing_ImGui_Manager guiManager;
+	
+	ofxSurfingRandomizer randomizer;
 
 	// Settings
 	string path_GLOBAL; // this is to folder all files to avoid mixing with other add-ons data

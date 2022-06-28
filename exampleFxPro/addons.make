@@ -5,4 +5,5 @@ ofxSurfingHelpers
 ofxSurfingImGui
 ofxSurfingPlayer
 ofxSurfingPresets
+ofxSurfingRandomizer
 ofxSurfingUndoHelper

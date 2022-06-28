@@ -89,9 +89,9 @@ void ofxSurfingFxPro::setupParams()
 			setupGuiStyles();
 		});
 
-	//--
+	//----
 
-	// Presets
+	// Presets Manager
 
 	/*
 
@@ -114,6 +114,24 @@ void ofxSurfingFxPro::setupParams()
 	// In some scenarios we will prefer to disable this feature/mode.
 	// That's to avoid auto reload the current file preset again.
 	presetsManager.setAutoLoadOnReTrig(false);
+
+	//--
+
+	// Randomizer
+
+	randomizer.setup(manager.params_Controls);
+	//randomizer.setup(manager.params_Toggles);
+
+	randomizer.setIndexPtr(presetsManager.index);
+	
+	//--
+
+	// Target B. 
+	// Index
+
+	// Link index with the Presets Manager selector!
+	randomizer.setIndexPtr(presetsManager.index);
+
 }
 
 //--------------------------------------------------------------
@@ -159,6 +177,19 @@ void ofxSurfingFxPro::startup()
 	// Not the Toggles! 
 	// Toggles are handled by the Presets Manager!
 	ofxSurfingHelpers::load(manager.params_Controls);
+
+	//--
+
+	// Force not both keys callbacks enabled to avoid collide!
+	//presetsManager.bKeys = !randomizer.bKeys;
+
+	// Create some presets
+	//presetsManager.doPopulatePresetsRandomized();
+
+	//TODO: fix
+	// Force visible on first start 
+	randomizer.setGuiVisible(true);
+	//presetsManager.setGuiVisible(true);
 }
 
 //--------------------------------------------------------------
@@ -323,12 +354,18 @@ void ofxSurfingFxPro::drawGui() {
 
 	drawImGui();
 
-	if (bGui_Internal) manager.drawGui();
-	if (bDebug) manager.drawDebug();
+	if (bGui_Internal) manager.drawGui();//original ofxGui 
+	
+	if (bDebug) 
+	{
+		manager.drawDebug();
+		notifier.drawFPS(ofxDC_ALIGNMENT::TOP_RIGHT);
+	}
 
-	presetsManager.draw(); // Draw Gui
+	presetsManager.drawGui(); 
+	
+	randomizer.drawGui();
 
-	//notifier.drawFPS(ofxDC_ALIGNMENT::TOP_RIGHT);
 }
 
 //--------------------------------------------------------------
@@ -357,12 +394,25 @@ void ofxSurfingFxPro::drawImGuiMain()
 		}
 		guiManager.AddSpacingBigSeparated();
 
-		guiManager.AddLabelBig("Panels"/*, true, true*/);
-		guiManager.Add(bGui_Toggles, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
+		//--
+
+		guiManager.AddLabelBig("Panels");
+
+		// Toggles
+		guiManager.Add(bGui_Toggles, OFX_IM_TOGGLE_ROUNDED_BIG);
+
+		// Controls
 		guiManager.Add(bGui_Controls, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
+		
 		guiManager.AddSpacingSeparated();
 
-		guiManager.Add(presetsManager.bGui, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
+		// Presets Manager
+		guiManager.Add(presetsManager.bGui, OFX_IM_TOGGLE_ROUNDED_BIG);
+		
+		// Randomizer
+		guiManager.Add(randomizer.bGui, OFX_IM_TOGGLE_ROUNDED_BIG);
+
+		//--
 
 		if (!guiManager.bMinimize)
 		{
