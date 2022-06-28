@@ -507,8 +507,8 @@ void ofxSurfingFxPro::keyPressed(int key)
 
 	//--
 
-	if (key == 'N') manager.doEnableNone();
-	if (key == 'R') doRandomFXAll(randomProb);
+	if (key == OF_KEY_F9) manager.doEnableNone();
+	if (key == OF_KEY_F9) doRandomFXAll(randomProb);
 
 	//else if (key == 'G') bGui = !bGui;
 }
@@ -547,7 +547,6 @@ void ofxSurfingFxPro::Changed(ofAbstractParameter& e)
 
 	if (name == bRandom.getName())
 	{
-
 		doRandomFXAll(randomProb);
 	}
 }
@@ -625,8 +624,7 @@ void ofxSurfingFxPro::doRandomFX(int postId, float prob)
 {
 	if (postId > manager.getAmountEffects()) return;
 
-	bool b = (bool)(ofRandom(1.0f) < prob);
-	manager.doPowerFX(postId, b);
+	manager.doPowerFX(postId, (bool)(ofRandom(1.0f) < prob));
 }
 
 //--------------------------------------------------------------
@@ -634,8 +632,7 @@ void ofxSurfingFxPro::doRandomFXAll(float prob)
 {
 	for (int i = 0; i < manager.getAmountEffects(); i++)
 	{
-		bool b = (bool)(ofRandom(1.0f) < prob);
-		manager.doPowerFX(i, b);
+		manager.doPowerFX(i, (bool)(ofRandom(1.0f) < prob));
 	}
 
 	//--
