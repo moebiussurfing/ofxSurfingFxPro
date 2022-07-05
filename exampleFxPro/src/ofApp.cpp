@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup() {
 	ofSetBackgroundColor(0);
-	ofSetWindowPosition(-1920, 25);
+	//ofSetWindowPosition(-1920, 25);
 
 	setupScene();
 
