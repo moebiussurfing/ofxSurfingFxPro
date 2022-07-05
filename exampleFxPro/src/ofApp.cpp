@@ -10,7 +10,9 @@ void ofApp::setup() {
 	//--
 
 	// Settings
+#ifdef USE_WEBCAM
 	params_Camera.add(bWebcamMode);
+#endif
 	params_Camera.add(bCamMouse);
 	params_Camera.add(bRotate);
 	params_Camera.add(rotateSpeed);
@@ -34,12 +36,17 @@ void ofApp::setupScene() {
 	// Boxes
 	// create our own box mesh as there is a bug with
 	// normal scaling and ofDrawBox() at the moment
-	boxMesh = ofMesh::box(20, 20, 20);
+	const int szScene = 500;
+	const int szBox = szScene / 11.f;
+	boxMesh = ofMesh::box(szBox, szBox, szBox);
 
 	// Setup box positions
 	for (unsigned i = 0; i < NUM_BOXES; ++i)
 	{
-		posns.push_back(ofVec3f(ofRandom(-300, 300), ofRandom(-300, 300), ofRandom(-300, 300)));
+		posns.push_back(ofVec3f(
+			ofRandom(-szScene, szScene),
+			ofRandom(-szScene, szScene),
+			ofRandom(-szScene, szScene)));
 		cols.push_back(ofColor::fromHsb(255 * i / (float)NUM_BOXES, 255, 255, 255));
 	}
 
@@ -61,29 +68,28 @@ void ofApp::setupScene() {
 }
 
 //--------------------------------------------------------------
-void ofApp::update() {
-	ofSetWindowTitle(ofToString((int)ofGetFrameRate()));
+void ofApp::update()
+{
+	//ofSetWindowTitle(ofToString((int)ofGetFrameRate()));
 
+#ifdef USE_WEBCAM
 	webcam.update();
+#endif
+
+	//--
 
 	// FxPro
-	fxPro.update();
-}
-
-//--------------------------------------------------------------
-void ofApp::draw() {
-
-	ofEnableDepthTest();
-
+#ifdef USE_WEBCAM
 	if (bWebcamMode)
 	{
 		fxPro.begin();
 		{
 			webcam.drawWebcam();
 		}
-		fxPro.end();
+		fxPro.end(false);
 	}
 	else
+#endif
 	{
 		if (bLight) light.enable();
 
@@ -91,11 +97,20 @@ void ofApp::draw() {
 		{
 			drawScene();
 		}
-		fxPro.end();
+		fxPro.end(false);
 
 		if (bLight) light.disable();
 		ofDisableLighting();
 	}
+}
+
+//--------------------------------------------------------------
+void ofApp::draw() {
+
+	ofEnableDepthTest();
+
+	// FxPro
+	fxPro.draw();
 
 	//----
 
@@ -105,7 +120,9 @@ void ofApp::draw() {
 
 	drawGui();
 
+#ifdef USE_WEBCAM
 	if (bWebcamMode) webcam.drawInfo();
+#endif
 }
 
 //--------------------------------------------------------------
@@ -131,9 +148,12 @@ void ofApp::drawGui()
 		if (guiManager.beginWindow("ofApp"))
 		{
 			guiManager.Add(fxPro.bGui, OFX_IM_TOGGLE_ROUNDED_BIG);
-			guiManager.AddSpacingBigSeparated();
+
+			//--
 
 			// Webcam
+#ifdef USE_WEBCAM
+			guiManager.AddSpacingBigSeparated();
 			guiManager.AddLabelBig("Webcam", true, true);
 			guiManager.Add(bWebcamMode);
 			if (bWebcamMode)
@@ -148,6 +168,7 @@ void ofApp::drawGui()
 
 			// Scene Boxes
 			if (!bWebcamMode)
+#endif
 			{
 				guiManager.AddSpacingBigSeparated();
 				guiManager.AddLabelBig("Camera", true, true);
@@ -168,11 +189,11 @@ void ofApp::drawScene()
 {
 	ofPushMatrix();
 
-	if (bRotate)
+	// Rotate
 	{
 		static float r;
 		float step = ofMap(rotateSpeed, 0, 1, 0.025f, 5);
-		r += step;
+		if (bRotate) r += step;
 		r = ofWrapDegrees(r);
 		ofRotateYDeg(r);
 	}
@@ -193,9 +214,9 @@ void ofApp::drawScene()
 }
 
 //--------------------------------------------------------------
-void ofApp::keyPressed(int key) 
+void ofApp::keyPressed(int key)
 {
-	// Hide all gui
+	// Hide all GUI
 	if (key == 'G') bGui = !bGui;
 
 	//--
@@ -205,6 +226,7 @@ void ofApp::keyPressed(int key)
 	//--
 
 	// Webcam
+#ifdef USE_WEBCAM
 	if (bWebcamMode)
 	{
 		// Select next device
@@ -213,6 +235,7 @@ void ofApp::keyPressed(int key)
 		// Restart device
 		if (key == 'R') webcam.doRestartWebcam();
 	}
+#endif
 }
 
 //--------------------------------------------------------------
@@ -226,7 +249,6 @@ void ofApp::windowResized(int w, int h) {
 }
 
 //--------------------------------------------------------------
-void ofApp::exit() 
-{
+void ofApp::exit() {
 	ofxSurfingHelpers::save(params_ofApp);
 }

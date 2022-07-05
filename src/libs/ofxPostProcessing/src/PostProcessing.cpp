@@ -142,6 +142,7 @@ namespace itg
         
         raw.end();
         
+        //TODO: falls to red tint when disabled/not used auto draw?
         ofPushStyle();
         glPushAttrib(GL_ENABLE_BIT);
         glDisable(GL_LIGHTING);

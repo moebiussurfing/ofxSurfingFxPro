@@ -3,12 +3,17 @@
 
 	TODO:
 
+	add multi layout presets guiManager
+
+	Could add an extra randomizer for params only
+	or disable the presets randomizer
+	Presets only handles toggles!
+	add bool param to doRandomize() to link to undo save
+
+	split vec params in multi lines
+
 	fix undo path
 	fix guiManager path settings sometimes
-
-	add app help box
-	randomizer addon to presets manager
-		or surfing mood
 
 	fix ImGui special windows
 		link between addons
@@ -23,6 +28,11 @@
 
 */
 
+//--
+ 
+//#define USE_WEBCAM // -> Optional
+
+//----
 
 #pragma once
 
@@ -30,7 +40,9 @@
 
 #include "ofxSurfingFxPro.h"
 #include "ofxSurfingImGui.h"
+#ifdef USE_WEBCAM
 #include "SurfingWebcam.h"
+#endif
 
 #define NUM_BOXES 100
 
@@ -74,9 +86,11 @@ public:
 	//--
 
 	// Webcam
+#ifdef USE_WEBCAM
 	SurfingWebcam webcam;
 	
 	ofParameter<bool> bWebcamMode{ "Webcam Mode", true };
+#endif
 
 	//--
 

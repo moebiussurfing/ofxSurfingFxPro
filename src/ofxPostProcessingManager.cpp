@@ -423,8 +423,8 @@ void ofxPostProcessingManager::begin(ofCamera& cam) {
 	post.begin(cam);
 }
 //---------------------------------------
-void ofxPostProcessingManager::end() {
-	post.end();
+void ofxPostProcessingManager::end(bool autoDraw) {
+	post.end(autoDraw);
 }
 
 //--------------------------------------------------------------

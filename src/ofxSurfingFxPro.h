@@ -5,11 +5,13 @@
 #include "ofxDC_Utilities.h"
 #include "ofxPostProcessingManager.h"
 
-#include "ofxSurfingHelpers.h"
 #include "ofxSurfing_ofxGui.h"
+#include "ofxSurfingHelpers.h"
 #include "ofxSurfingImGui.h"
 #include "ofxSurfingPresets.h"
 #include "ofxSurfingRandomizer.h"
+
+//--
 
 class ofxSurfingFxPro
 {
@@ -19,10 +21,13 @@ public:
 	~ofxSurfingFxPro();
 
 	void setup();
-	void update();
+	//void update();
+	void draw();
 	void drawGui();
 
 private:
+	
+	void update(ofEventArgs& args);
 
 	void setupParams();
 	void startup();
@@ -53,7 +58,7 @@ public:
 
 	void begin();
 	void begin(ofCamera& cam);
-	void end();
+	void end(bool autoDraw = false);
 	
 private:
 
@@ -89,6 +94,7 @@ private:
 	ofParameter<bool> bKeys_FX;
 	ofParameter<bool> bKeys_FX_ToggleMode;
 	ofParameter<bool> bGuiWorkflow{ "GuiWorkflow", true }; // disable tab workflow to improve speed...
+	ofParameter<bool> bAutoSave{ "Auto Save", true};
 
 	ofParameterGroup params;
 

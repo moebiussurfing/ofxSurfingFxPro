@@ -14,20 +14,37 @@ public:
 	~ofxPostProcessingManager();
 
 	void setup(int w, int h);
-	
+
 	void drawGui();
 	void drawDebug();
-	
+
 	void windowResized(int w, int h);
 
 	void begin();
 	void begin(ofCamera& cam);
-	void end();
+	void end(bool autoDraw = true);
+
+	void draw(bool bEnabled = true)
+	{
+		if (bEnabled) {
+			ofPushStyle();
+			ofSetColor(255, 255, 255);
+			post.draw();
+			ofPopStyle();
+		}
+		else {
+			//requires to be flipped..
+			float w = ofGetWidth();
+			float h = ofGetHeight();
+			post.getRawRef().draw(0, h, w, -h);
+		}
+	};
+
 
 	void updateFX();
 
 private:
-	
+
 	void setupGui();
 	void exit();
 
@@ -42,7 +59,7 @@ public:
 
 	void doRefreshFX(); // applies toggle states. required when params are modified without triggering...
 	// pr.setWithoutEventNotifications(v);
-	 
+
 	// switch state for an effect
 	void doToggleFX(int postId);
 	void doPowerFX(int postId, bool bState);
@@ -127,7 +144,7 @@ private:
 	string fileName;
 
 public:
-//private:
+	//private:
 
 	vector<ofxToggle> bEnablers;
 

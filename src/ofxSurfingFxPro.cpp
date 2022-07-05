@@ -3,25 +3,31 @@
 //--------------------------------------------------------------
 ofxSurfingFxPro::ofxSurfingFxPro()
 {
+	ofAddListener(ofEvents().update, this, &ofxSurfingFxPro::update);
+
 	path_GLOBAL = "ofxSurfingFxPro/"; // this is to folder all files to avoid mixing with other add-ons data
 	path_Params_AppSettings = "FxPro_Settings.xml";
 
 	setup();
 
 	//--
-	// 
+
 	//TODO: fix log silencers
-	ofSetLogLevel("ofxPostProcessingManager", OF_LOG_ERROR);
+	//ofSetLogLevel("ofxPostProcessingManager", OF_LOG_ERROR);
+	//ofSetLogLevel(OF_LOG_SILENT);
+	ofSetLogLevel("ofxSurfingFxPro", OF_LOG_SILENT);
 }
 
 //--------------------------------------------------------------
 ofxSurfingFxPro::~ofxSurfingFxPro()
 {
+	ofRemoveListener(ofEvents().update, this, &ofxSurfingFxPro::update);
+
 	exit();
 }
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::setPathGlobal(string s)//must call before setup. disabled by default
+void ofxSurfingFxPro::setPathGlobal(string s) // must call before setup. disabled by default
 {
 	path_GLOBAL = s;
 
@@ -78,6 +84,7 @@ void ofxSurfingFxPro::setupParams()
 	params_AppSettings.add(playSpeed);
 	params_AppSettings.add(bPlayRandoms);
 	params_AppSettings.add(randomProb);
+	params_AppSettings.add(bAutoSave);
 	//params_AppSettings.add(bDebug);
 
 	// Get notified when toggles changed!
@@ -108,6 +115,8 @@ void ofxSurfingFxPro::setupParams()
 
 	*/
 
+	presetsManager.setDiablePlayer();//simplify bc we have the randomizer player
+
 	presetsManager.addGroup(manager.params_Toggles);
 
 	//TODO:
@@ -123,7 +132,7 @@ void ofxSurfingFxPro::setupParams()
 	//randomizer.setup(manager.params_Toggles);
 
 	randomizer.setIndexPtr(presetsManager.index);
-	
+
 	//--
 
 	// Target B. 
@@ -163,7 +172,6 @@ void ofxSurfingFxPro::startup()
 	// Load Settings
 	// could be removed. it loads all the settings from the internal ofxGui
 	//manager.loadSettings();
-
 	ofxSurfingHelpers::loadGroup(params_AppSettings, path_GLOBAL + path_Params_AppSettings);
 
 	//setKeyFirstChar('1');
@@ -176,7 +184,7 @@ void ofxSurfingFxPro::startup()
 	// Load Control Settings
 	// Not the Toggles! 
 	// Toggles are handled by the Presets Manager!
-	ofxSurfingHelpers::load(manager.params_Controls);
+	if (bAutoSave) ofxSurfingHelpers::load(manager.params_Controls);
 
 	//--
 
@@ -195,6 +203,26 @@ void ofxSurfingFxPro::startup()
 //--------------------------------------------------------------
 void ofxSurfingFxPro::setupGuiStyles()
 {
+	// Help Info
+	std::string helpInfo = "";
+
+	helpInfo += "FxPro \n";
+	helpInfo += "HELP \n\n";
+	helpInfo += "\n";
+	helpInfo += "KEY COMMANDS \n";
+	helpInfo += "\n";
+	helpInfo += "G                GUI \n";
+	helpInfo += "H                HELP APP \n";
+	helpInfo += "\n";
+	helpInfo += "F1               TOGGLES \n";
+	helpInfo += "F2               CONTROLS \n";
+	helpInfo += "F3               PRESETS \n";
+	helpInfo += "F4               RANDOMIZER \n";
+
+	guiManager.setHelpInfoApp(helpInfo);
+
+	//--
+
 	guiManager.clearStyles();
 
 	// Customize all toggles inside the group 
@@ -202,6 +230,8 @@ void ofxSurfingFxPro::setupGuiStyles()
 
 	// Hide groups header
 	guiManager.AddStyleGroup(manager.params_Toggles, OFX_IM_GROUP_HIDDEN_HEADER);
+
+	//--
 
 	// Controls
 
@@ -213,9 +243,9 @@ void ofxSurfingFxPro::setupGuiStyles()
 	guiManager.AddStyleGroup(manager.gFxaaGroup, (manager.bEnablers[0] ? tON : tOFF), fg);
 	guiManager.AddStyleGroup(manager.gBloomGroup, (manager.bEnablers[1] ? tON : tOFF), fg);
 	guiManager.AddStyleGroup(manager.gKaliGroup, (manager.bEnablers[2] ? tON : tOFF), fg);
-
+	// #3, #4
 	guiManager.AddStyleGroup(manager.gGodRaysGroup, (manager.bEnablers[5] ? tON : tOFF), fg);
-
+	// #6
 	guiManager.AddStyleGroup(manager.gSsaoGroup, (manager.bEnablers[7] ? tON : tOFF), fg);
 	guiManager.AddStyleGroup(manager.gZoomBlurGroup, (manager.bEnablers[8] ? tON : tOFF), fg);
 	guiManager.AddStyleGroup(manager.gRGBGroup, (manager.bEnablers[9] ? tON : tOFF), fg);
@@ -237,6 +267,39 @@ void ofxSurfingFxPro::setupGuiStyles()
 	//TODO: fix heritate
 	//guiManager.AddStyleGroup(manager.params_Controls, OFX_IM_GROUP_HIDDEN_HEADER);
 	//guiManager.AddStyleGroup(manager.params_Toggles, OFX_IM_GROUP_HIDDEN_HEADER);
+
+	//--
+
+	// Update the queued params to randomize
+
+	static ofParameterGroup g;
+	g.clear();
+	g.setName("Params");
+
+	if (manager.bEnablers[0]) g.add(manager.gFxaaGroup);
+	if (manager.bEnablers[1]) g.add(manager.gBloomGroup);
+	if (manager.bEnablers[2]) g.add(manager.gKaliGroup);
+	// #3, #4
+	if (manager.bEnablers[5]) g.add(manager.gGodRaysGroup);
+	// #6
+	if (manager.bEnablers[7]) g.add(manager.gSsaoGroup);
+	if (manager.bEnablers[8]) g.add(manager.gZoomBlurGroup);
+	if (manager.bEnablers[9]) g.add(manager.gRGBGroup);
+	if (manager.bEnablers[10]) g.add(manager.gFilmGrainGroup);
+	if (manager.bEnablers[11]) g.add(manager.gDotScreenGroup);
+	if (manager.bEnablers[12]) g.add(manager.gGlicthGroup);
+	if (manager.bEnablers[13]) g.add(manager.gBadTVGroup);
+	if (manager.bEnablers[14]) g.add(manager.gcolorACESGroup);
+	if (manager.bEnablers[15]) g.add(manager.gNoiseGroup);
+	if (manager.bEnablers[16]) g.add(manager.gTiltShiftGroup);
+	if (manager.bEnablers[17]) g.add(manager.gSupGroup);
+	if (manager.bEnablers[18]) g.add(manager.gGliAutoGroup);
+	if (manager.bEnablers[19]) g.add(manager.gSpaceColorGroup);
+	if (manager.bEnablers[20]) g.add(manager.gDitherGroup);
+	if (manager.bEnablers[21]) g.add(manager.gStrobberGroup);
+	if (manager.bEnablers[22]) g.add(manager.gRimbLightGroup);
+
+	randomizer.rebuildParamsGroup(g);
 
 	//--
 
@@ -275,6 +338,7 @@ void ofxSurfingFxPro::setupGuiStyles()
 		//	}
 	}
 	*/
+
 	/*
 	//for (auto& g : gc)
 	for (auto& g : manager.params_Controls)
@@ -326,7 +390,8 @@ void ofxSurfingFxPro::setupGuiStyles()
 }
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::update()
+//void ofxSurfingFxPro::update()
+void ofxSurfingFxPro::update(ofEventArgs& args)
 {
 	if (bPlayRandoms)
 	{
@@ -340,11 +405,29 @@ void ofxSurfingFxPro::update()
 		}
 	}
 
-	if (presetsManager.isRetrigged()) {
+	//TODO:
+	// Undo Engine
+	if (randomizer.isRandomized())
+	{
+		// Presets only handles toggles!
+//#ifdef USE__OFX_SURFING__OFX_SURFING_UNDO_HELPER 
+//		presetsManager.undoManager.doSaveUndoWhenAuto();
+//#endif
+	}
+
+	//TODO:
+	if (presetsManager.isRetrigged())
+	{
 
 	}
 
-	manager.updateFX();
+	if (bEnable) manager.updateFX();
+}
+
+//--------------------------------------------------------------
+void ofxSurfingFxPro::draw()
+{
+	manager.draw(bEnable);
 }
 
 //--------------------------------------------------------------
@@ -354,18 +437,17 @@ void ofxSurfingFxPro::drawGui() {
 
 	drawImGui();
 
-	if (bGui_Internal) manager.drawGui();//original ofxGui 
-	
-	if (bDebug) 
+	if (bGui_Internal) manager.drawGui(); // original ofxGui 
+
+	if (bDebug)
 	{
 		manager.drawDebug();
 		notifier.drawFPS(ofxDC_ALIGNMENT::TOP_RIGHT);
 	}
 
-	presetsManager.drawGui(); 
-	
-	randomizer.drawGui();
+	presetsManager.drawGui();
 
+	randomizer.drawGui();
 }
 
 //--------------------------------------------------------------
@@ -377,13 +459,14 @@ void ofxSurfingFxPro::drawImGuiMain()
 	if (guiManager.beginWindowSpecial(bGui))
 	{
 		guiManager.AddLabelHuge("FX PRO");
-		guiManager.Add(bEnable, OFX_IM_TOGGLE_BIG_XXL_BORDER);
+		guiManager.Add(bEnable, OFX_IM_TOGGLE_BIG_BORDER);
 		guiManager.AddSpacingBigSeparated();
 
 		guiManager.Add(guiManager.bMinimize, OFX_IM_TOGGLE_BUTTON_ROUNDED_MEDIUM);
 		guiManager.Add(bKeys_FX, OFX_IM_TOGGLE_BUTTON_ROUNDED_MEDIUM);
 
-		if (bKeys_FX) {
+		if (bKeys_FX)
+		{
 			string s = string("Key controls goes from ") + getFirstKey() + string(" to ") + getLastKey();
 			guiManager.AddTooltip(s);
 
@@ -402,13 +485,15 @@ void ofxSurfingFxPro::drawImGuiMain()
 		guiManager.Add(bGui_Toggles, OFX_IM_TOGGLE_ROUNDED_BIG);
 
 		// Controls
+		guiManager.Indent();
 		guiManager.Add(bGui_Controls, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
-		
-		guiManager.AddSpacingSeparated();
+		guiManager.Unindent();
+
+		//guiManager.AddSpacingSeparated();
 
 		// Presets Manager
 		guiManager.Add(presetsManager.bGui, OFX_IM_TOGGLE_ROUNDED_BIG);
-		
+
 		// Randomizer
 		guiManager.Add(randomizer.bGui, OFX_IM_TOGGLE_ROUNDED_BIG);
 
@@ -416,55 +501,77 @@ void ofxSurfingFxPro::drawImGuiMain()
 
 		if (!guiManager.bMinimize)
 		{
-			guiManager.AddSpacingSeparated();
+			if (bGui_Controls) {
+				guiManager.AddSpacingSeparated();
 
-			guiManager.AddLabelBig("Control Settings"/*, true, true*/);
-			if (guiManager.AddButton("SAVE", OFX_IM_BUTTON_MEDIUM, 2))
-			{
-				ofxSurfingHelpers::save(manager.params_Controls);
+				guiManager.AddLabelBig("Controls"/*, true, true*/);
+				if (guiManager.AddButton("SAVE", OFX_IM_BUTTON_MEDIUM, 2))
+				{
+					ofxSurfingHelpers::save(manager.params_Controls);
+				}
+				guiManager.AddTooltip("Save Controls. \nIndependently of Toggle states, \nhandled by Presets");
+				guiManager.SameLine();
+				if (guiManager.AddButton("LOAD", OFX_IM_BUTTON_MEDIUM, 2))
+				{
+					ofxSurfingHelpers::load(manager.params_Controls);
+				}
+				guiManager.AddTooltip("Load Controls. \nIndependently of Toggle states, \nhandled by Presets");
+				guiManager.Add(bAutoSave);
+				guiManager.AddTooltip("Auto Store and Recall Controls Settings on the next App session.\nExcept for Toggles, that are handled by the Presets Manager!");
 			}
-			guiManager.AddTooltip("Save Controls. \nIndependently of Toggle states, \nhandled by Presets");
-			guiManager.SameLine();
-			if (guiManager.AddButton("LOAD", OFX_IM_BUTTON_MEDIUM, 2))
-			{
-				ofxSurfingHelpers::load(manager.params_Controls);
-			}
-			guiManager.AddTooltip("Load Controls. \nIndependently of Toggle states, \nhandled by Presets");
+
 			guiManager.AddSpacingBigSeparated();
 
-			guiManager.AddLabelBig("Helpers"/*, true, true*/);
-			guiManager.Add(manager.bNone, OFX_IM_BUTTON, 2, true);
-			guiManager.Add(manager.bAll, OFX_IM_BUTTON, 2);
-			guiManager.AddSpacingSeparated();
+			//--
 
-			static bool bOpen = false;
-			ImGuiColorEditFlags _flagw = (bOpen ? ImGuiWindowFlags_NoCollapse : ImGuiWindowFlags_None);
-			if (ImGui::CollapsingHeader("RANDOMIZERS", _flagw))
+			// Extra
+
+			guiManager.Add(guiManager.bExtra, OFX_IM_TOGGLE_BUTTON_ROUNDED);
+			if (guiManager.bExtra)
 			{
-				guiManager.refreshLayout();
-				//guiManager.AddLabelBig("Randomizers", true, true);
-				guiManager.Add(randomProb);
-				guiManager.Add(bRandom, OFX_IM_BUTTON_MEDIUM);
-				guiManager.AddTooltip("Randomize params but using Prob: \nbigger is too much toggles will be ON");
+				guiManager.Indent();
 
-				guiManager.Add(bPlayRandoms, OFX_IM_TOGGLE_MEDIUM_BORDER_BLINK);
-				if (bPlayRandoms) {
-					guiManager.Add(playSpeed);
-					guiManager.AddTooltip("Faster is 4 random trigs per second. \nSlower is one for each passed 2 seconds.");
+				//guiManager.AddLabelBig("Helpers"/*, true, true*/);
+				//guiManager.Add(manager.bNone, OFX_IM_BUTTON, 2, true);
+				//guiManager.Add(manager.bAll, OFX_IM_BUTTON, 2);
+				//guiManager.AddSpacingSeparated();
+
+				static bool bOpen = false;
+				ImGuiColorEditFlags _flagw = (bOpen ? ImGuiWindowFlags_NoCollapse : ImGuiWindowFlags_None);
+				if (ImGui::CollapsingHeader("RANDOMIZERS", _flagw))
+				{
+					guiManager.refreshLayout();
+					//guiManager.AddLabelBig("Randomizers", true, true);
+					guiManager.Add(randomProb);
+					guiManager.Add(bRandom, OFX_IM_BUTTON_MEDIUM);
+					guiManager.AddTooltip("Randomize params but using Prob: \nWhen bigger too much toggles will be ON");
+
+					guiManager.Add(bPlayRandoms, OFX_IM_TOGGLE_MEDIUM_BORDER_BLINK);
+					if (bPlayRandoms) {
+						guiManager.Add(playSpeed);
+						guiManager.AddTooltip("Faster is 4 random trigs per second. \nSlower is one for each passed 2 seconds.");
+					}
 				}
+				guiManager.refreshLayout();
+				guiManager.AddSpacingSeparated();
+
+				//--
+
+				//// not required
+				//guiManager.AddLabelBig("Debug", true, true);
+				//guiManager.Add(bGui_Internal, OFX_IM_TOGGLE_ROUNDED_MINI);
+				//guiManager.Add(bDebug, OFX_IM_TOGGLE_ROUNDED_MINI);
+
+				//guiManager.AddLabelBig("WORKFLOW"/*, true, true*/);
+				guiManager.Add(bGuiWorkflow, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
+				guiManager.AddTooltip("Automatically Hide or Show useful windows, \nor parts of the GUI, depending of the enabled sections \nor the usual App workflow.");
+				guiManager.Add(guiManager.getGuiToggleOrganizer(), OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
+				guiManager.AddTooltip("Panel for organizing and aligning the GUI windows \non the App window layout.");
+				guiManager.Unindent();
 			}
-			guiManager.refreshLayout();
-			guiManager.AddSpacingSeparated();
-
-			//// not required
-			//guiManager.AddLabelBig("Debug", true, true);
-			//guiManager.Add(bGui_Internal, OFX_IM_TOGGLE_ROUNDED_MINI);
-			//guiManager.Add(bDebug, OFX_IM_TOGGLE_ROUNDED_MINI);
-
-			guiManager.AddLabelBig("WORKFLOW"/*, true, true*/);
-			guiManager.Add(bGuiWorkflow, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
-			guiManager.Add(guiManager.getGuiToggleOrganizer(), OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
 		}
+
+		//--
 
 		// Help
 		guiManager.AddSpacingBigSeparated();
@@ -481,11 +588,11 @@ void ofxSurfingFxPro::drawImGuiControls()
 {
 	//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW;
 
-	// Constraint Window Shape
-	float w = 250;
-	ImVec2 size_min = ImVec2(w, -1);
-	ImVec2 size_max = ImVec2(w + 0, -1);
-	ImGui::SetNextWindowSizeConstraints(size_min, size_max);
+	//// Constraint Window Shape
+	//float w = 275;
+	//ImVec2 size_min = ImVec2(w, -1);
+	//ImVec2 size_max = ImVec2(w + 0, -1);
+	//ImGui::SetNextWindowSizeConstraints(size_min, size_max);
 
 	if (guiManager.beginWindowSpecial(bGui_Controls))
 	{
@@ -502,6 +609,11 @@ void ofxSurfingFxPro::drawImGuiToggles()
 
 	if (guiManager.beginWindowSpecial(bGui_Toggles))
 	{
+		//guiManager.AddLabelBig("Helpers"/*, true, true*/);
+		guiManager.Add(manager.bNone, OFX_IM_BUTTON, 2, true);
+		guiManager.Add(manager.bAll, OFX_IM_BUTTON, 2);
+		guiManager.AddSpacingSeparated();
+
 		guiManager.AddGroup(manager.params_Toggles);
 
 		guiManager.endWindowSpecial();
@@ -533,17 +645,29 @@ void ofxSurfingFxPro::drawImGui()
 
 //---------------------------------------
 void ofxSurfingFxPro::begin() {
-	if (bEnable) manager.begin();
+	//if (bEnable) manager.begin();
+
+	manager.begin();
 }
+
 //---------------------------------------
 void ofxSurfingFxPro::begin(ofCamera& cam) {//begin to draw scene inside to process!
-	if (bEnable) manager.begin(cam);
-	else cam.begin();
+	//if (bEnable) manager.begin(cam);
+	//else cam.begin();
+
+	manager.begin(cam);
 }
+
 //---------------------------------------
-void ofxSurfingFxPro::end() {//ends the drawn scene and draws processed image!
-	if (bEnable) manager.end();
+void ofxSurfingFxPro::end(bool autoDraw) {//ends the drawn scene and draws processed image!
+	//if (bEnable) manager.end(autoDraw);
+
+	manager.end(autoDraw);
+
+	//manager.end();
+	//if (bEnable) manager.end();
 	//else cam.end();//why not required to end cam?
+	//TODO: bug something happens after end... 2d stuff is drawn wrongly...
 }
 
 //--------------------------------------------------------------
@@ -586,6 +710,8 @@ void ofxSurfingFxPro::exit()
 	ofRemoveListener(params.parameterChangedE(), this, &ofxSurfingFxPro::Changed);
 
 	ofRemoveListener(manager.params_Toggles.parameterChangedE(), this, &ofxSurfingFxPro::Changed_Enablers);
+
+	if (bAutoSave) ofxSurfingHelpers::save(manager.params_Controls);
 }
 
 //--------------------------------------------------------------
@@ -687,8 +813,9 @@ void ofxSurfingFxPro::doRandomFXAll(float prob)
 
 	//--
 
-	// Undo Engine
-#ifdef USE__OFX_SURFING__OFX_SURFING_UNDO_HELPER 
-	presetsManager.undoManager.doSaveUndoWhenAuto();
-#endif
+	// Presets only handles toggles!
+//	// Undo Engine
+//#ifdef USE__OFX_SURFING__OFX_SURFING_UNDO_HELPER 
+//	presetsManager.undoManager.doSaveUndoWhenAuto();
+//#endif
 }
