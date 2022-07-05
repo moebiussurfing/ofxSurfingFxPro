@@ -14,8 +14,8 @@ ofxSurfingFxPro::ofxSurfingFxPro()
 
 	//TODO: fix log silencers
 	//ofSetLogLevel("ofxPostProcessingManager", OF_LOG_ERROR);
-	//ofSetLogLevel(OF_LOG_SILENT);
-	ofSetLogLevel("ofxSurfingFxPro", OF_LOG_SILENT);
+	ofSetLogLevel(OF_LOG_SILENT);
+	//ofSetLogLevel("ofxSurfingFxPro", OF_LOG_SILENT);
 }
 
 //--------------------------------------------------------------
@@ -115,7 +115,7 @@ void ofxSurfingFxPro::setupParams()
 
 	*/
 
-	presetsManager.setDiablePlayer();//simplify bc we have the randomizer player
+	//presetsManager.setDiablePlayer();//simplify bc we have the randomizer player
 
 	presetsManager.addGroup(manager.params_Toggles);
 

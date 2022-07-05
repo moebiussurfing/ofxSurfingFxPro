@@ -43,6 +43,7 @@
 #ifdef USE_WEBCAM
 #include "SurfingWebcam.h"
 #endif
+#include "ofxWindowApp.h"
 
 #define NUM_BOXES 100
 
@@ -97,4 +98,6 @@ public:
 	ofxSurfing_ImGui_Manager guiManager;
 
 	ofxSurfingFxPro fxPro;
+
+	ofxWindowApp w;
 };

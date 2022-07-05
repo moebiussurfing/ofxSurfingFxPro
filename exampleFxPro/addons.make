@@ -7,3 +7,4 @@ ofxSurfingPlayer
 ofxSurfingPresets
 ofxSurfingRandomizer
 ofxSurfingUndoHelper
+ofxWindowApp
