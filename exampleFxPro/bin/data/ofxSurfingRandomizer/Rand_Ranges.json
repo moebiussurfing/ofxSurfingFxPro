@@ -7,7 +7,7 @@
                 "Min": "0.1"
             },
             "Angle": {
-                "Angle": "3.90103",
+                "Angle": "2.5695",
                 "Max": "5.65487",
                 "Min": "0.628319"
             },
@@ -17,17 +17,17 @@
                 "Min": "0.1"
             },
             "Blur_X": {
-                "Blur_X": "0.000953125",
+                "Blur_X": "0.00174148",
                 "Max": "0.009",
                 "Min": "0.001"
             },
             "Blur_Y": {
-                "Blur_Y": "0.000953125",
+                "Blur_Y": "0.00410312",
                 "Max": "0.009",
                 "Min": "0.001"
             },
             "Brightness": {
-                "Brightness": "0",
+                "Brightness": "-0.224299",
                 "Max": "0.8",
                 "Min": "-0.8"
             },
@@ -50,27 +50,27 @@
                 "Min": "0.9, 0.9"
             },
             "Center_XY": {
-                "Center_XY": "0.5, 0.5",
+                "Center_XY": "0.9, 0.9",
                 "Max": "0.9, 0.9",
                 "Min": "0.9, 0.9"
             },
             "Column": {
-                "Column": "0.26713",
+                "Column": "0.74512",
                 "Max": "0.9",
                 "Min": "0.1"
             },
             "Contrast": {
-                "Contrast": "0",
+                "Contrast": "0.747215",
                 "Max": "0.8",
                 "Min": "-0.8"
             },
             "Count": {
-                "Count": "1096",
+                "Count": "3264.41",
                 "Max": "9000.1",
                 "Min": "1000.9"
             },
             "Density": {
-                "Density": "0.25",
+                "Density": "0.504114",
                 "Max": "0.9",
                 "Min": "0.1"
             },
@@ -85,12 +85,12 @@
                 "Min": "2"
             },
             "Distort_X": {
-                "Distort_X": "0.0391075",
+                "Distort_X": "-0.12941",
                 "Max": "0.8",
                 "Min": "-0.8"
             },
             "Distort_Y": {
-                "Distort_Y": "-0.072703",
+                "Distort_Y": "0.134771",
                 "Max": "0.8",
                 "Min": "-0.8"
             },
@@ -101,12 +101,12 @@
                 "ENABLE_Fog": "0"
             },
             "Exposure": {
-                "Exposure": "1",
+                "Exposure": "0.147902",
                 "Max": "0.9",
                 "Min": "0.1"
             },
             "Focus": {
-                "Focus": "0.35",
+                "Focus": "0.127686",
                 "Max": "0.9",
                 "Min": "0.1"
             },
@@ -121,12 +121,12 @@
                 "Min": "200"
             },
             "Glow_Amount": {
-                "Glow_Amount": "0.5",
+                "Glow_Amount": "0.3983",
                 "Max": "0.9",
                 "Min": "0.1"
             },
             "Glow_Size": {
-                "Glow_Size": "4",
+                "Glow_Size": "13.9027",
                 "Max": "18",
                 "Min": "2"
             },
@@ -139,7 +139,7 @@
                 "Min": "51.2"
             },
             "Light": {
-                "Light": "0.3",
+                "Light": "0.209842",
                 "Max": "0.9",
                 "Min": "0.1"
             },
@@ -156,17 +156,17 @@
             "N_Intensity": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "N_Intensity": "0.5"
+                "N_Intensity": "0.761788"
             },
             "Offset": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "Offset": "0.05"
+                "Offset": "0.443907"
             },
             "Opacity": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "Opacity": "0.1"
+                "Opacity": "0.46942"
             },
             "Phase": {
                 "Max": "0.9",
@@ -176,17 +176,17 @@
             "Pos": {
                 "Max": "0.9, 0.9, 0.9",
                 "Min": "0.9, 0.9, 0.9",
-                "Pos": "0, 0, 0"
+                "Pos": "0.9, 0.9, 0.9"
             },
             "RGB_Shift_Amt": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "RGB_Shift_Amt": "0.01"
+                "RGB_Shift_Amt": "0.525697"
             },
             "Range": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "Range": "0.5"
+                "Range": "0.483874"
             },
             "Red_Min_DIV": {
                 "Max": "460.9",
@@ -206,12 +206,12 @@
             "S_Intensity": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "S_Intensity": "0.5"
+                "S_Intensity": "0.319025"
             },
             "Saturation": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "Saturation": "0"
+                "Saturation": "0.317194"
             },
             "Scale": {
                 "Max": "0.9",
@@ -251,22 +251,22 @@
             "Speed": {
                 "Max": "4.5",
                 "Min": "0.5",
-                "Speed": "1"
+                "Speed": "0.784554"
             },
             "Strength": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "Strength": "0.5"
+                "Strength": "0.132398"
             },
             "Vignt_Darkness": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "Vignt_Darkness": "1"
+                "Vignt_Darkness": "0.621793"
             },
             "Vignt_Offset": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "Vignt_Offset": "1"
+                "Vignt_Offset": "0.455089"
             },
             "Volume": {
                 "Max": "0.9",
@@ -276,7 +276,7 @@
             "Weight": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "Weight": "0.25"
+                "Weight": "0.804977"
             }
         },
         "Params": {

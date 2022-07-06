@@ -81,7 +81,7 @@ void ofxSurfingFxPro::setupParams()
 	params_AppSettings.add(bEnable);
 	params_AppSettings.add(bKeys_FX);
 	params_AppSettings.add(bKeys_FX_ToggleMode);
-	
+
 	//could be removed instead of randomizer addon
 	params_AppSettings.add(playSpeed);
 	params_AppSettings.add(bPlayRandoms);
@@ -216,17 +216,50 @@ void ofxSurfingFxPro::buildHelp()
 		std::string helpInfo = "";
 
 		helpInfo += "FxPro \n";
-		helpInfo += "HELP \n\n";
+		helpInfo += "HELP \n";
 		helpInfo += "\n";
 		helpInfo += "KEY COMMANDS \n";
 		helpInfo += "\n";
+
 		helpInfo += "G                GUI \n";
 		helpInfo += "H                HELP APP \n";
-		//	helpInfo += "\n";
-		//	helpInfo += "F1               TOGGLES \n";
-		//	helpInfo += "F2               CONTROLS \n";
-		//	helpInfo += "F3               PRESETS \n";
-		//	helpInfo += "F4               RANDOMIZER \n";
+		helpInfo += "\n";
+		helpInfo += "F1               TOGGLES \n";
+		helpInfo += "F2               CONTROLS \n";
+		helpInfo += "F3               PRESETS \n";
+		helpInfo += "F4               RANDOMIZER \n";
+		helpInfo += "\n";
+
+		if (!bKeys_FX)
+		{
+			helpInfo += "KEYS FX toggle is disabled. \n";
+			helpInfo += "Enable that toggle! \n";
+		}
+		else {
+			helpInfo += "FX \n";
+			helpInfo += "q to v           FX TOGGLES \n";
+			helpInfo += "SHIFT            Latch on MODE TOGGLE \n";
+		}
+		helpInfo += "\n";
+
+		if (!presetsManager.bKeys)
+		{
+			helpInfo += "Presets KEYS toggle is disabled. \n";
+			helpInfo += "Enable that toggle! \n";
+		}
+		else {
+			helpInfo += "PRESETS \n";
+			helpInfo += "1 to 9           BROWSE \n";
+			helpInfo += "< >              PREVIOUS / NEXT \n";
+			helpInfo += "SPACE            NEXT \n";
+			helpInfo += "Ctrl+SPACE       PLAY \n";
+		}
+		helpInfo += "\n";
+
+		helpInfo += "NOTE \n";
+		helpInfo += "Take care when enabling many KEYS toggles \n";
+		helpInfo += "from different add-ons at the same time. \n";
+		helpInfo += "Key commands could collide! \n";
 
 		guiManager.setHelpInfoApp(helpInfo);
 	}
@@ -425,6 +458,8 @@ void ofxSurfingFxPro::update(ofEventArgs& args)
 		}
 	}
 
+	//--
+
 	//TODO:
 	// Undo Engine
 	if (randomizer.isRandomized())
@@ -435,13 +470,37 @@ void ofxSurfingFxPro::update(ofEventArgs& args)
 //#endif
 	}
 
+	//--
+
 	//TODO:
 	if (presetsManager.isRetrigged())
 	{
 
 	}
 
+	//--
+
 	if (bEnable) manager.updateFX();
+
+	//--
+
+	// Update help info when keys toggle changed
+	// TODO: should link all sections / add-ons
+	// easy callback
+
+	bool bUpdate = false;
+	static bool bKeys_FX_ = !bKeys_FX;
+	static bool presetsManagerbKeys_ = !presetsManager.bKeys;
+	if (bKeys_FX_ != bKeys_FX) {
+		bKeys_FX_ = bKeys_FX;
+		bUpdate = true;
+	}
+	if (presetsManagerbKeys_ != presetsManager.bKeys) {
+		presetsManagerbKeys_ = presetsManager.bKeys;
+		bUpdate = true;
+	}
+	
+	if(bUpdate) buildHelp();
 }
 
 //--------------------------------------------------------------
@@ -743,10 +802,15 @@ void ofxSurfingFxPro::keyPressed(int key)
 		if (key == OF_KEY_LEFT_SHIFT) bShiftPressed = true;
 	}
 
+	if (key == OF_KEY_F1) bGui_Toggles = !bGui_Toggles;
+	if (key == OF_KEY_F2) bGui_Controls = !bGui_Controls;
+	if (key == OF_KEY_F3) presetsManager.bGui = !presetsManager.bGui;
+	if (key == OF_KEY_F4) randomizer.bGui = !randomizer.bGui;
+
 	//--
 
-	if (key == OF_KEY_F9) manager.doEnableNone();
-	if (key == OF_KEY_F9) doRandomFXAll(randomProb);
+	//if (key == OF_KEY_F9) manager.doEnableNone();
+	//if (key == OF_KEY_F10) doRandomFXAll(randomProb);
 
 	//else if (key == 'G') bGui = !bGui;
 }
