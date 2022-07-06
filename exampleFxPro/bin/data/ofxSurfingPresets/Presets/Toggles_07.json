@@ -1,0 +1,27 @@
+{
+    "Toggles": {
+        "BLOOM": "0",
+        "DITHER": "0",
+        "DOT_SCREEN": "0",
+        "FILM_GRAIN": "1",
+        "FILTER_ACES_FILM": "0",
+        "FXAA": "0",
+        "GLITCH_AUTOMATED": "0",
+        "GLITCH_BAD_TV": "1",
+        "GLITCH_DIGITAL": "0",
+        "GOD_RAYS": "1",
+        "KALEIODOSCOPE": "0",
+        "LIMBDARKENING": "1",
+        "NOISEWRAP": "0",
+        "NOISE_GRAINS": "0",
+        "PIXELATE": "0",
+        "RGBSHIFT": "1",
+        "RIMBLIGHTING": "1",
+        "SPACE_COLORS_SHADER": "0",
+        "SSAO": "0",
+        "STROBBER": "1",
+        "SUPER_SHADER": "1",
+        "TILT_SHIFT": "1",
+        "ZOOMBLUR": "0"
+    }
+}

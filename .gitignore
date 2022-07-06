@@ -4,7 +4,7 @@
 
 ##-------------------------------
 
-## can exclude some sttings files
+exampleFxPro/addons/*
 
 ## macOS files
 config.make
@@ -13,13 +13,16 @@ openFrameworks-Info.plist
 Project.xcconfig
 icon.rc
 
+## scripts
 *.ps1
 *.bat
-*.ini
-*.XML
-*.xml
-*.JSON
-*.json
+
+## settings
+# *.ini
+# *.XML
+# *.xml
+# *.JSON
+# *.json
 
 #*/bin/*
 #!*/bin/data/

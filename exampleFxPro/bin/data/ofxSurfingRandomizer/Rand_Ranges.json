@@ -1,0 +1,342 @@
+{
+    "Ranges_Editor": {
+        "Controls": {
+            "Amount": {
+                "Amount": "0.02",
+                "Max": "1",
+                "Min": "0.663"
+            },
+            "Angle": {
+                "Angle": "3.57352",
+                "Max": "6.283",
+                "Min": "3.953"
+            },
+            "AoClamp": {
+                "AoClamp": "0.361",
+                "Max": "0.9",
+                "Min": "0.1"
+            },
+            "Blur_X": {
+                "Blur_X": "0.002",
+                "Max": "0.009",
+                "Min": "0"
+            },
+            "Blur_Y": {
+                "Blur_Y": "0.002",
+                "Max": "0.01",
+                "Min": "0.006"
+            },
+            "Brightness": {
+                "Brightness": "0.119",
+                "Max": "0.8",
+                "Min": "-0.8"
+            },
+            "Bypass": {
+                "Bypass": "0"
+            },
+            "Cam_Far": {
+                "Cam_Far": "623.762",
+                "Max": "1800",
+                "Min": "200"
+            },
+            "Cam_Near": {
+                "Cam_Near": "1297.03",
+                "Max": "1800",
+                "Min": "200"
+            },
+            "Center": {
+                "Center": "1, 1",
+                "Max": "0.9, 0.9",
+                "Min": "0.9, 0.9"
+            },
+            "Center_XY": {
+                "Center_XY": "0.667, 0.693",
+                "Max": "0.9, 0.9",
+                "Min": "0.9, 0.9"
+            },
+            "Column": {
+                "Column": "0.0025244",
+                "Max": "0.9",
+                "Min": "0.1"
+            },
+            "Contrast": {
+                "Contrast": "0.505",
+                "Max": "0.8",
+                "Min": "-0.8"
+            },
+            "Count": {
+                "Count": "3462.19",
+                "Max": "9000.1",
+                "Min": "1000.9"
+            },
+            "Density": {
+                "Density": "0.035",
+                "Max": "0.9",
+                "Min": "0.1"
+            },
+            "Distort_1": {
+                "Distort_1": "1.386",
+                "Max": "18",
+                "Min": "2"
+            },
+            "Distort_2": {
+                "Distort_2": "0.396",
+                "Max": "18",
+                "Min": "2"
+            },
+            "Distort_X": {
+                "Distort_X": "0",
+                "Max": "0.8",
+                "Min": "-0.8"
+            },
+            "Distort_Y": {
+                "Distort_Y": "0.151903",
+                "Max": "0.8",
+                "Min": "-0.8"
+            },
+            "ENABLE_Ao": {
+                "ENABLE_Ao": "0"
+            },
+            "ENABLE_Fog": {
+                "ENABLE_Fog": "1"
+            },
+            "Exposure": {
+                "Exposure": "1",
+                "Max": "0.9",
+                "Min": "0.1"
+            },
+            "Focus": {
+                "Focus": "0.183",
+                "Max": "0.9",
+                "Min": "0.1"
+            },
+            "Fog_Far": {
+                "Fog_Far": "1603.96",
+                "Max": "1800",
+                "Min": "200"
+            },
+            "Fog_Near": {
+                "Fog_Near": "514.852",
+                "Max": "1800",
+                "Min": "200"
+            },
+            "Glow_Amount": {
+                "Glow_Amount": "0.109",
+                "Max": "0.9",
+                "Min": "0.1"
+            },
+            "Glow_Size": {
+                "Glow_Size": "5.842",
+                "Max": "18",
+                "Min": "2"
+            },
+            "GrayScale": {
+                "GrayScale": "0"
+            },
+            "Intensity": {
+                "Intensity": "311.762",
+                "Max": "460.8",
+                "Min": "51.2"
+            },
+            "Light": {
+                "Light": "0.451",
+                "Max": "0.9",
+                "Min": "0.1"
+            },
+            "Light_Color": {
+                "Light_Color": "3, 1.041, 3",
+                "Max": "2.7, 2.7, 2.7",
+                "Min": "2.7, 2.7, 2.7"
+            },
+            "LumInfluence": {
+                "LumInfluence": "0.752",
+                "Max": "0.9",
+                "Min": "0.1"
+            },
+            "N_Intensity": {
+                "Max": "0.9",
+                "Min": "0.1",
+                "N_Intensity": "0.673"
+            },
+            "Offset": {
+                "Max": "0.9",
+                "Min": "0.1",
+                "Offset": "0.757"
+            },
+            "Opacity": {
+                "Max": "0.9",
+                "Min": "0.1",
+                "Opacity": "0.114"
+            },
+            "Phase": {
+                "Max": "0.9",
+                "Min": "0.1",
+                "Phase": "0.134"
+            },
+            "Pos": {
+                "Max": "0.9, 0.9, 0.9",
+                "Min": "0.9, 0.9, 0.9",
+                "Pos": "0.571, 0, 0.18"
+            },
+            "RGB_Shift_Amt": {
+                "Max": "0.9",
+                "Min": "0.1",
+                "RGB_Shift_Amt": "0"
+            },
+            "Range": {
+                "Max": "0.9",
+                "Min": "0.1",
+                "Range": "0.322"
+            },
+            "Red_Min_DIV": {
+                "Max": "460.9",
+                "Min": "52.1",
+                "Red_Min_DIV": "246.381"
+            },
+            "Red_Mult_DIV": {
+                "Max": "115.3",
+                "Min": "13.7",
+                "Red_Mult_DIV": "128"
+            },
+            "Roll_Speed": {
+                "Max": "0.9",
+                "Min": "0.1",
+                "Roll_Speed": "0.193"
+            },
+            "S_Intensity": {
+                "Max": "0.9",
+                "Min": "0.1",
+                "S_Intensity": "0.077"
+            },
+            "Saturation": {
+                "Max": "0.9",
+                "Min": "0.1",
+                "Saturation": "0"
+            },
+            "Scale": {
+                "Max": "0.9",
+                "Min": "0.1",
+                "Scale": "0.099"
+            },
+            "Seed": {
+                "Max": "0.9",
+                "Min": "0.1",
+                "Seed": "0"
+            },
+            "Seed_X": {
+                "Max": "0.9",
+                "Min": "0.1",
+                "Seed_X": "0"
+            },
+            "Seed_Y": {
+                "Max": "0.9",
+                "Min": "0.1",
+                "Seed_Y": "0.584"
+            },
+            "Segments": {
+                "Max": "16",
+                "Min": "-16",
+                "Segments": "0.594"
+            },
+            "Size": {
+                "Max": "900, 900",
+                "Min": "900, 900",
+                "Size": "1000, 1000"
+            },
+            "Span_Max": {
+                "Max": "115.3",
+                "Min": "13.7",
+                "Span_Max": "75.817"
+            },
+            "Speed": {
+                "Max": "4.5",
+                "Min": "0.5",
+                "Speed": "1.411"
+            },
+            "Strength": {
+                "Max": "0.9",
+                "Min": "0.1",
+                "Strength": "0.114"
+            },
+            "Vignt_Darkness": {
+                "Max": "0.9",
+                "Min": "0.1",
+                "Vignt_Darkness": "0.163"
+            },
+            "Vignt_Offset": {
+                "Max": "0.9",
+                "Min": "0.1",
+                "Vignt_Offset": "0.748"
+            },
+            "Volume": {
+                "Max": "0.9",
+                "Min": "0.1",
+                "Volume": "0"
+            },
+            "Weight": {
+                "Max": "0.9",
+                "Min": "0.1",
+                "Weight": "0.649"
+            }
+        },
+        "Params": {
+            "Amount": "1",
+            "Angle": "1",
+            "AoClamp": "1",
+            "Blur_X": "1",
+            "Blur_Y": "1",
+            "Brightness": "1",
+            "Bypass": "1",
+            "Cam_Far": "1",
+            "Cam_Near": "1",
+            "Center": "1",
+            "Center_XY": "1",
+            "Column": "1",
+            "Contrast": "1",
+            "Count": "1",
+            "Density": "1",
+            "Distort_1": "1",
+            "Distort_2": "1",
+            "Distort_X": "1",
+            "Distort_Y": "1",
+            "ENABLE_Ao": "1",
+            "ENABLE_Fog": "1",
+            "Exposure": "1",
+            "Focus": "1",
+            "Fog_Far": "1",
+            "Fog_Near": "1",
+            "Glow_Amount": "1",
+            "Glow_Size": "1",
+            "GrayScale": "1",
+            "Intensity": "1",
+            "Light": "1",
+            "Light_Color": "1",
+            "LumInfluence": "1",
+            "N_Intensity": "1",
+            "Offset": "1",
+            "Opacity": "1",
+            "Phase": "1",
+            "Pos": "1",
+            "RGB_Shift_Amt": "1",
+            "Range": "1",
+            "Red_Min_DIV": "1",
+            "Red_Mult_DIV": "1",
+            "Roll_Speed": "1",
+            "S_Intensity": "1",
+            "Saturation": "1",
+            "Scale": "1",
+            "Seed": "1",
+            "Seed_X": "1",
+            "Seed_Y": "1",
+            "Segments": "1",
+            "Size": "1",
+            "Span_Max": "1",
+            "Speed": "1",
+            "Strength": "1",
+            "Vignt_Darkness": "1",
+            "Vignt_Offset": "1",
+            "Volume": "1",
+            "Weight": "1"
+        }
+    }
+}
