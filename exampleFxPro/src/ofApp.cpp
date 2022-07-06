@@ -2,10 +2,10 @@
 
 //--------------------------------------------------------------
 void ofApp::setup() {
-	w.setFrameRate(50);
-	w.setVerticalSync(false);
+	//w.setFrameRate(50);
+	//w.setVerticalSync(false);
 
-	ofSetBackgroundColor(0);
+	ofSetBackgroundColor(20);
 
 	setupScene();
 
@@ -59,7 +59,7 @@ void ofApp::setupScene() {
 	cam.disableMouseInput();
 	cam.setupPerspective();
 	cam.setPosition(0, -szScene / 2, szScene);
-	cam.lookAt(glm::vec3(0, -2 * szBox, 0));
+	cam.lookAt(glm::vec3(0, 2 * szBox, 0));
 
 	listener_bCamMouse = bCamMouse.newListener([this](bool&)
 		{
@@ -105,6 +105,15 @@ void ofApp::update()
 			light.disable();
 			ofDisableLighting();
 		}
+	}
+
+	//--
+
+	static bool bModeControl_PRE = !bModeControl;
+	if (bModeControl != bModeControl_PRE) 
+	{
+		bModeControl_PRE = bModeControl;
+		bCamMouse = bModeControl;
 	}
 }
 
@@ -234,6 +243,8 @@ void ofApp::keyPressed(int key)
 	// Hide all GUI
 	if (key == 'G') bGui = !bGui;
 
+	if (key == 'M') bModeControl = true;
+
 	//--
 
 	fxPro.keyPressed(key);
@@ -246,10 +257,10 @@ void ofApp::keyPressed(int key)
 	{
 		if (webcam.bKeys)
 		{
-			// Select next device
+			// Open next device
 			if (key == 'D') webcam.doNextWebcam();
 
-			// Restart device
+			// Restart devices
 			if (key == 'R') webcam.doRestartWebcam();
 		}
 	}
@@ -257,7 +268,10 @@ void ofApp::keyPressed(int key)
 }
 
 //--------------------------------------------------------------
-void ofApp::keyReleased(int key) {
+void ofApp::keyReleased(int key)
+{
+	if (key == 'M') bModeControl = false;
+
 	fxPro.keyReleased(key);
 }
 

@@ -62,6 +62,10 @@ public:
 	void windowResized(int w, int h);
 	void exit();
 
+	ofxSurfingFxPro fxPro;
+
+	ofxSurfing_ImGui_Manager guiManager;
+
 	ofParameterGroup params_ofApp{ "ofApp" };
 	ofParameter<bool> bGui{ "ofApp", true };
 	void drawGui();
@@ -95,11 +99,9 @@ public:
 	ofParameter<bool> bWebcamMode{ "Webcam Mode", true };
 #endif
 
+	bool bModeControl = false;
+
 	//--
-
-	ofxSurfing_ImGui_Manager guiManager;
-
-	ofxSurfingFxPro fxPro;
 
 	ofxWindowApp w;
 };

@@ -265,6 +265,19 @@ public:
 	ofParameterGroup params_Toggles;
 	ofParameterGroup params_Controls;
 
+	int getAmountEffectsEnabled() 
+	{
+		int c = 0;
+		for (int i = 0; i < post.size(); i++)
+		{
+			if (bEnablers[i].getParameter().cast<bool>() )
+			{
+				c++;
+			}
+		}
+		return c;
+	}
+
 private:
 
 	void Changed_Enablers(ofAbstractParameter& e);

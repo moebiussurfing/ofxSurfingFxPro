@@ -24,6 +24,11 @@ public:
 	void setup();
 	void draw();
 	void drawGui();
+	
+private:
+
+	ImGuiTreeNodeFlags fg = ImGuiTreeNodeFlags_DefaultOpen;
+	bool bExpanded = false;
 
 private:
 	
@@ -53,6 +58,7 @@ private:
 	void exit();
 	
 	void setupGuiStyles();
+	void buildHelp();
 
 public:
 

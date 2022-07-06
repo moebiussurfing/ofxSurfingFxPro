@@ -84,10 +84,13 @@ void ofxSurfingFxPro::setupParams()
 	params_AppSettings.add(playSpeed);
 	params_AppSettings.add(bPlayRandoms);
 	params_AppSettings.add(randomProb);
-	params_AppSettings.add(bAutoSave);
-	//params_AppSettings.add(bDebug);
 
-	// Get notified when toggles changed!
+	//params_AppSettings.add(bAutoSave);//commented bc prefer forced to restart true
+	//params_AppSettings.add(bDebug);//commented bc forced disabled
+
+	//--
+
+	// Get notified when any toggle changed!
 	ofAddListener(manager.params_Toggles.parameterChangedE(), this, &ofxSurfingFxPro::Changed_Enablers);
 
 	listener_bEnable = bEnable.newListener([this](bool&)
@@ -201,7 +204,7 @@ void ofxSurfingFxPro::startup()
 }
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::setupGuiStyles()
+void ofxSurfingFxPro::buildHelp()
 {
 	// Help Info
 	{
@@ -222,6 +225,12 @@ void ofxSurfingFxPro::setupGuiStyles()
 
 		guiManager.setHelpInfoApp(helpInfo);
 	}
+}
+
+//--------------------------------------------------------------
+void ofxSurfingFxPro::setupGuiStyles()
+{
+	buildHelp();
 
 	//--
 
@@ -237,9 +246,11 @@ void ofxSurfingFxPro::setupGuiStyles()
 
 	// Controls
 
-	ImGuiTreeNodeFlags fg = ImGuiTreeNodeFlags_DefaultOpen;
+	//ImGuiTreeNodeFlags fg = ImGuiTreeNodeFlags_DefaultOpen;
 
-	SurfingImGuiTypesGroups tON = OFX_IM_GROUP_COLLAPSED;
+	SurfingImGuiTypesGroups tON = (bExpanded ? OFX_IM_GROUP_TREE_EX : OFX_IM_GROUP_COLLAPSED);
+	//SurfingImGuiTypesGroups tON = OFX_IM_GROUP_COLLAPSED;
+
 	SurfingImGuiTypesGroups tOFF = OFX_IM_GROUP_HIDDEN;
 
 	guiManager.AddStyleGroup(manager.gFxaaGroup, (manager.bEnablers[0] ? tON : tOFF), fg);
@@ -265,10 +276,12 @@ void ofxSurfingFxPro::setupGuiStyles()
 	guiManager.AddStyleGroup(manager.gStrobberGroup, (manager.bEnablers[21] ? tON : tOFF), fg);
 	guiManager.AddStyleGroup(manager.gRimbLightGroup, (manager.bEnablers[22] ? tON : tOFF), fg);
 
-	// Hide group headers
-	//TODO: fix heritate
+	//--
+
+	//// Hide group headers
+	////TODO: fix heritate
 	//guiManager.AddStyleGroup(manager.params_Controls, OFX_IM_GROUP_HIDDEN_HEADER);
-	//guiManager.AddStyleGroup(manager.params_Toggles, OFX_IM_GROUP_HIDDEN_HEADER);
+	////guiManager.AddStyleGroup(manager.params_Toggles, OFX_IM_GROUP_HIDDEN_HEADER);
 
 	//--
 
@@ -511,13 +524,13 @@ void ofxSurfingFxPro::drawImGuiMain()
 				{
 					ofxSurfingHelpers::save(manager.params_Controls);
 				}
-				guiManager.AddTooltip("Save Controls. \nIndependently of Toggle states, \nhandled by Presets");
+				guiManager.AddTooltip("Save Controls. \nHandled independently of the Toggle states, \n that are handled by Presets Manager.");
 				guiManager.SameLine();
 				if (guiManager.AddButton("LOAD", OFX_IM_BUTTON_MEDIUM, 2))
 				{
 					ofxSurfingHelpers::load(manager.params_Controls);
 				}
-				guiManager.AddTooltip("Load Controls. \nIndependently of Toggle states, \nhandled by Presets");
+				guiManager.AddTooltip("Load Controls. \nHandled independently of the Toggle states, \n that are handled by Presets Manager.");
 				guiManager.Add(bAutoSave);
 				guiManager.AddTooltip("Auto Store and Recall Controls Settings on the next App session.\nExcept for Toggles, that are handled by the Presets Manager!");
 			}
@@ -588,6 +601,9 @@ void ofxSurfingFxPro::drawImGuiMain()
 //--------------------------------------------------------------
 void ofxSurfingFxPro::drawImGuiControls()
 {
+
+	//if (manager.getAmountEffectsEnabled() == 0) return;
+
 	//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW;
 
 	//// Constraint Window Shape
@@ -598,7 +614,45 @@ void ofxSurfingFxPro::drawImGuiControls()
 
 	if (guiManager.beginWindowSpecial(bGui_Controls))
 	{
+		if (manager.getAmountEffectsEnabled() == 0)
+		{
+			string s = "You must enable one or more FX Toggles! \n\n";
+			s += "Go to TOGGLES window and enable some FX. \n\n";
+			s += "We will see the related parameters for each FX.";
+			guiManager.AddLabel(s, false);
+			guiManager.endWindowSpecial();
+
+			return;
+		}
+
+		//--
+
+//#define SURFING_FIXING_COLLAPSE_GROUP
+#ifdef SURFING_FIXING_COLLAPSE_GROUP
+		static bool bExpanded_PRE = !bExpanded;
+
+		if (guiManager.AddButton("Collapse", OFX_IM_BUTTON, 2)) {
+			fg = ImGuiTreeNodeFlags_None;
+			bExpanded = false;
+		}
+		guiManager.SameLine();
+		if (guiManager.AddButton("Expand", OFX_IM_BUTTON, 2)) {
+			fg = ImGuiTreeNodeFlags_DefaultOpen;
+			bExpanded = true;
+		}
+
+		guiManager.AddSpacingSeparated();
+
+		ImGuiCond cond = ImGuiCond_None;
+		if (bExpanded_PRE != bExpanded) {
+			bExpanded_PRE = bExpanded;
+			cond = ImGuiCond_Once;
+		}
+
+		guiManager.AddGroup(manager.params_Controls, bExpanded, cond);
+#else
 		guiManager.AddGroup(manager.params_Controls);
+#endif
 
 		guiManager.endWindowSpecial();
 	}
@@ -611,7 +665,6 @@ void ofxSurfingFxPro::drawImGuiToggles()
 
 	if (guiManager.beginWindowSpecial(bGui_Toggles))
 	{
-		//guiManager.AddLabelBig("Helpers"/*, true, true*/);
 		guiManager.Add(manager.bNone, OFX_IM_BUTTON, 2, true);
 		guiManager.Add(manager.bAll, OFX_IM_BUTTON, 2);
 		guiManager.AddSpacingSeparated();
