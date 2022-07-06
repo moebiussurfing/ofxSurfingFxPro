@@ -1,14 +1,14 @@
 {
     "Index_Editor": {
         "RANDOM_INDEX_CONTROLS": {
-            "Avoid_Repeat": "0",
+            "Avoid_Repeat": "1",
             "DURATION": {
                 "Short_0": "0",
                 "Short_1": "0",
                 "Short_2": "0",
-                "Short_3": "1",
-                "Short_4": "1",
-                "Short_5": "1",
+                "Short_3": "0",
+                "Short_4": "0",
+                "Short_5": "0",
                 "Short_6": "1",
                 "Short_7": "1",
                 "Short_8": "1"
@@ -26,10 +26,10 @@
                 "Prob_7": "1",
                 "Prob_8": "1"
             },
-            "t2_Ratio": "0.109",
-            "t_BPM": "60",
-            "t_Duration": "2000"
+            "t2_Ratio": "0.25",
+            "t_BPM": "120",
+            "t_Duration": "1000"
         },
-        "RAND_INDEX_EDIT": "1"
+        "RAND_INDEX_EDIT": "0"
     }
 }

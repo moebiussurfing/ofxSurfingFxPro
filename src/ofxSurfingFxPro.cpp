@@ -78,15 +78,20 @@ void ofxSurfingFxPro::setupParams()
 	params_AppSettings.add(bGui_Controls);
 	params_AppSettings.add(bGui_Toggles);
 	params_AppSettings.add(bGui_Internal);
+	params_AppSettings.add(bEnable);
 	params_AppSettings.add(bKeys_FX);
 	params_AppSettings.add(bKeys_FX_ToggleMode);
-	params_AppSettings.add(bEnable);
+	
+	//could be removed instead of randomizer addon
 	params_AppSettings.add(playSpeed);
 	params_AppSettings.add(bPlayRandoms);
 	params_AppSettings.add(randomProb);
 
+	//params_AppSettings.add(randomizer.bGui);
+	//params_AppSettings.add(randomizer.bGui_Main);
+
 	//params_AppSettings.add(bAutoSave);//commented bc prefer forced to restart true
-	//params_AppSettings.add(bDebug);//commented bc forced disabled
+	//params_AppSettings.add(bDebug);//commented bc forced to restart disabled
 
 	//--
 
@@ -199,7 +204,7 @@ void ofxSurfingFxPro::startup()
 
 	//TODO: fix
 	// Force visible on first start 
-	randomizer.setGuiVisible(true);
+	//randomizer.setGuiVisible(true);
 	//presetsManager.setGuiVisible(true);
 }
 
@@ -616,10 +621,12 @@ void ofxSurfingFxPro::drawImGuiControls()
 	{
 		if (manager.getAmountEffectsEnabled() == 0)
 		{
-			string s = "You must enable one or more FX Toggles! \n\n";
-			s += "Go to TOGGLES window and enable some FX. \n\n";
-			s += "We will see the related parameters for each FX.";
-			guiManager.AddLabel(s, false);
+			string s = "You must Enable one or more FX Toggles!";
+			guiManager.AddLabelBig(s, false, true);
+			s = "Go to TOGGLES window and Enable some FX. \n";
+			s += "You will see each FX's parameters here.";
+			guiManager.AddLabel(s, false, true);
+
 			guiManager.endWindowSpecial();
 
 			return;
@@ -627,6 +634,8 @@ void ofxSurfingFxPro::drawImGuiControls()
 
 		//--
 
+		//TODO:
+		// requires deep ofxSurfingImGui API remake
 //#define SURFING_FIXING_COLLAPSE_GROUP
 #ifdef SURFING_FIXING_COLLAPSE_GROUP
 		static bool bExpanded_PRE = !bExpanded;

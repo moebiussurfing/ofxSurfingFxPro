@@ -7,8 +7,8 @@
         "KEYS_FX": "1",
         "MODE_TOGGLE": "0",
         "PLAY_RANDOMS": "0",
-        "Prob": "0.05",
-        "Speed": "1",
+        "Prob": "0.5",
+        "Speed": "0.5",
         "TOGGLES": "1"
     }
 }

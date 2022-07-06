@@ -26,7 +26,7 @@
     {
         "extra_settings": {
             "debugPerformance": "1",
-            "fps": "50",
+            "fps": "60",
             "lockMode": "0",
             "miniPreset": "0",
             "showInfo": "0",

@@ -4,14 +4,14 @@
         "DITHER": "0",
         "DOT_SCREEN": "0",
         "FILM_GRAIN": "1",
-        "FILTER_ACES_FILM": "0",
+        "FILTER_ACES_FILM": "1",
         "FXAA": "0",
         "GLITCH_AUTOMATED": "0",
         "GLITCH_BAD_TV": "0",
         "GLITCH_DIGITAL": "0",
         "GOD_RAYS": "0",
         "KALEIODOSCOPE": "0",
-        "LIMBDARKENING": "0",
+        "LIMBDARKENING": "1",
         "NOISEWRAP": "0",
         "NOISE_GRAINS": "0",
         "PIXELATE": "0",
@@ -22,6 +22,6 @@
         "STROBBER": "0",
         "SUPER_SHADER": "0",
         "TILT_SHIFT": "0",
-        "ZOOMBLUR": "0"
+        "ZOOMBLUR": "1"
     }
 }

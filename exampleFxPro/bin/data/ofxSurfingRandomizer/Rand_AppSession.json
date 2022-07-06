@@ -3,7 +3,7 @@
         "Clicker": {
             "ButtsRow": "3",
             "Extra": "0",
-            "Minimize": "1",
+            "Minimize": "0",
             "Responsive": "1"
         },
         "Help": "0",
@@ -12,12 +12,12 @@
         "MODE_PARAMS": "0",
         "Minimize": "0",
         "PLAY": "0",
-        "RAND": "0",
+        "RAND": "1",
         "RAND_INDEX": "0",
-        "RAND_MAIN": "1",
+        "RAND_MAIN": "0",
         "RAND_PARAMS": "0",
         "RAND_RANGES": "0",
-        "Speed": "0.639",
+        "Speed": "0.5",
         "Target": "0"
     }
 }

@@ -96,7 +96,7 @@ public:
 #ifdef USE_WEBCAM
 	SurfingWebcam webcam;
 	
-	ofParameter<bool> bWebcamMode{ "Webcam Mode", true };
+	ofParameter<bool> bWebcamMode{ "Webcam Mode", false };
 #endif
 
 	bool bModeControl = false;
