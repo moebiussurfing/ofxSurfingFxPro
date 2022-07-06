@@ -225,6 +225,7 @@ void ofxSurfingFxPro::buildHelp()
 		helpInfo += "H                HELP APP \n";
 		helpInfo += "\n";
 
+		helpInfo += "PANELS \n";
 		helpInfo += "F1               TOGGLES \n";
 		helpInfo += "F2               CONTROLS \n";
 		helpInfo += "F3               PRESETS \n";

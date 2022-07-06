@@ -1,9 +1,9 @@
 {
     "WindowsSpecials": {
         "Enablers": {
-            "EDITOR": "1",
-            "PARAMETERS": "1",
-            "PRESETS": "1"
+            "EDITOR": "0",
+            "PARAMETERS": "0",
+            "PRESETS": "0"
         },
         "Organizer": {
             "Align_Shapes": "1",
@@ -12,7 +12,7 @@
             "ORGANIZER": "0",
             "Orientation": "0",
             "Pad": "0",
-            "Position_Anchor": "1383, 231",
+            "Position_Anchor": "1330, 238",
             "SHOW_GLOBAL": "1",
             "ShapesX": "1",
             "ShapesY": "0"
