@@ -27,12 +27,14 @@ public:
 	void draw(bool bEnabled = true)
 	{
 		if (bEnabled) {
+			//draw processed
 			ofPushStyle();
 			ofSetColor(255, 255, 255);
 			post.draw();
 			ofPopStyle();
 		}
 		else {
+			//draw un-processed
 			//requires to be flipped..
 			float w = ofGetWidth();
 			float h = ofGetHeight();
@@ -123,6 +125,8 @@ public:
 private:
 
 	// Settings
+	
+	// not used. could be removed
 	void processOpenFileSelection(ofFileDialogResult openFileResult);
 	void savePresetPressed();
 	void loadPreset();

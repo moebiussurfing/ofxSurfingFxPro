@@ -30,7 +30,7 @@
 
 //--
  
-//#define USE_WEBCAM // -> Optional
+#define USE_WEBCAM // -> Optional
 
 //----
 
@@ -46,6 +46,8 @@
 #include "ofxWindowApp.h"
 
 #define NUM_BOXES 100
+
+//--
 
 class ofApp : public ofBaseApp
 {

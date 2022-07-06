@@ -2,23 +2,27 @@
 
 //--------------------------------------------------------------
 void ofApp::setup() {
+	w.setFrameRate(50);
+	w.setVerticalSync(false);
+
 	ofSetBackgroundColor(0);
-	ofSetWindowPosition(-1920, 25);
 
 	setupScene();
 
 	//--
 
-	// Settings
+	// App Session Settings
+
 #ifdef USE_WEBCAM
+	webcam.bKeys.makeReferenceTo(guiManager.bKeys);
 	params_Camera.add(bWebcamMode);
 #endif
 	params_Camera.add(bCamMouse);
 	params_Camera.add(bRotate);
 	params_Camera.add(rotateSpeed);
 	params_Camera.add(bLight);
-	params_ofApp.add(params_Camera);
 
+	params_ofApp.add(params_Camera);
 	params_ofApp.add(bGui);
 
 	ofxSurfingHelpers::load(params_ofApp);
@@ -38,6 +42,7 @@ void ofApp::setupScene() {
 	// normal scaling and ofDrawBox() at the moment
 	const int szScene = 500;
 	const int szBox = szScene / 11.f;
+
 	boxMesh = ofMesh::box(szBox, szBox, szBox);
 
 	// Setup box positions
@@ -53,8 +58,8 @@ void ofApp::setupScene() {
 	// Cam
 	cam.disableMouseInput();
 	cam.setupPerspective();
-	cam.setPosition(0, -250, 500);
-	cam.lookAt(glm::vec3(0));
+	cam.setPosition(0, -szScene / 2, szScene);
+	cam.lookAt(glm::vec3(0, -2 * szBox, 0));
 
 	listener_bCamMouse = bCamMouse.newListener([this](bool&)
 		{
@@ -64,18 +69,12 @@ void ofApp::setupScene() {
 		});
 
 	// Light
-	light.setPosition(0, -1000, 500);
+	light.setPosition(0, -2 * szScene, szScene);
 }
 
 //--------------------------------------------------------------
 void ofApp::update()
 {
-	//ofSetWindowTitle(ofToString((int)ofGetFrameRate()));
-
-#ifdef USE_WEBCAM
-	webcam.update();
-#endif
-
 	//--
 
 	// FxPro
@@ -91,7 +90,10 @@ void ofApp::update()
 	else
 #endif
 	{
-		if (bLight) light.enable();
+		if (bLight) {
+			ofEnableLighting();
+			light.enable();
+		}
 
 		fxPro.begin(cam);
 		{
@@ -99,8 +101,10 @@ void ofApp::update()
 		}
 		fxPro.end(false);
 
-		if (bLight) light.disable();
-		ofDisableLighting();
+		if (bLight) {
+			light.disable();
+			ofDisableLighting();
+		}
 	}
 }
 
@@ -133,37 +137,46 @@ void ofApp::drawGui()
 
 	//--
 
+	// ofApp ImGui Window
 	guiManager.begin();
 	{
 		// Set Window Shape
-		float pad = 5;
-		ImVec2 sz = ImVec2(250, 400); // final size could vary when auto resize is enabled...
-		ImVec2 pos = ImVec2(ofGetWidth() - sz.x - pad, pad);
-		ImGui::SetNextWindowPos(pos, ImGuiCond_FirstUseEver);
-		ImGui::SetNextWindowSize(sz, ImGuiCond_FirstUseEver);
+		{
+			float pad = 5;
+			ImVec2 sz = ImVec2(250, 400); // final size could vary when auto resize is enabled...
+			ImVec2 pos = ImVec2(ofGetWidth() - sz.x - pad, pad);
+			ImGui::SetNextWindowPos(pos, ImGuiCond_FirstUseEver);
+			ImGui::SetNextWindowSize(sz, ImGuiCond_FirstUseEver);
+		}
 
 		// Constraint size
 		IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_SMALL;
 
 		if (guiManager.beginWindow("ofApp"))
 		{
-			guiManager.Add(fxPro.bGui, OFX_IM_TOGGLE_ROUNDED_BIG);
+			guiManager.Add(fxPro.bGui, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
 
 			//--
 
 			// Webcam
 #ifdef USE_WEBCAM
-			guiManager.AddSpacingBigSeparated();
-			guiManager.AddLabelBig("Webcam", true, true);
-			guiManager.Add(bWebcamMode);
-			if (bWebcamMode)
 			{
-				if (guiManager.AddButton("Next", OFX_IM_BUTTON, 2, true)) {
-					webcam.doNextWebcam();
-				}if (guiManager.AddButton("Restart", OFX_IM_BUTTON, 2)) {
-					webcam.doRestartWebcam();
+				guiManager.AddSpacingBigSeparated();
+				guiManager.AddLabelBig("Webcam", true, true);
+				guiManager.Add(bWebcamMode);
+				if (bWebcamMode)
+				{
+					guiManager.Add(guiManager.bKeys, OFX_IM_TOGGLE_ROUNDED);
+					if (guiManager.AddButton("Next", OFX_IM_BUTTON, 2, true))
+					{
+						webcam.doNextWebcam();
+					}
+					if (guiManager.AddButton("Restart", OFX_IM_BUTTON, 2))
+					{
+						webcam.doRestartWebcam();
+					}
+					ImGui::Checkbox("Draw info", &webcam.bDrawWebcamInfo);
 				}
-				ImGui::Checkbox("Draw info", &webcam.bDrawWebcamInfo);
 			}
 
 			// Scene Boxes
@@ -187,6 +200,8 @@ void ofApp::drawGui()
 //--------------------------------------------------------------
 void ofApp::drawScene()
 {
+	ofEnableDepthTest();
+
 	ofPushMatrix();
 
 	// Rotate
@@ -229,11 +244,14 @@ void ofApp::keyPressed(int key)
 #ifdef USE_WEBCAM
 	if (bWebcamMode)
 	{
-		// Select next device
-		if (key == 'D') webcam.doNextWebcam();
+		if (webcam.bKeys)
+		{
+			// Select next device
+			if (key == 'D') webcam.doNextWebcam();
 
-		// Restart device
-		if (key == 'R') webcam.doRestartWebcam();
+			// Restart device
+			if (key == 'R') webcam.doRestartWebcam();
+		}
 	}
 #endif
 }

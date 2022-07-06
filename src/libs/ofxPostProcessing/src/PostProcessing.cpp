@@ -148,7 +148,9 @@ namespace itg
         glDisable(GL_LIGHTING);
         ofSetColor(255, 255, 255);
         process();
+
         if (autoDraw) draw();
+        
         glPopAttrib();
         ofPopStyle();
     }
