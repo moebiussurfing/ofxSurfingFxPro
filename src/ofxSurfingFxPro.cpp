@@ -14,8 +14,8 @@ ofxSurfingFxPro::ofxSurfingFxPro()
 
 	//TODO: fix log silencers
 	//ofSetLogLevel("ofxPostProcessingManager", OF_LOG_ERROR);
-	ofSetLogLevel(OF_LOG_SILENT);
 	//ofSetLogLevel("ofxSurfingFxPro", OF_LOG_SILENT);
+	ofSetLogLevel(OF_LOG_SILENT);
 }
 
 //--------------------------------------------------------------
@@ -204,22 +204,24 @@ void ofxSurfingFxPro::startup()
 void ofxSurfingFxPro::setupGuiStyles()
 {
 	// Help Info
-	std::string helpInfo = "";
+	{
+		std::string helpInfo = "";
 
-	helpInfo += "FxPro \n";
-	helpInfo += "HELP \n\n";
-	helpInfo += "\n";
-	helpInfo += "KEY COMMANDS \n";
-	helpInfo += "\n";
-	helpInfo += "G                GUI \n";
-	helpInfo += "H                HELP APP \n";
-//	helpInfo += "\n";
-//	helpInfo += "F1               TOGGLES \n";
-//	helpInfo += "F2               CONTROLS \n";
-//	helpInfo += "F3               PRESETS \n";
-//	helpInfo += "F4               RANDOMIZER \n";
+		helpInfo += "FxPro \n";
+		helpInfo += "HELP \n\n";
+		helpInfo += "\n";
+		helpInfo += "KEY COMMANDS \n";
+		helpInfo += "\n";
+		helpInfo += "G                GUI \n";
+		helpInfo += "H                HELP APP \n";
+		//	helpInfo += "\n";
+		//	helpInfo += "F1               TOGGLES \n";
+		//	helpInfo += "F2               CONTROLS \n";
+		//	helpInfo += "F3               PRESETS \n";
+		//	helpInfo += "F4               RANDOMIZER \n";
 
-	guiManager.setHelpInfoApp(helpInfo);
+		guiManager.setHelpInfoApp(helpInfo);
+	}
 
 	//--
 
@@ -243,9 +245,9 @@ void ofxSurfingFxPro::setupGuiStyles()
 	guiManager.AddStyleGroup(manager.gFxaaGroup, (manager.bEnablers[0] ? tON : tOFF), fg);
 	guiManager.AddStyleGroup(manager.gBloomGroup, (manager.bEnablers[1] ? tON : tOFF), fg);
 	guiManager.AddStyleGroup(manager.gKaliGroup, (manager.bEnablers[2] ? tON : tOFF), fg);
-	// #3, #4
+	// #3, #4 // don't have params
 	guiManager.AddStyleGroup(manager.gGodRaysGroup, (manager.bEnablers[5] ? tON : tOFF), fg);
-	// #6
+	// #6 // don't have params
 	guiManager.AddStyleGroup(manager.gSsaoGroup, (manager.bEnablers[7] ? tON : tOFF), fg);
 	guiManager.AddStyleGroup(manager.gZoomBlurGroup, (manager.bEnablers[8] ? tON : tOFF), fg);
 	guiManager.AddStyleGroup(manager.gRGBGroup, (manager.bEnablers[9] ? tON : tOFF), fg);

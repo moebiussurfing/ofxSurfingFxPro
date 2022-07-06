@@ -15,13 +15,13 @@
 
 class ofxSurfingFxPro
 {
+
 public:
 
 	ofxSurfingFxPro();
 	~ofxSurfingFxPro();
 
 	void setup();
-	//void update();
 	void draw();
 	void drawGui();
 
@@ -144,7 +144,6 @@ private:
 
 	// These methods allows to customize key commands assignments 
 	// In this case to trig the FX toggles.
-
 
 #define NUM_KEY_COMMANDS 36
 
