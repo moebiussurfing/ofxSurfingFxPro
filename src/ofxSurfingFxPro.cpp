@@ -213,11 +213,11 @@ void ofxSurfingFxPro::setupGuiStyles()
 	helpInfo += "\n";
 	helpInfo += "G                GUI \n";
 	helpInfo += "H                HELP APP \n";
-	helpInfo += "\n";
-	helpInfo += "F1               TOGGLES \n";
-	helpInfo += "F2               CONTROLS \n";
-	helpInfo += "F3               PRESETS \n";
-	helpInfo += "F4               RANDOMIZER \n";
+//	helpInfo += "\n";
+//	helpInfo += "F1               TOGGLES \n";
+//	helpInfo += "F2               CONTROLS \n";
+//	helpInfo += "F3               PRESETS \n";
+//	helpInfo += "F4               RANDOMIZER \n";
 
 	guiManager.setHelpInfoApp(helpInfo);
 
