@@ -6,7 +6,8 @@ ofxSurfingFxPro::ofxSurfingFxPro()
 	ofAddListener(ofEvents().update, this, &ofxSurfingFxPro::update);
 
 	path_GLOBAL = "ofxSurfingFxPro/"; // this is to folder all files to avoid mixing with other add-ons data
-	path_Params_AppSettings = "FxPro_Settings.xml";
+	path_Params_AppSettings = "FxPro_AppSettings.xml";
+	path_Params_Controls = "FxPro_Controls.xml";
 
 	setup();
 
@@ -192,7 +193,7 @@ void ofxSurfingFxPro::startup()
 	// Load Control Settings
 	// Not the Toggles! 
 	// Toggles are handled by the Presets Manager!
-	if (bAutoSave) ofxSurfingHelpers::load(manager.params_Controls);
+	if (bAutoSave) ofxSurfingHelpers::loadGroup(manager.params_Controls, path_GLOBAL + path_Params_Controls);
 
 	//--
 
@@ -670,7 +671,7 @@ void ofxSurfingFxPro::drawImGuiControls()
 
 	//if (manager.getAmountEffectsEnabled() == 0) return;
 
-	//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW;
+	IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_MEDIUM;
 
 	//// Constraint Window Shape
 	//float w = 275;
@@ -682,8 +683,12 @@ void ofxSurfingFxPro::drawImGuiControls()
 	{
 		if (manager.getAmountEffectsEnabled() == 0)
 		{
-			string s = "You must Enable one or more FX Toggles!";
+			string s;
+			
+			s = "You must Enable one or more FX Toggles!";
 			guiManager.AddLabelBig(s, false, true);
+			guiManager.AddSpacing();
+
 			s = "Go to TOGGLES window and Enable some FX. \n";
 			s += "You will see each FX's parameters here.";
 			guiManager.AddLabel(s, false, true);
@@ -841,7 +846,8 @@ void ofxSurfingFxPro::exit()
 
 	ofRemoveListener(manager.params_Toggles.parameterChangedE(), this, &ofxSurfingFxPro::Changed_Enablers);
 
-	if (bAutoSave) ofxSurfingHelpers::save(manager.params_Controls);
+	if (bAutoSave) ofxSurfingHelpers::saveGroup(manager.params_Controls, path_GLOBAL + path_Params_Controls);
+
 }
 
 //--------------------------------------------------------------

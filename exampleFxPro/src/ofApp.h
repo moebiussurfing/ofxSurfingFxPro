@@ -8,24 +8,28 @@
 
 	TODO:
 
-	add multi layout presets guiManager. app modes workflow
-		app mode: fx / presets. improve workflow keys/edit/midi..
+	add multi layout presets guiManager. 
+		app modes workflow
+		app mode: fx / presets. 
+		improve workflow keys/edit/midi..
 
 	Could add / split an extra randomizer for params only
 	or disable the presets randomizer
-	Presets only handles toggles!
-	add bool param to doRandomize() to link to undo save
-
-	split vec params in multi lines
+	
+	add bool param to doRandomize() to link to undo manual add
 
 	fix undo path to one single folder
-	fix guiManager path settings sometimes
+
+	ImGui
+		split vec params in multi lines
 
 	fix ImGui special windows
 		link between add-ons
 		main / master window. fix re arranging windows on start..
 		link player window. rename. clean
 		try to link presets window to parent fx pro
+
+	fix guiManager path settings sometimes
 	
 	midi link
 	log silencers

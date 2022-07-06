@@ -18,11 +18,11 @@ icon.rc
 *.bat
 
 ## settings
-# *.ini
-# *.XML
-# *.xml
-# *.JSON
-# *.json
+*.ini
+*.XML
+*.xml
+*.JSON
+*.json
 
 #*/bin/*
 #!*/bin/data/

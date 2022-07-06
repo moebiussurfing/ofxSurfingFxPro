@@ -122,6 +122,7 @@ public:
 private:
 
 	string path_Params_AppSettings;
+	string path_Params_Controls;
 	ofParameterGroup params_AppSettings; // -> To store app settings between sessions
 
 	////--------------------------------------------------------------
