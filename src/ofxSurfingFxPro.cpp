@@ -224,35 +224,36 @@ void ofxSurfingFxPro::buildHelp()
 		helpInfo += "G                GUI \n";
 		helpInfo += "H                HELP APP \n";
 		helpInfo += "\n";
+
 		helpInfo += "F1               TOGGLES \n";
 		helpInfo += "F2               CONTROLS \n";
 		helpInfo += "F3               PRESETS \n";
 		helpInfo += "F4               RANDOMIZER \n";
 		helpInfo += "\n";
 
+		helpInfo += "FX \n";
 		if (!bKeys_FX)
 		{
 			helpInfo += "KEYS FX toggle is disabled. \n";
 			helpInfo += "Enable that toggle! \n";
 		}
 		else {
-			helpInfo += "FX \n";
 			helpInfo += "q to v           FX TOGGLES \n";
 			helpInfo += "SHIFT            Latch on MODE TOGGLE \n";
 		}
 		helpInfo += "\n";
 
+		helpInfo += "PRESETS \n";
 		if (!presetsManager.bKeys)
 		{
-			helpInfo += "Presets KEYS toggle is disabled. \n";
+			helpInfo += "KEYS toggle is disabled. \n";
 			helpInfo += "Enable that toggle! \n";
 		}
 		else {
-			helpInfo += "PRESETS \n";
 			helpInfo += "1 to 9           BROWSE \n";
-			helpInfo += "< >              PREVIOUS / NEXT \n";
+			helpInfo += "< >              \n";
 			helpInfo += "SPACE            NEXT \n";
-			helpInfo += "Ctrl+SPACE       PLAY \n";
+			helpInfo += "+Ctrl            PLAY \n";
 		}
 		helpInfo += "\n";
 

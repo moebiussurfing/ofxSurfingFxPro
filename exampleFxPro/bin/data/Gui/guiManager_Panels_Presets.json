@@ -3,9 +3,9 @@
         "Params_Advanced": {
             "Auto_Resize": "1",
             "Debug": "0",
-            "Help": "1",
+            "Help": "0",
             "Help_App": "0",
-            "Keys": "1",
+            "Keys": "0",
             "Link_Windows": "1",
             "Log": "0",
             "Minimize": "1",
