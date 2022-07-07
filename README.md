@@ -1,7 +1,6 @@
 ## WIP
 
-Core FX powered by **@alptugan** and **@neilmendoza** from:  
-[ofxPostProcessing](https://github.com/alptugan/ofxPostProcessing)
+Core FX powered by **@alptugan** and **@neilmendoza** from: [ofxPostProcessing](https://github.com/alptugan/ofxPostProcessing)
 
 
 ### Dependencies
