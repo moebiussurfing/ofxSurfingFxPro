@@ -1,7 +1,10 @@
+ofxAbletonLink
+ofxBeatClock
 ofxChildFrame
 ofxGui
 ofxHapPlayer
 ofxImGui
+ofxMidi
 ofxNDI
 ofxNDIHelper
 ofxOsc

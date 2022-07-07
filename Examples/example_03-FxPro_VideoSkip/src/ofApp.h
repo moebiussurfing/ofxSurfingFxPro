@@ -7,8 +7,7 @@
 
 TODO:
 
-	+ auto midi knobs to fx
-
+	+ auto midi knobs to FX
 
 */
 

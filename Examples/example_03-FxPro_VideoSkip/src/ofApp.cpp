@@ -75,6 +75,7 @@ void ofApp::drawGui()
 		if (guiManager.beginWindow("videoSkip"))
 		{
 			guiManager.Add(player.bGui, OFX_IM_TOGGLE_BIG_XXL_BORDER_BLINK);
+			//guiManager.Add(player., OFX_IM_TOGGLE_BIG_XXL_BORDER_BLINK);
 			guiManager.endWindow();
 		}
 	}

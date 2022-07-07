@@ -24,14 +24,14 @@ public:
 	void setup();
 	void draw();
 	void drawGui();
-	
+
 private:
 
 	ImGuiTreeNodeFlags fg = ImGuiTreeNodeFlags_DefaultOpen;
 	bool bExpanded = false;
 
 private:
-	
+
 	void update(ofEventArgs& args);
 
 	void setupParams();
@@ -54,9 +54,9 @@ public:
 	void windowResized(int w, int h);
 
 private:
-	
+
 	void exit();
-	
+
 	void setupGuiStyles();
 	void buildHelp();
 
@@ -65,7 +65,7 @@ public:
 	void begin();
 	void begin(ofCamera& cam);
 	void end(bool autoDraw = false);
-	
+
 private:
 
 	ofxPostProcessingManager manager;
@@ -92,7 +92,7 @@ private:
 	ofParameter<bool> bGui_Controls{ "CONTROLS", true };
 	ofParameter<bool> bGui_Toggles{ "TOGGLES", true };
 
-	ofParameter<void> bRandom{ "RANDOM"};
+	ofParameter<void> bRandom{ "RANDOM" };
 	ofParameter<float> randomProb;
 	ofParameter<bool> bPlayRandoms{ "PLAY RANDOMS", false };
 	ofParameter<float> playSpeed;
@@ -100,7 +100,7 @@ private:
 	ofParameter<bool> bKeys_FX;
 	ofParameter<bool> bKeys_FX_ToggleMode;
 	ofParameter<bool> bGuiWorkflow{ "GuiWorkflow", true }; // disable tab workflow to improve speed...
-	ofParameter<bool> bAutoSave{ "Auto Save", true};
+	ofParameter<bool> bAutoSave{ "Auto Save", true };
 
 	ofParameterGroup params;
 
@@ -109,7 +109,7 @@ private:
 	void Changed_Enablers(ofAbstractParameter& e);
 
 	ofxSurfing_ImGui_Manager guiManager;
-	
+
 	ofxSurfingRandomizer randomizer;
 
 	// Settings
@@ -131,6 +131,9 @@ private:
 	//}
 
 	ofParameterGroup params_Preset; // -> We queue params to here!
+
+public:
+
 	ofxSurfingPresets presetsManager; // -> To handle presets.
 
 	//----
@@ -237,7 +240,7 @@ private:
 		if (keyCommandsChars.size() != 0)
 		{
 			int amountRequiredKeys = manager.getAmountEffects();
-			
+
 			string s;
 			if (amountRequiredKeys < keyCommandsChars.size()) {
 				s = keyCommandsChars[amountRequiredKeys - 1];

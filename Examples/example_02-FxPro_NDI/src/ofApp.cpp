@@ -98,7 +98,7 @@ void ofApp::drawGui()
 	fxPro.drawGui();
 
 	// NDI Manager
-	//ndi.draw(); // -> canvas layout
+	//ndi.draw(); // -> All the canvas layout with mini previews.
 	ndi.drawGui();
 }
 
