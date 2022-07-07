@@ -36,3 +36,7 @@ WIP
 
 ## Screencast
 [![surfingFxPro](https://youtube-md.vercel.app/45knSjIz0js/1280/720)](https://www.youtube.com/watch?v=45knSjIz0js)
+
+
+## Tested System
+Windows 10 / Visual Studio 2022 / openFrameworks ~0.11.2 | patch-release branch
