@@ -1,6 +1,6 @@
 ## WIP
 
-Core FX powered by **@alptugan** and **@neilmendoza**:
+Core FX powered by **@alptugan** and **@neilmendoza** from:  
 [ofxPostProcessing](https://github.com/alptugan/ofxPostProcessing)
 
 
@@ -18,7 +18,7 @@ Core FX powered by **@alptugan** and **@neilmendoza**:
 ## example_01-FxPro
 - [ofxWindowApp](https://github.com/moebiussurfing/ofxWindowApp)
 
-![](Capture.PNG)
+![](Examples/example_01-FxPro/Capture.PNG)
 
 
 ## example_02-FxPro_NDI
@@ -29,6 +29,10 @@ Core FX powered by **@alptugan** and **@neilmendoza**:
 - [ofxChildFrame](https://github.com/nariakiiwatani/ofxChildFrame)
 
 ![](Examples/example_02-FxPro_NDI/Capture.PNG)
+
+
+## example_03-FxPro_VideoSkip
+WIP  
 
 
 ## Screencast
