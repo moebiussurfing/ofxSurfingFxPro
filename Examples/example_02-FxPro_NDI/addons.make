@@ -1,7 +1,9 @@
+ofxChildFrame
 ofxGui
 ofxImGui
 ofxNDI
 ofxNDIHelper
+ofxSurfingBox
 ofxSurfingFxPro
 ofxSurfingHelpers
 ofxSurfingImGui

@@ -1,240 +1,105 @@
 #include "ofApp.h"
 
 //--------------------------------------------------------------
-void ofApp::setup() {
-	//w.setFrameRate(50);
-	//w.setVerticalSync(false);
+void ofApp::setup()
+{
+	w.setFrameRate(60);
+	w.setVerticalSync(false);
 
 	ofSetBackgroundColor(20);
-
-	setupScene();
-
-	//--
-
-	// App Session Settings
-
-#ifdef USE_WEBCAM
-	webcam.bKeys.makeReferenceTo(guiManager.bKeys);
-	params_Camera.add(bWebcamMode);
-#endif
-	params_Camera.add(bCamMouse);
-	params_Camera.add(bRotate);
-	params_Camera.add(rotateSpeed);
-	params_Camera.add(bLight);
-
-	params_ofApp.add(params_Camera);
-	params_ofApp.add(bGui);
-
-	ofxSurfingHelpers::load(params_ofApp);
 
 	//--
 
 	// Gui
 	guiManager.setName("ofApp");
 	guiManager.setup();
-}
 
-//--------------------------------------------------------------
-void ofApp::setupScene() {
+	// NDI Manager
+	ndi.setup();
+	params_ofApp.add(ndi.bGui);
+	params_ofApp.add(ndi.bGui_Controls);
 
-	// Boxes
-	// create our own box mesh as there is a bug with
-	// normal scaling and ofDrawBox() at the moment
-	const int szScene = 500;
-	const int szBox = szScene / 11.f;
+	params_ofApp.add(bGui);
 
-	boxMesh = ofMesh::box(szBox, szBox, szBox);
-
-	// Setup box positions
-	for (unsigned i = 0; i < NUM_BOXES; ++i)
-	{
-		posns.push_back(ofVec3f(
-			ofRandom(-szScene, szScene),
-			ofRandom(-szScene, szScene),
-			ofRandom(-szScene, szScene)));
-		cols.push_back(ofColor::fromHsb(255 * i / (float)NUM_BOXES, 255, 255, 255));
-	}
-
-	// Cam
-	cam.disableMouseInput();
-	cam.setupPerspective();
-	cam.setPosition(0, -szScene / 2, szScene);
-	cam.lookAt(glm::vec3(0, 2 * szBox, 0));
-
-	listener_bCamMouse = bCamMouse.newListener([this](bool&)
-		{
-			ofLogNotice("ofApp") << "bCamMouse: " << bCamMouse;
-			if (bCamMouse) cam.enableMouseInput();
-			else cam.disableMouseInput();
-		});
-
-	// Light
-	light.setPosition(0, -2 * szScene, szScene);
+	//--
+	
+	// Startup
+	ofxSurfingHelpers::load(params_ofApp);
 }
 
 //--------------------------------------------------------------
 void ofApp::update()
 {
-	//--
-
 	// FxPro
-#ifdef USE_WEBCAM
-	if (bWebcamMode)
 	{
 		fxPro.begin();
 		{
-			webcam.drawWebcam();
+			// Feed NDI In 1, NDI In 2 and/or Webcam source signals to FX processor input.
+			// Which sources will be selected by the GUI
+			
+			ndi.draw();
+
+			//ndi.draw_NDI_IN_1();
+			//ndi.draw_NDI_IN_2();
+			//ndi.draw_Webcam();
+
+			//ndi.drawSignalsFullScreen();
+			//ndi.drawSignals();
 		}
 		fxPro.end(false);
 	}
-	else
-#endif
+
+	// Feed processed signal to NDI Out sender
+	ndi.begin_NDI_OUT();
 	{
-		if (bLight) {
-			ofEnableLighting();
-			light.enable();
-		}
-
-		fxPro.begin(cam);
-		{
-			drawScene();
-		}
-		fxPro.end(false);
-
-		if (bLight) {
-			light.disable();
-			ofDisableLighting();
-		}
+		fxPro.draw();
 	}
-
-	//--
-
-	static bool bModeControl_PRE = !bModeControl;
-	if (bModeControl != bModeControl_PRE) 
-	{
-		bModeControl_PRE = bModeControl;
-		bCamMouse = bModeControl;
-	}
+	ndi.end_NDI_OUT();
 }
 
 //--------------------------------------------------------------
-void ofApp::draw() {
-
-	ofEnableDepthTest();
-
-	// FxPro
-	fxPro.draw();
-
-	//----
+void ofApp::draw() 
+{
+	drawScene();
 
 	if (!bGui) return;
-
 	ofDisableDepthTest();
-
 	drawGui();
-
-#ifdef USE_WEBCAM
-	if (bWebcamMode) webcam.drawInfo();
-#endif
-}
-
-//--------------------------------------------------------------
-void ofApp::drawGui()
-{
-	// FxPro
-	fxPro.drawGui();
-
-	//--
-
-	// ofApp ImGui Window
-	guiManager.begin();
-	{
-		// Set Window Shape
-		{
-			float pad = 5;
-			ImVec2 sz = ImVec2(250, 400); // final size could vary when auto resize is enabled...
-			ImVec2 pos = ImVec2(ofGetWidth() - sz.x - pad, pad);
-			ImGui::SetNextWindowPos(pos, ImGuiCond_FirstUseEver);
-			ImGui::SetNextWindowSize(sz, ImGuiCond_FirstUseEver);
-		}
-
-		// Constraint size
-		IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_SMALL;
-
-		if (guiManager.beginWindow("ofApp"))
-		{
-			guiManager.Add(fxPro.bGui, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
-
-			//--
-
-			// Webcam
-#ifdef USE_WEBCAM
-			{
-				guiManager.AddSpacingBigSeparated();
-				guiManager.AddLabelBig("Webcam", true, true);
-				guiManager.Add(bWebcamMode);
-				if (bWebcamMode)
-				{
-					guiManager.Add(guiManager.bKeys, OFX_IM_TOGGLE_ROUNDED);
-					if (guiManager.AddButton("Next", OFX_IM_BUTTON, 2, true))
-					{
-						webcam.doNextWebcam();
-					}
-					if (guiManager.AddButton("Restart", OFX_IM_BUTTON, 2))
-					{
-						webcam.doRestartWebcam();
-					}
-					ImGui::Checkbox("Draw info", &webcam.bDrawWebcamInfo);
-				}
-			}
-
-			// Scene Boxes
-			if (!bWebcamMode)
-#endif
-			{
-				guiManager.AddSpacingBigSeparated();
-				guiManager.AddLabelBig("Camera", true, true);
-				guiManager.Add(bCamMouse);
-				guiManager.Add(bRotate);
-				if (bRotate) guiManager.Add(rotateSpeed);
-				guiManager.Add(bLight);
-			}
-
-			guiManager.endWindow();
-		}
-	}
-	guiManager.end();
 }
 
 //--------------------------------------------------------------
 void ofApp::drawScene()
 {
-	ofEnableDepthTest();
+	// FxPro
+	// Draw processed image:
+	fxPro.draw();
+}
 
-	ofPushMatrix();
-
-	// Rotate
+//--------------------------------------------------------------
+void ofApp::drawGui()
+{
+	// ofApp ImGui Window
+	guiManager.begin();
 	{
-		static float r;
-		float step = ofMap(rotateSpeed, 0, 1, 0.025f, 5);
-		if (bRotate) r += step;
-		r = ofWrapDegrees(r);
-		ofRotateYDeg(r);
+		if (guiManager.beginWindow("ofApp"))
+		{
+			guiManager.Add(fxPro.bGui, OFX_IM_TOGGLE_BIG_XXL_BORDER_BLINK);
+			guiManager.AddSpacingBigSeparated();
+
+			guiManager.Add(ndi.bGui, OFX_IM_TOGGLE_BIG_XXL_BORDER_BLINK);
+			if(ndi.bGui) guiManager.Add(ndi.bGui_Controls, OFX_IM_TOGGLE);
+
+			guiManager.endWindow();
+		}
 	}
+	guiManager.end();
 
-	// Draw Boxes
-	for (unsigned i = 0; i < posns.size(); ++i)
-	{
-		ofSetColor(cols[i]);
-		ofPushMatrix();
-		ofTranslate(posns[i]);
-		boxMesh.draw();
-		ofPopMatrix();
-	}
+	// FxPro
+	fxPro.drawGui();
 
-	if (fxPro.bDebug) ofDrawAxis(100);
-
-	ofPopMatrix();
+	// NDI Manager
+	//ndi.draw(); // -> canvas layout
+	ndi.drawGui();
 }
 
 //--------------------------------------------------------------
@@ -243,41 +108,19 @@ void ofApp::keyPressed(int key)
 	// Hide all GUI
 	if (key == 'G') bGui = !bGui;
 
-	if (key == 'M') bModeControl = true;
-
-	//--
-
 	fxPro.keyPressed(key);
-
-	//--
-
-	// Webcam
-#ifdef USE_WEBCAM
-	if (bWebcamMode)
-	{
-		if (webcam.bKeys)
-		{
-			// Open next device
-			if (key == 'D') webcam.doNextWebcam();
-
-			// Restart devices
-			if (key == 'R') webcam.doRestartWebcam();
-		}
-	}
-#endif
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key)
 {
-	if (key == 'M') bModeControl = false;
-
 	fxPro.keyReleased(key);
 }
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h) {
 	fxPro.windowResized(w, h);
+	ndi.windowResized(w, h);
 }
 
 //--------------------------------------------------------------

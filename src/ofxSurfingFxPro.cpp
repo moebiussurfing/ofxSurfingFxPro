@@ -38,9 +38,12 @@ void ofxSurfingFxPro::setPathGlobal(string s) // must call before setup. disable
 //--------------------------------------------------------------
 void ofxSurfingFxPro::setupGui()
 {
+
 	guiManager.setWindowsMode(IM_GUI_MODE_WINDOWS_SPECIAL_ORGANIZER);
 	guiManager.setName("FxPro");
+	
 	guiManager.setup();
+	//guiManager.setup(IM_GUI_MODE_INSTANTIATED_DOCKING);
 
 	guiManager.addWindowSpecial(bGui);
 	guiManager.addWindowSpecial(bGui_Toggles);
@@ -510,6 +513,7 @@ void ofxSurfingFxPro::update(ofEventArgs& args)
 void ofxSurfingFxPro::draw()
 {
 	manager.draw(bEnable);
+
 }
 
 //--------------------------------------------------------------
@@ -535,7 +539,8 @@ void ofxSurfingFxPro::drawGui() {
 //--------------------------------------------------------------
 void ofxSurfingFxPro::drawImGuiMain()
 {
-	IMGUI_SUGAR__WINDOWS_CONSTRAINTSW;
+	//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW;
+	IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_SMALL;
 
 	//if (guiManager.beginWindow(bGui))
 	if (guiManager.beginWindowSpecial(bGui))
@@ -571,10 +576,16 @@ void ofxSurfingFxPro::drawImGuiMain()
 		guiManager.Add(bGui_Controls, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
 		guiManager.Unindent();
 
-		//guiManager.AddSpacingSeparated();
 
 		// Presets Manager
+		guiManager.AddSpacingSeparated();
 		guiManager.Add(presetsManager.bGui, OFX_IM_TOGGLE_ROUNDED_BIG);
+		//if (!presetsManager.bGui) {
+		//	guiManager.Indent();
+		//	presetsManager.draw_ImGui_ClickerSimple(true, false, true, false);
+		//	guiManager.Unindent();
+		//}
+		guiManager.AddSpacingSeparated();
 
 		// Randomizer
 		guiManager.Add(randomizer.bGui, OFX_IM_TOGGLE_ROUNDED_BIG);
@@ -755,6 +766,11 @@ void ofxSurfingFxPro::drawImGui()
 {
 	guiManager.begin();
 	{
+		//guiManager.beginDocking();
+		//{
+		//}
+		//guiManager.endDocking();
+
 		//--
 
 		// Main
@@ -775,24 +791,24 @@ void ofxSurfingFxPro::drawImGui()
 
 //---------------------------------------
 void ofxSurfingFxPro::begin() {
-	//if (bEnable) manager.begin();
-
 	manager.begin();
+
+	//if (bEnable) manager.begin();
 }
 
 //---------------------------------------
 void ofxSurfingFxPro::begin(ofCamera& cam) {//begin to draw scene inside to process!
+	manager.begin(cam);
+
 	//if (bEnable) manager.begin(cam);
 	//else cam.begin();
-
-	manager.begin(cam);
 }
 
 //---------------------------------------
 void ofxSurfingFxPro::end(bool autoDraw) {//ends the drawn scene and draws processed image!
-	//if (bEnable) manager.end(autoDraw);
-
 	manager.end(autoDraw);
+
+	//if (bEnable) manager.end(autoDraw);
 
 	//manager.end();
 	//if (bEnable) manager.end();
