@@ -21,8 +21,8 @@
 
 ## Examples/example_02-FxPro_NDI
 - ofxWindowApp
-- ofxNDI
 - ofxNDIHelper
+- ofxNDI
 - ofxSurfingBox
 - ofxChildFrame
 
