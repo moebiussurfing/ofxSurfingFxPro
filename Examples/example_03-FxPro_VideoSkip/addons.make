@@ -11,6 +11,7 @@ ofxSurfingFxChannel
 ofxSurfingFxPro
 ofxSurfingHelpers
 ofxSurfingImGui
+ofxSurfingMoods
 ofxSurfingPlayer
 ofxSurfingPresets
 ofxSurfingRandomizer
