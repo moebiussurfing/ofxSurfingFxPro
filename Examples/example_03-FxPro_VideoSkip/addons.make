@@ -4,10 +4,7 @@ ofxHapPlayer
 ofxImGui
 ofxNDI
 ofxNDIHelper
-ofxOsc
-ofxRemoteParameters
 ofxSurfingBox
-ofxSurfingFxChannel
 ofxSurfingFxPro
 ofxSurfingHelpers
 ofxSurfingImGui
