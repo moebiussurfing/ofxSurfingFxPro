@@ -1,9 +1,10 @@
 ## WIP
 
 ### Dependencies
-- ofxImGui
+
 - ofxSurfingHelpers
 - ofxSurfingImGui
+- ofxImGui / fork
 - ofxSurfingPlayer
 - ofxSurfingPresets
 - ofxSurfingRandomizer
