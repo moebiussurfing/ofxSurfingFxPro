@@ -8,20 +8,20 @@ Core FX powered by **@alptugan** and **@neilmendoza**:
 
 - [ofxSurfingHelpers](https://github.com/moebiussurfing/ofxSurfingHelpers)
 - [ofxSurfingImGui](https://github.com/moebiussurfing/ofxSurfingImGui)
-- [ofxImGui](https://github.com/Daandelange/ofxImGui/) / Fork
 - [ofxSurfingPlayer](https://github.com/moebiussurfing/ofxSurfingPlayer)
 - [ofxSurfingPresets](https://github.com/moebiussurfing/ofxSurfingPresets)
 - [ofxSurfingRandomizer](https://github.com/moebiussurfing/ofxSurfingRandomizer)
 - [ofxSurfingUndoHelper](https://github.com/moebiussurfing/ofxSurfingUndoHelper)
+- [ofxImGui](https://github.com/Daandelange/ofxImGui/) / Fork
 
 
-## Examples/example_01-FxPro
+## example_01-FxPro
 - [ofxWindowApp](https://github.com/moebiussurfing/ofxWindowApp)
 
 ![](Capture.PNG)
 
 
-## Examples/example_02-FxPro_NDI
+## example_02-FxPro_NDI
 - [ofxWindowApp](https://github.com/moebiussurfing/ofxWindowApp)
 - [ofxNDIHelper](https://github.com/moebiussurfing/ofxNDIHelper)
 - [ofxNDI](https://github.com/leadedge/ofxNDI)
