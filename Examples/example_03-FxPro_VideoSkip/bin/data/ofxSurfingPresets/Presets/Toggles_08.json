@@ -2,7 +2,7 @@
     "Toggles": {
         "BLOOM": "0",
         "DITHER": "0",
-        "DOT_SCREEN": "0",
+        "DOT_SCREEN": "1",
         "FILM_GRAIN": "0",
         "FILTER_ACES_FILM": "0",
         "FXAA": "0",
@@ -16,7 +16,7 @@
         "NOISE_GRAINS": "0",
         "PIXELATE": "0",
         "RGBSHIFT": "0",
-        "RIMBLIGHTING": "1",
+        "RIMBLIGHTING": "0",
         "SPACE_COLORS_SHADER": "0",
         "SSAO": "0",
         "STROBBER": "0",

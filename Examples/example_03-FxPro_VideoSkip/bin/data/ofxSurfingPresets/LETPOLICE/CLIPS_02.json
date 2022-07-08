@@ -8,10 +8,10 @@
         "LOOPB": "1",
         "MODE_BEAT": "1",
         "RESCALE": "3",
-        "REVERSE": "0",
+        "REVERSE": "1",
         "SPEED": "0",
         "START": "0.955882",
-        "T_REV": "1",
-        "T_SKIP": "5"
+        "T_REV": "8",
+        "T_SKIP": "1"
     }
 }

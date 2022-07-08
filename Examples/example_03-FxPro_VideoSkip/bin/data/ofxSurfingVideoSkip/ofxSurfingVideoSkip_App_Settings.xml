@@ -5,5 +5,5 @@
 	<videoFilePath>E:\_DATA\VIDEO\LETPOLICE\LETPOLICE.mov</videoFilePath>
 	<Keys>1</Keys>
 	<AutoHide_Bar>1</AutoHide_Bar>
-	<SKIP_TIMERS>1</SKIP_TIMERS>
+	<SKIP_TIMERS>0</SKIP_TIMERS>
 </AppSettings>

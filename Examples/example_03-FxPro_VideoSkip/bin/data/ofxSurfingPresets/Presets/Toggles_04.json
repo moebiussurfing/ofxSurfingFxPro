@@ -15,13 +15,13 @@
         "NOISEWRAP": "0",
         "NOISE_GRAINS": "1",
         "PIXELATE": "0",
-        "RGBSHIFT": "0",
-        "RIMBLIGHTING": "1",
+        "RGBSHIFT": "1",
+        "RIMBLIGHTING": "0",
         "SPACE_COLORS_SHADER": "0",
         "SSAO": "0",
         "STROBBER": "0",
         "SUPER_SHADER": "1",
         "TILT_SHIFT": "1",
-        "ZOOMBLUR": "0"
+        "ZOOMBLUR": "1"
     }
 }

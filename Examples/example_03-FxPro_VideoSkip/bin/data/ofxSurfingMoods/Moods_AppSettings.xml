@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <ofxSurfingMoods_AppSettings>
 	<COUNT_TO>4</COUNT_TO>
-	<BPM>120</BPM>
+	<BPM>215</BPM>
 	<BARS_LEN>1</BARS_LEN>
 	<MOODS>0</MOODS>
 	<Moods_Advanced>0</Moods_Advanced>
 	<Show_Manual_Slider>1</Show_Manual_Slider>
-	<ENABLE_A>1</ENABLE_A>
+	<ENABLE_A>0</ENABLE_A>
 	<ENABLE_B>1</ENABLE_B>
 	<ENABLE_C>0</ENABLE_C>
-	<STATE_TARGET>3</STATE_TARGET>
+	<STATE_TARGET>6</STATE_TARGET>
 	<B_MODE_MARKOV>0</B_MODE_MARKOV>
 	<A_MODE_RANGED>0</A_MODE_RANGED>
 	<START_LOCKED>0</START_LOCKED>
 	<AVOID_REPEAT>1</AVOID_REPEAT>
 	<C_MODE_MANUAL>1</C_MODE_MANUAL>
-	<MANUAL_CTRL>0.46</MANUAL_CTRL>
+	<MANUAL_CTRL>0.717</MANUAL_CTRL>
 	<Params_Advanced>
 		<Link_Windows>1</Link_Windows>
 		<Auto_Resize>1</Auto_Resize>
@@ -28,7 +28,7 @@
 		<Log>0</Log>
 		<Pad>0</Pad>
 	</Params_Advanced>
-	<Show_Preview_Widget>1</Show_Preview_Widget>
+	<Show_Preview_Widget>0</Show_Preview_Widget>
 	<Custom>1</Custom>
 	<External_Clock>0</External_Clock>
 	<PLAY>1</PLAY>

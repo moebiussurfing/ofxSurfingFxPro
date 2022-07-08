@@ -1,5 +1,3 @@
-ofxAbletonLink
-ofxBeatClock
 ofxChildFrame
 ofxGui
 ofxHapPlayer

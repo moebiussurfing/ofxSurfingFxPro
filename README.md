@@ -21,6 +21,10 @@ Effects Core powered by [**@alptugan**](https://github.com/alptugan) and [**@nei
 
 
 ## example_02-FxPro_NDI
+Receives an incoming video signal from an NDI Input.  
+Does the signal processing and sends to an NDI Output,
+and broadcast to the network.
+
 - [ofxWindowApp](https://github.com/moebiussurfing/ofxWindowApp)
 - [ofxNDIHelper](https://github.com/moebiussurfing/ofxNDIHelper)
 - [ofxNDI](https://github.com/leadedge/ofxNDI)

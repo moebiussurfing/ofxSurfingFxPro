@@ -1,7 +1,7 @@
 {
     "ofApp": {
         "FX_PRO": "0",
-        "NDI_HELPER": "1",
+        "NDI_HELPER": "0",
         "ofApp": "1"
     }
 }

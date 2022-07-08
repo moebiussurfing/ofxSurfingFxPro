@@ -3,7 +3,7 @@
         "Engine_Windows": {
             "Rectangles_Windows": {
                 "rect_Manager": "958, 21, 0, 160, 452",
-                "rect_Panels": "974, 89, 0, 700, 150",
+                "rect_Panels": "627, 132, 0, 700, 150",
                 "rect_Presets": "796, 21, 0, 160, 202"
             },
             "Window_Panels": {

@@ -602,13 +602,13 @@ void ofxSurfingFxPro::drawImGuiMain()
 				{
 					ofxSurfingHelpers::save(manager.params_Controls);
 				}
-				guiManager.AddTooltip("Save Controls. \nHandled independently of the Toggle states, \n that are handled by Presets Manager.");
+				guiManager.AddTooltip("Save Controls. \nHandled independently of the Toggle states, \nthat are handled by Presets Manager.");
 				guiManager.SameLine();
 				if (guiManager.AddButton("LOAD", OFX_IM_BUTTON_MEDIUM, 2))
 				{
 					ofxSurfingHelpers::load(manager.params_Controls);
 				}
-				guiManager.AddTooltip("Load Controls. \nHandled independently of the Toggle states, \n that are handled by Presets Manager.");
+				guiManager.AddTooltip("Load Controls. \nHandled independently of the Toggle states, \nthat are handled by Presets Manager.");
 				guiManager.Add(bAutoSave);
 				guiManager.AddTooltip("Auto Store and Recall Controls Settings on the next App session.\nExcept for Toggles, that are handled by the Presets Manager!");
 			}
