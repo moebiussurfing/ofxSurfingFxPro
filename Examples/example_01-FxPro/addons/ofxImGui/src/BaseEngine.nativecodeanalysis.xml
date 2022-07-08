@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\moebi\OneDrive\Documents\openFrameworks\libs\utf8\include\utf8\</FILEPATH>
+      <FILENAME>core.h</FILENAME>
+      <LINE>53</LINE>
+      <COLUMN>50</COLUMN>
+    </SFA>
+    <DEFECTCODE>26454</DEFECTCODE>
+    <DESCRIPTION>Arithmetic overflow: '-' operation produces a negative unsigned result at compile time (io.5).</DESCRIPTION>
+    <FUNCTION>utf8::internal::SURROGATE_OFFSET</FUNCTION>
+    <DECORATED>?SURROGATE_OFFSET@internal@utf8@@3IB</DECORATED>
+    <FUNCLINE>53</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

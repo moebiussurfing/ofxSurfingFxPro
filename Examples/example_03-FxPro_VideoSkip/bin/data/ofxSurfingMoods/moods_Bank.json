@@ -1,0 +1,47 @@
+[
+    {
+        "preset_A": 0,
+        "preset_B": 0,
+        "preset_C": 0
+    },
+    {
+        "preset_A": 1,
+        "preset_B": 1,
+        "preset_C": 1
+    },
+    {
+        "preset_A": 2,
+        "preset_B": 2,
+        "preset_C": 2
+    },
+    {
+        "preset_A": 3,
+        "preset_B": 3,
+        "preset_C": 3
+    },
+    {
+        "preset_A": 4,
+        "preset_B": 4,
+        "preset_C": 4
+    },
+    {
+        "preset_A": 5,
+        "preset_B": 5,
+        "preset_C": 5
+    },
+    {
+        "preset_A": 6,
+        "preset_B": 6,
+        "preset_C": 6
+    },
+    {
+        "preset_A": 7,
+        "preset_B": 7,
+        "preset_C": 7
+    },
+    {
+        "preset_A": 8,
+        "preset_B": 8,
+        "preset_C": 8
+    }
+]

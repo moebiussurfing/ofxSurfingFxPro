@@ -1,0 +1,17 @@
+{
+    "NDI_INPUT": {
+        "CONTROL": {
+            "DEBUG": "1",
+            "EDIT_BOX": "0",
+            "GUI_POSITION": "905, 5",
+            "LOCK_ASPECT": "1",
+            "SCALE_MODE": "0"
+        },
+        "NDI_INPUT": {
+            "DEVICE": "ofxNDIHelperIN",
+            "DRAW": "1",
+            "ENABLE": "0",
+            "MINI": "1"
+        }
+    }
+}

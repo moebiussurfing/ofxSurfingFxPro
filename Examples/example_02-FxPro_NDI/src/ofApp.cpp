@@ -17,7 +17,6 @@ void ofApp::setup()
 	// NDI Manager
 	ndi.setup();
 	params_ofApp.add(ndi.bGui);
-	params_ofApp.add(ndi.bGui_Controls);
 
 	params_ofApp.add(bGui);
 
@@ -87,7 +86,6 @@ void ofApp::drawGui()
 			guiManager.AddSpacingBigSeparated();
 
 			guiManager.Add(ndi.bGui, OFX_IM_TOGGLE_BIG_XXL_BORDER_BLINK);
-			if(ndi.bGui) guiManager.Add(ndi.bGui_Controls, OFX_IM_TOGGLE);
 
 			guiManager.endWindow();
 		}

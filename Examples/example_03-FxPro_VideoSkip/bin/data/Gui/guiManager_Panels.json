@@ -1,0 +1,42 @@
+{
+    "guiManager": {
+        "Engine_Windows": {
+            "Rectangles_Windows": {
+                "rect_Manager": "958, 21, 0, 160, 452",
+                "rect_Panels": "974, 89, 0, 700, 150",
+                "rect_Presets": "796, 21, 0, 160, 202"
+            },
+            "Window_Panels": {
+                "AutoResize_Panels": "1",
+                "Reset_Panels": "0"
+            },
+            "Window_Presets": {
+                "AutoResize": "1",
+                "Minimize": "1",
+                "Reset": "0"
+            }
+        },
+        "LayoutSettings": {
+            "Auto_Save": "1",
+            "Extra": "0",
+            "Layout_Preset": "3",
+            "Layouts": "0",
+            "Panels": "1",
+            "Solo": "1",
+            "Viewport": "0"
+        },
+        "Manager": "0",
+        "Params_Advanced": {
+            "Auto_Resize": "1",
+            "Debug": "0",
+            "Help": "0",
+            "Help_App": "0",
+            "Keys": "0",
+            "Link_Windows": "1",
+            "Log": "0",
+            "Minimize": "1",
+            "MouseWheel": "1",
+            "Pad": "0"
+        }
+    }
+}

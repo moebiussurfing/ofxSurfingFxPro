@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<interactiveRect>
+	<path>ofxNDIHelper/HelpBox//</path>
+	<x>10</x>
+	<y>10</y>
+	<width>400</width>
+	<height>400</height>
+	<name>HelpBox</name>
+	<isEditing>0</isEditing>
+</interactiveRect>

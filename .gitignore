@@ -17,12 +17,12 @@ icon.rc
 *.ps1
 *.bat
 
-## settings
-*.ini
-*.XML
-*.xml
-*.JSON
-*.json
+# ## settings
+# *.ini
+# *.XML
+# *.xml
+# *.JSON
+# *.json
 
 #*/bin/*
 #!*/bin/data/

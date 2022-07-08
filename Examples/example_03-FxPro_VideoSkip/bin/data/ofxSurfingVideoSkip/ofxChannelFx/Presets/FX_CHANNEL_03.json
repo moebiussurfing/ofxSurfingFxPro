@@ -1,0 +1,38 @@
+{
+    "FX_CHANNEL": {
+        "1_MONOCHROME": {
+            "HIGH": "1",
+            "LOW": "0",
+            "MONOCHROME": "1"
+        },
+        "2_THREE_TONES": {
+            "C0": "0, 0, 0, 255",
+            "C1": "0, 255, 0, 255",
+            "C2": "255, 255, 255, 255",
+            "MIX": "1",
+            "THREETONES": "1",
+            "THRESH_0_1": "0",
+            "THRESH_1_2": "0.4",
+            "THRESH_FADE": "0.1"
+        },
+        "3_HSB": {
+            "BRIGHTNESS": "0",
+            "CONTRAST": "1",
+            "HSB": "1",
+            "HUE": "0",
+            "SATURATION": "1"
+        },
+        "4_DELAY": {
+            "BLENDMODE": "0",
+            "DELAY": "1",
+            "FEEDBACK": "0"
+        },
+        "5_ECHOTRACE": {
+            "ECHOTRACE": "1",
+            "GAIN": "0.7",
+            "HARDCUTOFF": "0",
+            "INVERT": "0",
+            "THRESHOLD": "0.55"
+        }
+    }
+}

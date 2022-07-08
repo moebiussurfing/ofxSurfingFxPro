@@ -1,0 +1,35 @@
+{
+    "Index_Editor": {
+        "RANDOM_INDEX_CONTROLS": {
+            "Avoid_Repeat": "1",
+            "DURATION": {
+                "Short_0": "0",
+                "Short_1": "0",
+                "Short_2": "0",
+                "Short_3": "0",
+                "Short_4": "0",
+                "Short_5": "0",
+                "Short_6": "1",
+                "Short_7": "1",
+                "Short_8": "1"
+            },
+            "Enable": "1",
+            "PLAY_INDEX": "0",
+            "PROBS": {
+                "Prob_0": "10",
+                "Prob_1": "10",
+                "Prob_2": "10",
+                "Prob_3": "5",
+                "Prob_4": "5",
+                "Prob_5": "5",
+                "Prob_6": "1",
+                "Prob_7": "1",
+                "Prob_8": "1"
+            },
+            "t2_Ratio": "0.25",
+            "t_BPM": "120",
+            "t_Duration": "1000"
+        },
+        "RAND_INDEX_EDIT": "0"
+    }
+}
