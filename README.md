@@ -1,11 +1,11 @@
-## ofxSurfingFxPro
+# ofxSurfingFxPro
 **Post FX Processor Engine**  
 openFrameworks / C++  
 
 Effects Core powered by [**@alptugan**](https://github.com/alptugan) and [**@neilmendoza**](https://github.com/neilmendoza) from [ofxPostProcessing](https://github.com/alptugan/ofxPostProcessing).
 
 
-### Dependencies
+## Dependencies
 
 - [ofxSurfingHelpers](https://github.com/moebiussurfing/ofxSurfingHelpers)
 - [ofxSurfingImGui](https://github.com/moebiussurfing/ofxSurfingImGui)
