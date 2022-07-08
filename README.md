@@ -46,4 +46,5 @@ and broadcast to the network.
 
 
 ## Tested System
-Windows 10 / Visual Studio 2022 / openFrameworks ~0.11.2 | patch-release branch
+MS Windows 10 / Visual Studio 2022  
+openFrameworks ~0.11.2 | patch-release branch
