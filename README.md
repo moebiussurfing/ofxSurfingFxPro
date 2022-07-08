@@ -36,7 +36,7 @@ and broadcast to the network.
 
 ## example_03-FxPro_VideoSkip
 WIP  
-![](Examples\example_03-FxPro_VideoSkip\Capture.PNG)
+![](Examples/example_03-FxPro_VideoSkip/Capture.PNG)
 
 ## Screencast
 [![surfingFxPro](https://youtube-md.vercel.app/45knSjIz0js/1280/720)](https://www.youtube.com/watch?v=45knSjIz0js)
