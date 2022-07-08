@@ -1,6 +1,6 @@
 ## WIP
 
-Effects Core powered by [**@alptugan**](https://github.com/alptugan) and [**@neilmendoza**](https://github.com/neilmendoza) from: [ofxPostProcessing](https://github.com/alptugan/ofxPostProcessing)
+Effects Core powered by [**@alptugan**](https://github.com/alptugan) and [**@neilmendoza**](https://github.com/neilmendoza) from [ofxPostProcessing](https://github.com/alptugan/ofxPostProcessing).
 
 
 ### Dependencies
