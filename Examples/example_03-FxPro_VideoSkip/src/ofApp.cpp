@@ -5,8 +5,6 @@ void ofApp::setupPlayer()
 {
 	ofSetWindowTitle("videoSkip");
 
-	//windowApp.setEnableTimerSaver(true);
-
 	player.setup();
 }
 
@@ -40,7 +38,7 @@ void ofApp::setup() {
 	//--
 
 	// Gui
-	guiManager.setName("videoSkip");
+	guiManager.setName("VIDEO SKIP");
 	guiManager.setup();
 }
 
@@ -72,31 +70,28 @@ void ofApp::drawGui()
 		// Constraint size
 		IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_SMALL;
 
-		if (guiManager.beginWindow("videoSkip"))
+		if (guiManager.beginWindow("VIDEO SKIP"))
 		{
 			guiManager.Add(player.bGui, OFX_IM_TOGGLE_BIG_XXL_BORDER_BLINK);
 			//guiManager.Add(player., OFX_IM_TOGGLE_BIG_XXL_BORDER_BLINK);
+
 			guiManager.endWindow();
 		}
 	}
 	guiManager.end();
 }
 
-
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key)
 {
 	// Hide all GUI
 	if (key == 'G') bGui = !bGui;
-
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key)
 {
-
 }
-
 
 //--------------------------------------------------------------
 void ofApp::exit() {

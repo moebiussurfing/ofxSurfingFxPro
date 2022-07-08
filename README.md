@@ -1,8 +1,8 @@
 ## ofxSurfingFxPro
+
 **Post FX Processor Engine**
 
-Effects Core powered by [**@alptugan**](https://github.com/alptugan) and [**@neilmendoza**](https://github.com/neilmendoza) from [ofxPostProcessing](https://github.com/alptugan/ofxPostProcessing).
-
+**Core Effects** Powered by [**@alptugan**](https://github.com/alptugan) and [**@neilmendoza**](https://github.com/neilmendoza) from [ofxPostProcessing](https://github.com/alptugan/ofxPostProcessing).
 
 ### Dependencies
 
@@ -14,12 +14,10 @@ Effects Core powered by [**@alptugan**](https://github.com/alptugan) and [**@nei
 - [ofxSurfingUndoHelper](https://github.com/moebiussurfing/ofxSurfingUndoHelper)
 - [ofxImGui](https://github.com/Daandelange/ofxImGui/) / Fork
 
-
 ## example_01-FxPro
 - [ofxWindowApp](https://github.com/moebiussurfing/ofxWindowApp)
 
 ![](Examples/example_01-FxPro/Capture.PNG)
-
 
 ## example_02-FxPro_NDI
 Receives an incoming video signal from an NDI Input.  
@@ -34,8 +32,9 @@ and broadcast to the network.
 
 ![](Examples/example_02-FxPro_NDI/Capture.PNG)
 
-
 ## example_03-FxPro_VideoSkip
+**WIP**  
+**Video Loop Player**
 - [ofxSurfingVideoSkip](https://github.com/moebiussurfing/ofxSurfingVideoSkip)  
 
 ![](Examples/example_03-FxPro_VideoSkip/Capture.PNG)
@@ -43,6 +42,22 @@ and broadcast to the network.
 ## Screencast
 [![surfingFxPro](https://youtube-md.vercel.app/45knSjIz0js/1280/720)](https://www.youtube.com/watch?v=45knSjIz0js)
 
-
 ## Tested System
-Windows 10 / Visual Studio 2022 / openFrameworks ~0.11.2 | patch-release branch
+Windows 10 / Visual Studio 2022 / openFrameworks ~0.11.2+  
+patch-release branch
+
+## Author
+An add-on by **@moebiusSurfing**  
+*( ManuMolina ) 2019-2021*  
+
+### Contact / Follow
+<p>
+<a href="mailto:moebiussurfing@gmail.com" target="_blank">Email</a> |
+<a href="https://twitter.com/moebiusSurfing/" rel="nofollow">Twitter</a> | 
+<a href="https://www.youtube.com/moebiusSurfing" rel="nofollow">YouTube</a> | 
+<a href="https://www.instagram.com/moebiusSurfing/" rel="nofollow">Instagram</a> | 
+<a href="https://github.com/moebiussurfing" target="_blank">GitHub</a> 
+</p>
+
+### License
+MIT License
