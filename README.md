@@ -1,7 +1,7 @@
 # ofxSurfingFxPro
 
-**Post FX Processor Engine**.  
-openFrameworks / C++.  
+**Post FX Processor Engine**  
+openFrameworks / C++  
 
 **Core Effects** powered by [**@alptugan**](https://github.com/alptugan) and [**@neilmendoza**](https://github.com/neilmendoza) from [ofxPostProcessing](https://github.com/alptugan/ofxPostProcessing).
 
@@ -59,7 +59,7 @@ patch-release branch
 
 ## Author
 An add-on by **@moebiusSurfing**  
-*( ManuMolina ) 2022*  
+*( ManuMolina ) 2022*.  
 ### Contact / Follow
 <p>
 <a href="mailto:moebiussurfing@gmail.com" target="_blank">Email</a> |
