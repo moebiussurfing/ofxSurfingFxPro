@@ -2,7 +2,6 @@ ofxChildFrame
 ofxGui
 ofxHapPlayer
 ofxImGui
-ofxMidi
 ofxNDI
 ofxNDIHelper
 ofxSurfingBox
@@ -15,5 +14,4 @@ ofxSurfingPresets
 ofxSurfingRandomizer
 ofxSurfingUndoHelper
 ofxSurfingVideoSkip
-ofxUndo
 ofxWindowApp
