@@ -35,7 +35,8 @@ and broadcast to the network.
 
 
 ## example_03-FxPro_VideoSkip
-WIP  
+- [ofxSurfingVideoSkip](https://github.com/moebiussurfing/ofxSurfingVideoSkip)  
+
 ![](Examples/example_03-FxPro_VideoSkip/Capture.PNG)
 
 ## Screencast
