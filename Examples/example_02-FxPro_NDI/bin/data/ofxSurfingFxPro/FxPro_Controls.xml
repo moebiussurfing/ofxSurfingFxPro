@@ -39,11 +39,11 @@
         },
         "GLITCH_DIGITAL": {
             "Amount": "0.006",
-            "Angle": "0.519268",
+            "Angle": "2.33575",
             "Bypass": "0",
-            "Column": "0.601827",
-            "Distort_X": "-0.0658147",
-            "Distort_Y": "0.227539",
+            "Column": "0.689907",
+            "Distort_X": "0.500597",
+            "Distort_Y": "-0.019106",
             "Seed": "0.02",
             "Seed_X": "0.02",
             "Seed_Y": "0.02"

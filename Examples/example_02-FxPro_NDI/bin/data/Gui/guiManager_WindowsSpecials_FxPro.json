@@ -2,7 +2,7 @@
     "WindowsSpecials": {
         "Enablers": {
             "CONTROLS": "0",
-            "FX_PRO": "1",
+            "FX_PRO": "0",
             "PRESETS": "1",
             "TOGGLES": "1"
         },
@@ -13,7 +13,7 @@
             "ORGANIZER": "0",
             "Orientation": "0",
             "Pad": "0",
-            "Position_Anchor": "196, 65",
+            "Position_Anchor": "243, 69",
             "SHOW_GLOBAL": "1",
             "ShapesX": "1",
             "ShapesY": "0"

@@ -24,8 +24,9 @@ public:
 	void exit();
 
 	ofxSurfingFxPro fxPro;
-
 	ofxSurfing_ImGui_Manager guiManager;
+	SurfingNDIManager ndi;
+	ofxWindowApp w;
 
 	ofParameterGroup params_ofApp{ "ofApp" };
 	ofParameter<bool> bGui{ "ofApp", true };
@@ -33,8 +34,8 @@ public:
 	void drawGui();
 	void drawScene();
 
-	ofxWindowApp w;
-
-	SurfingNDIManager ndi;
-
+	ofEventListener listener_bGui1;
+	ofEventListener listener_bGui2;
+	void refreshToggles();
+	bool bExclusive = false;
 };

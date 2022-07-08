@@ -19,7 +19,7 @@
         "RIMBLIGHTING": "1",
         "SPACE_COLORS_SHADER": "1",
         "SSAO": "0",
-        "STROBBER": "1",
+        "STROBBER": "0",
         "SUPER_SHADER": "0",
         "TILT_SHIFT": "1",
         "ZOOMBLUR": "1"

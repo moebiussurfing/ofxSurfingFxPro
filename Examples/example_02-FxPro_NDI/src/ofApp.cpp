@@ -16,14 +16,34 @@ void ofApp::setup()
 
 	// NDI Manager
 	ndi.setup();
-	params_ofApp.add(ndi.bGui);
 
 	params_ofApp.add(bGui);
+	params_ofApp.add(ndi.bGui);
+	params_ofApp.add(fxPro.bGui);
 
 	//--
-	
+
+	listener_bGui1 = ndi.bGui.newListener([this](bool& b) {
+		refreshToggles();
+		});
+
+	listener_bGui2 = fxPro.bGui.newListener([this](bool& b) {
+		refreshToggles();
+		});
+
+	//--
+
 	// Startup
 	ofxSurfingHelpers::load(params_ofApp);
+}
+
+//--------------------------------------------------------------
+void ofApp::refreshToggles()
+{
+	if (bExclusive) {
+		if (ndi.bGui) fxPro.bGui = false;
+		//if (fxPro.bGui) ndi.bGui = false;
+	}
 }
 
 //--------------------------------------------------------------
@@ -35,15 +55,8 @@ void ofApp::update()
 		{
 			// Feed NDI In 1, NDI In 2 and/or Webcam source signals to FX processor input.
 			// Which sources will be selected by the GUI
-			
-			ndi.draw();
 
-			//ndi.draw_NDI_IN_1();
-			//ndi.draw_NDI_IN_2();
-			//ndi.draw_Webcam();
-
-			//ndi.drawSignalsFullScreen();
-			//ndi.drawSignals();
+			ndi.drawSignalsFullScreen();
 		}
 		fxPro.end(false);
 	}
@@ -57,12 +70,13 @@ void ofApp::update()
 }
 
 //--------------------------------------------------------------
-void ofApp::draw() 
+void ofApp::draw()
 {
 	drawScene();
 
 	if (!bGui) return;
 	ofDisableDepthTest();
+
 	drawGui();
 }
 
@@ -82,8 +96,14 @@ void ofApp::drawGui()
 	{
 		if (guiManager.beginWindow("ofApp"))
 		{
+			ImGui::Checkbox("Exclusive", &bExclusive);
+
+			guiManager.AddSpacingBig();
+
 			guiManager.Add(fxPro.bGui, OFX_IM_TOGGLE_BIG_XXL_BORDER_BLINK);
-			guiManager.AddSpacingBigSeparated();
+
+			//guiManager.AddSpacingBigSeparated();
+			guiManager.AddSpacingBig();
 
 			guiManager.Add(ndi.bGui, OFX_IM_TOGGLE_BIG_XXL_BORDER_BLINK);
 
@@ -96,8 +116,8 @@ void ofApp::drawGui()
 	fxPro.drawGui();
 
 	// NDI Manager
-	//ndi.draw(); // -> All the canvas layout with mini previews.
 	ndi.drawGui();
+	//ndi.draw(); // -> All the canvas layout with mini previews.
 }
 
 //--------------------------------------------------------------

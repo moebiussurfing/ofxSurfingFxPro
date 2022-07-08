@@ -6,22 +6,22 @@
             "ofxGui": "0"
         },
         "NDI_OUTPUT": {
-            "DRAW": "1",
+            "DRAW": "0",
             "EDIT_BOX": "0",
             "ENABLE": "1",
-            "MINI": "1",
+            "MINI": "0",
             "NAME": "oF"
         },
         "PANELS": {
-            "IN_1": "0",
+            "IN_1": "1",
             "IN_2": "0",
-            "OUT": "1",
-            "WEBCAM": "1"
+            "OUT": "0",
+            "WEBCAM": "0"
         },
         "WEBCAM": {
-            "DRAW": "1",
+            "DRAW": "0",
             "EDIT_BOX": "1",
-            "ENABLE": "1",
+            "ENABLE": "0",
             "LOCK_ASPECT": "1",
             "MINI": "0",
             "SCALE_MODE": "0"

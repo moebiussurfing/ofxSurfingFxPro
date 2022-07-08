@@ -1,16 +1,16 @@
 {
     "NDI_INPUT": {
         "CONTROL": {
-            "DEBUG": "1",
+            "DEBUG": "0",
             "EDIT_BOX": "0",
             "GUI_POSITION": "680, 5",
             "LOCK_ASPECT": "1",
             "SCALE_MODE": "0"
         },
         "NDI_INPUT": {
-            "DEVICE": "ofxNDIHelperIN",
+            "DEVICE": "SURFINGMACHINE (VLC)",
             "DRAW": "1",
-            "ENABLE": "0",
+            "ENABLE": "1",
             "MINI": "1"
         }
     }
