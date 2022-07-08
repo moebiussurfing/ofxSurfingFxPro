@@ -1,7 +1,7 @@
 # ofxSurfingFxPro
 
-**Post FX Processor Engine**  
-openFrameworks / C++  
+**Post FX Processor Engine**.  
+openFrameworks / C++.  
 
 **Core Effects** powered by [**@alptugan**](https://github.com/alptugan) and [**@neilmendoza**](https://github.com/neilmendoza) from [ofxPostProcessing](https://github.com/alptugan/ofxPostProcessing).
 
@@ -16,14 +16,18 @@ openFrameworks / C++
 - [ofxImGui](https://github.com/Daandelange/ofxImGui/) / Fork
 
 ## example_01-FxPro
+
 - [ofxWindowApp](https://github.com/moebiussurfing/ofxWindowApp)
 
 ![](Examples/example_01-FxPro/Capture.PNG)
 
 ## example_02-FxPro_NDI
+
 **Receives** an incoming **video signal** from an **NDI Input**.  
 Does the signal **processing** and **sends** to an **NDI Output**,
 and **broadcast** to the network.
+
+#### Dependencies
 
 - [ofxWindowApp](https://github.com/moebiussurfing/ofxWindowApp)
 - [ofxNDIHelper](https://github.com/moebiussurfing/ofxNDIHelper)
@@ -34,8 +38,12 @@ and **broadcast** to the network.
 ![](Examples/example_02-FxPro_NDI/Capture.PNG)
 
 ## example_03-FxPro_VideoSkip
+
 **WIP**  
-Video Loop Player Engine.  
+_Video Loop Player Engine_.  
+
+#### Dependencies
+
 - [ofxSurfingVideoSkip](https://github.com/moebiussurfing/ofxSurfingVideoSkip)  
 
 ![](Examples/example_03-FxPro_VideoSkip/Capture.PNG)
