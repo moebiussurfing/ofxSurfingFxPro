@@ -34,14 +34,12 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void exit();
 
-	void drawGui();
-
-	ofxSurfing_ImGui_Manager guiManager;
-
 	ofParameterGroup params_ofApp{ "ofApp" };
 	ofParameter<bool> bGui{ "ofApp", true };
 
+	ofxSurfing_ImGui_Manager guiManager;
 	ofxSurfingVideoSkip player;
-
 	ofxWindowApp w;
+
+	void drawGui();
 };

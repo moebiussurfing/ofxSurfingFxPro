@@ -1,0 +1,111 @@
+{
+    "Controls": {
+        "BLOOM": {
+            "Blur_X": "0.0032945",
+            "Blur_Y": "0.00167165"
+        },
+        "DITHER": {
+            "Scale": "0.760713"
+        },
+        "DOT_SCREEN": {
+            "Angle": "2.68898",
+            "Center": "0.9, 0.9",
+            "Scale": "0.140846",
+            "Size": "900, 900"
+        },
+        "FILM_GRAIN": {
+            "Count": "2574.28",
+            "GrayScale": "0",
+            "N_Intensity": "0.595083",
+            "S_Intensity": "0.417319"
+        },
+        "FILTER_ACES_FILM": {
+            "Exposure": "0.717646"
+        },
+        "FXAA": {
+            "Red_Min_DIV": "339.135",
+            "Red_Mult_DIV": "32.301",
+            "Span_Max": "110.416"
+        },
+        "GLITCH_AUTOMATED": {
+            "Amount": "0.671135",
+            "Speed": "0.316779"
+        },
+        "GLITCH_BAD_TV": {
+            "Distort_1": "10.2488",
+            "Distort_2": "7.80584",
+            "Roll_Speed": "0.514832",
+            "Speed": "3"
+        },
+        "GLITCH_DIGITAL": {
+            "Amount": "0.006",
+            "Angle": "4.53273",
+            "Bypass": "0",
+            "Column": "0.150514",
+            "Distort_X": "0.0505142",
+            "Distort_Y": "-0.112186",
+            "Seed": "0.135328",
+            "Seed_X": "0.353938",
+            "Seed_Y": "0.322663"
+        },
+        "GOD_RAYS": {
+            "Light": "0.599747",
+            "Pos": "0.9, 0.9, 0.9"
+        },
+        "KALEIODOSCOPE": {
+            "Segments": "-11.6122"
+        },
+        "NOISE_GRAINS": {
+            "Amount": "0.377157",
+            "Speed": "0.377059"
+        },
+        "RGBSHIFT": {
+            "Amount": "0.005",
+            "Angle": "0"
+        },
+        "RIMBLIGHTING": {
+            "Intensity": "164.016",
+            "Light_Color": "2.7, 2.7, 2.7"
+        },
+        "SPACE_COLORS_SHADER": {
+            "Opacity": "0.899365",
+            "Speed": "2.98762"
+        },
+        "SSAO": {
+            "AoClamp": "0.30965",
+            "Cam_Far": "1753.12",
+            "Cam_Near": "1660.05",
+            "ENABLE_Ao": "1",
+            "ENABLE_Fog": "0",
+            "Fog_Far": "1659.37",
+            "Fog_Near": "288.284",
+            "LumInfluence": "0.627164"
+        },
+        "STROBBER": {
+            "Phase": "0.256279",
+            "Volume": "0.145558"
+        },
+        "SUPER_SHADER": {
+            "Brightness": "-0.498331",
+            "Contrast": "0.644917",
+            "Glow_Amount": "0.547694",
+            "Glow_Size": "2.8262",
+            "RGB_Shift_Amt": "0.188919",
+            "Saturation": "0.785812",
+            "Vignt_Darkness": "0.210355",
+            "Vignt_Offset": "0.780782"
+        },
+        "TILT_SHIFT": {
+            "Focus": "0.373983",
+            "Offset": "0.717402",
+            "Range": "0.513196",
+            "Strength": "0.229618"
+        },
+        "ZOOMBLUR": {
+            "Center_XY": "0.9, 0.9",
+            "Density": "0.389682",
+            "Exposure": "0.708686",
+            "Weight": "0.86726"
+        }
+    }
+}
