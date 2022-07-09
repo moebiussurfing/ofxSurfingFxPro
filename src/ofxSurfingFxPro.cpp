@@ -513,7 +513,6 @@ void ofxSurfingFxPro::update(ofEventArgs& args)
 void ofxSurfingFxPro::draw()
 {
 	manager.draw(bEnable);
-
 }
 
 //--------------------------------------------------------------

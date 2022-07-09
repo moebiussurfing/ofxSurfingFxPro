@@ -40,7 +40,7 @@ and **broadcast** to the network.
 ## example_03-FxPro_VideoSkip
 
 **WIP**  
-_Video Loop Player Engine_.  
+My personal _Video Loop Player Engine_.  
 
 #### Dependencies
 

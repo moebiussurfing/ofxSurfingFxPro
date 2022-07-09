@@ -28,8 +28,8 @@
             "Span_Max": "42.0278"
         },
         "GLITCH_AUTOMATED": {
-            "Amount": "0.074",
-            "Speed": "0"
+            "Amount": "0.523353",
+            "Speed": "0.357698"
         },
         "GLITCH_BAD_TV": {
             "Distort_1": "0.99",
@@ -38,15 +38,15 @@
             "Speed": "0.198"
         },
         "GLITCH_DIGITAL": {
-            "Amount": "0",
-            "Angle": "3.13287",
+            "Amount": "0.0148719",
+            "Angle": "4.88779",
             "Bypass": "0",
-            "Column": "0.614754",
-            "Distort_X": "-0.3473",
-            "Distort_Y": "0.200546",
+            "Column": "0.50954",
+            "Distort_X": "0.474899",
+            "Distort_Y": "-0.144684",
             "Seed": "0",
-            "Seed_X": "0",
-            "Seed_Y": "0"
+            "Seed_X": "0.211502",
+            "Seed_Y": "0.646159"
         },
         "GOD_RAYS": {
             "Light": "0.85725",
@@ -60,8 +60,8 @@
             "Speed": "0.26248"
         },
         "RGBSHIFT": {
-            "Amount": "0.015",
-            "Angle": "0.342"
+            "Amount": "0.005",
+            "Angle": "0"
         },
         "RIMBLIGHTING": {
             "Intensity": "453.712",

@@ -3,12 +3,12 @@
         "Auto_Resize": "0",
         "Bg": "0, 0, 0, 255",
         "Big": "0",
-        "Docked": "1",
+        "Docked": "0",
         "Edit_Viewport": "1",
         "Extra": "0",
-        "Float": "1",
         "Full_Screen": "1",
+        "Preview": "1",
         "Scale_Mode": "0",
-        "recetParam": "1552.87, 767, 0, 1870.25, 1053"
+        "recetParam": "864.74, 514.867, 0, 904.517, 500.266"
     }
 }

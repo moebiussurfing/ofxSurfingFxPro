@@ -1,7 +1,7 @@
 {
     "AppSettings": {
         "AutoHide_Bar": "1",
-        "Control_Bar": "0",
+        "Control_Bar": "1",
         "FILE": "\"LETPOLICE.mov\"",
         "Keys": "1",
         "PLAY": "1",
