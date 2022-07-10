@@ -8,8 +8,8 @@
         "LOOP_BK": "0",
         "MODE_BEAT": "1",
         "OUT": "0.986517",
-        "RESCALE": "1",
         "REVERSE": "0",
+        "SCALE": "0",
         "SPEED": "0.100681",
         "T_REV": "5",
         "T_SKIP": "6"

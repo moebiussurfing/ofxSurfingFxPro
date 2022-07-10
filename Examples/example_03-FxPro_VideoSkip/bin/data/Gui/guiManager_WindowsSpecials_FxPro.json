@@ -3,7 +3,7 @@
         "Enablers": {
             "CONTROLS": "0",
             "FX_PRO": "0",
-            "PRESETS": "1",
+            "PRESETS": "0",
             "TOGGLES": "1"
         },
         "Organizer": {
@@ -13,7 +13,7 @@
             "ORGANIZER": "0",
             "Orientation": "0",
             "Pad": "0",
-            "Position_Anchor": "688, 76",
+            "Position_Anchor": "327, 32",
             "SHOW_GLOBAL": "1",
             "ShapesX": "1",
             "ShapesY": "0"

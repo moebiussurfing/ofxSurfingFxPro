@@ -2,13 +2,13 @@
     "SurfingPreview": {
         "Auto_Resize": "0",
         "Bg": "0, 0, 0, 255",
-        "Big": "0",
+        "Big": "1",
         "Docked": "0",
         "Edit_Viewport": "1",
         "Extra": "0",
         "Full_Screen": "1",
         "Preview": "1",
         "Scale_Mode": "0",
-        "recetParam": "864.74, 514.867, 0, 904.517, 500.266"
+        "recetParam": "965.74, 299.867, 0, 887.517, 500.266"
     }
 }
