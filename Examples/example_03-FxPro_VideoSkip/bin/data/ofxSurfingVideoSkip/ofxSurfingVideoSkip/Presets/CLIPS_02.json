@@ -1,17 +1,17 @@
 {
     "CLIPS": {
-        "A_MODE_SKIP": "1",
-        "B_MODE_REV": "0",
-        "DURATION": "6",
-        "ENABLE_TIMERS": "0",
-        "END": "0.127415",
-        "LOOPB": "1",
-        "MODE_BEAT": "0",
-        "RESCALE": "-7",
-        "REVERSE": "1",
-        "SPEED": "-0.60564",
-        "START": "0.310129",
-        "T_REV": "3",
-        "T_SKIP": "5"
+        "A_MODE_SKIP": "0",
+        "B_MODE_REV": "1",
+        "DURATION": "2",
+        "ENABLE_TIMERS": "1",
+        "IN": "0.63213",
+        "LOOP_BACK": "0",
+        "MODE_BEAT": "1",
+        "OUT": "0.438002",
+        "REVERSE": "0",
+        "SCALE": "-5",
+        "SPEED": "-0.93701",
+        "T_REV": "6",
+        "T_SKIP": "7"
     }
 }

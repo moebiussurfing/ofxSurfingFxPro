@@ -3,13 +3,6 @@
 #include "ofMain.h"
 
 //----
-/*
-
-TODO:
-
-*/
-
-//----
 
 #include "ofxSurfingVideoSkip.h"
 #include "ofxSurfingImGui.h"

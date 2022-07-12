@@ -1,8 +1,8 @@
 {
     "Controls": {
         "BLOOM": {
-            "Blur_X": "0.00355721",
-            "Blur_Y": "0.00158058"
+            "Blur_X": "0",
+            "Blur_Y": "0"
         },
         "DITHER": {
             "Scale": "0.418662"
@@ -16,8 +16,8 @@
         "FILM_GRAIN": {
             "Count": "7260.23",
             "GrayScale": "1",
-            "N_Intensity": "0.541493",
-            "S_Intensity": "0.222147"
+            "N_Intensity": "0.109",
+            "S_Intensity": "0.089"
         },
         "FILTER_ACES_FILM": {
             "Exposure": "0.543202"
@@ -39,18 +39,18 @@
         },
         "GLITCH_DIGITAL": {
             "Amount": "0",
-            "Angle": "3.40286",
+            "Angle": "2.08532",
             "Bypass": "0",
-            "Column": "0.719114",
-            "Distort_X": "0.13553",
-            "Distort_Y": "-0.423559",
+            "Column": "0.106306",
+            "Distort_X": "-0.000393853",
+            "Distort_Y": "0.109257",
             "Seed": "0",
             "Seed_X": "0",
             "Seed_Y": "0"
         },
         "GOD_RAYS": {
-            "Light": "0.85725",
-            "Pos": "0.9, 0.9, 0.9"
+            "Light": "0.213",
+            "Pos": "0, 0.9, 0.9"
         },
         "KALEIODOSCOPE": {
             "Segments": "8.949"
@@ -61,11 +61,11 @@
         },
         "RGBSHIFT": {
             "Amount": "0.015",
-            "Angle": "0.342"
+            "Angle": "3.733"
         },
         "RIMBLIGHTING": {
-            "Intensity": "453.712",
-            "Light_Color": "2.7, 2.7, 2.7"
+            "Intensity": "63.366",
+            "Light_Color": "2.082, 0.735, 0"
         },
         "SPACE_COLORS_SHADER": {
             "Opacity": "0.400253",
@@ -86,26 +86,26 @@
             "Volume": "0"
         },
         "SUPER_SHADER": {
-            "Brightness": "-0.0139409",
-            "Contrast": "-0.425575",
-            "Glow_Amount": "0.432359",
-            "Glow_Size": "13.2777",
-            "RGB_Shift_Amt": "0.345247",
-            "Saturation": "0.803195",
-            "Vignt_Darkness": "0.516321",
-            "Vignt_Offset": "0.725019"
+            "Brightness": "-0.168",
+            "Contrast": "0.436",
+            "Glow_Amount": "0",
+            "Glow_Size": "0",
+            "RGB_Shift_Amt": "0",
+            "Saturation": "0.45",
+            "Vignt_Darkness": "0",
+            "Vignt_Offset": "0"
         },
         "TILT_SHIFT": {
-            "Focus": "0.545595",
-            "Offset": "0.443541",
-            "Range": "0.779366",
-            "Strength": "0.874438"
+            "Focus": "0.545",
+            "Offset": "0.787",
+            "Range": "0.45",
+            "Strength": "0.406"
         },
         "ZOOMBLUR": {
-            "Center_XY": "0.9, 0.9",
-            "Density": "0.235038",
-            "Exposure": "0.783419",
-            "Weight": "0.343831"
+            "Center_XY": "0.471, 0.58",
+            "Density": "0.149",
+            "Exposure": "0.416",
+            "Weight": "0.411"
         }
     }
 }

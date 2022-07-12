@@ -4,14 +4,14 @@
         "B_MODE_REV": "0",
         "DURATION": "1",
         "ENABLE_TIMERS": "1",
-        "IN": "0.691358",
-        "LOOP_BK": "0",
+        "IN": "0.95",
+        "LOOP_BACK": "0",
         "MODE_BEAT": "1",
-        "OUT": "0.986517",
-        "REVERSE": "0",
+        "OUT": "0.991036",
+        "REVERSE": "1",
         "SCALE": "0",
-        "SPEED": "0.100681",
-        "T_REV": "5",
-        "T_SKIP": "6"
+        "SPEED": "-0.743",
+        "T_REV": "2",
+        "T_SKIP": "2"
     }
 }

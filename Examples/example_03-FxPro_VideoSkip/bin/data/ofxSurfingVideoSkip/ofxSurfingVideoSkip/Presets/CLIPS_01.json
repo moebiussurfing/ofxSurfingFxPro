@@ -2,16 +2,16 @@
     "CLIPS": {
         "A_MODE_SKIP": "1",
         "B_MODE_REV": "1",
-        "DURATION": "5",
+        "DURATION": "1",
         "ENABLE_TIMERS": "0",
-        "END": "0.869899",
-        "LOOPB": "0",
+        "IN": "0.928251",
+        "LOOP_BACK": "0",
         "MODE_BEAT": "0",
-        "RESCALE": "1",
-        "REVERSE": "1",
-        "SPEED": "0.878963",
-        "START": "0.42848",
+        "OUT": "0.759056",
+        "REVERSE": "0",
+        "SCALE": "0",
+        "SPEED": "0.795343",
         "T_REV": "4",
-        "T_SKIP": "7"
+        "T_SKIP": "5"
     }
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <interactiveRect>
 	<path></path>
-	<x>965.74</x>
-	<y>299.867</y>
+	<x>533.74</x>
+	<y>-118.133</y>
 	<width>887.517</width>
-	<height>500.266</height>
+	<height>292.266</height>
 	<name>rectDraggable</name>
 	<isEditing>1</isEditing>
 </interactiveRect>
