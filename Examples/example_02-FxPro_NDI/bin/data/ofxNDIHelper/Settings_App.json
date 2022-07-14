@@ -13,17 +13,17 @@
             "NAME": "oF"
         },
         "PANELS": {
-            "IN_1": "1",
+            "IN_1": "0",
             "IN_2": "0",
             "OUT": "0",
-            "WEBCAM": "0"
+            "WEBCAM": "1"
         },
         "WEBCAM": {
-            "DRAW": "0",
+            "DRAW": "1",
             "EDIT_BOX": "1",
-            "ENABLE": "0",
+            "ENABLE": "1",
             "LOCK_ASPECT": "1",
-            "MINI": "0",
+            "MINI": "1",
             "SCALE_MODE": "0"
         }
     }
