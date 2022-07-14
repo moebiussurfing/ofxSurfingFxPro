@@ -59,7 +59,7 @@ openFrameworks ~0.11.2+
 patch-release branch  
 
 **macOS 11.6.7 Big Sur** / **Xcode 13.2.1** / **oF 0.11.2**  
-(Only Working First Example. NDI broken yet)
+(3rd Example not working yet)
 
 ## Author
 An add-on by **@moebiusSurfing**  
