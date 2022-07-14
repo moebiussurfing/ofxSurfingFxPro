@@ -39,11 +39,11 @@
         },
         "GLITCH_DIGITAL": {
             "Amount": "0.006",
-            "Angle": "4.74666",
+            "Angle": "5.8836",
             "Bypass": "0",
-            "Column": "0.934969",
-            "Distort_X": "-0.0379616",
-            "Distort_Y": "0.114849",
+            "Column": "0.118211",
+            "Distort_X": "-0.116701",
+            "Distort_Y": "0.097817",
             "Seed": "0.02",
             "Seed_X": "0.02",
             "Seed_Y": "0.02"
@@ -83,7 +83,7 @@
         },
         "STROBBER": {
             "Phase": "0.15",
-            "Volume": "1"
+            "Volume": "0"
         },
         "SUPER_SHADER": {
             "Brightness": "-0.224299",
