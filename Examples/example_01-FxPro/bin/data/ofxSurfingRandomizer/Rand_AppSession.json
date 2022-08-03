@@ -16,8 +16,8 @@
         "RAND_INDEX": "0",
         "RAND_MAIN": "0",
         "RAND_PARAMS": "0",
-        "RAND_RANGES": "0",
-        "Speed": "0.5",
+        "RAND_RANGES": "1",
+        "Speed": "0.46",
         "Target": "0"
     }
 }

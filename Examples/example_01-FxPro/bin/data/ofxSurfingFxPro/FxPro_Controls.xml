@@ -8,19 +8,19 @@
             "Scale": "1"
         },
         "DOT_SCREEN": {
-            "Angle": "1.57",
+            "Angle": "6.283",
             "Center": "0.5, 0.5",
             "Scale": "1",
             "Size": "1000, 1000"
         },
         "FILM_GRAIN": {
-            "Count": "3264.41",
+            "Count": "4753",
             "GrayScale": "0",
-            "N_Intensity": "0.761788",
-            "S_Intensity": "0.319025"
+            "N_Intensity": "0.827",
+            "S_Intensity": "1"
         },
         "FILTER_ACES_FILM": {
-            "Exposure": "0.147902"
+            "Exposure": "0.426"
         },
         "FXAA": {
             "Red_Min_DIV": "128",
@@ -28,24 +28,24 @@
             "Span_Max": "8"
         },
         "GLITCH_AUTOMATED": {
-            "Amount": "0.2",
-            "Speed": "0.6"
+            "Amount": "0.4",
+            "Speed": "0.4"
         },
         "GLITCH_BAD_TV": {
-            "Distort_1": "3",
-            "Distort_2": "5",
-            "Roll_Speed": "0.1",
-            "Speed": "3"
+            "Distort_1": "1.485",
+            "Distort_2": "1.089",
+            "Roll_Speed": "0.064",
+            "Speed": "1.287"
         },
         "GLITCH_DIGITAL": {
-            "Amount": "0.006",
-            "Angle": "5.8836",
+            "Amount": "0",
+            "Angle": "4.30448",
             "Bypass": "0",
-            "Column": "0.118211",
-            "Distort_X": "-0.116701",
-            "Distort_Y": "0.097817",
-            "Seed": "0.02",
-            "Seed_X": "0.02",
+            "Column": "0.290605",
+            "Distort_X": "0.142189",
+            "Distort_Y": "0.0433594",
+            "Seed": "0",
+            "Seed_X": "0",
             "Seed_Y": "0.02"
         },
         "GOD_RAYS": {
@@ -56,12 +56,12 @@
             "Segments": "2"
         },
         "NOISE_GRAINS": {
-            "Amount": "0.128",
-            "Speed": "0.08"
+            "Amount": "0.634",
+            "Speed": "1"
         },
         "RGBSHIFT": {
-            "Amount": "0.386996",
-            "Angle": "4.37165"
+            "Amount": "0.025",
+            "Angle": "2.799"
         },
         "RIMBLIGHTING": {
             "Intensity": "64",
@@ -72,40 +72,40 @@
             "Speed": "0.784554"
         },
         "SSAO": {
-            "AoClamp": "0.65",
-            "Cam_Far": "1000",
-            "Cam_Near": "1",
+            "AoClamp": "0.49",
+            "Cam_Far": "1752.47",
+            "Cam_Near": "1504.95",
             "ENABLE_Ao": "0",
-            "ENABLE_Fog": "0",
-            "Fog_Far": "1000",
-            "Fog_Near": "1",
-            "LumInfluence": "0.25"
+            "ENABLE_Fog": "1",
+            "Fog_Far": "415.842",
+            "Fog_Near": "1485.15",
+            "LumInfluence": "1"
         },
         "STROBBER": {
             "Phase": "0.15",
             "Volume": "0"
         },
         "SUPER_SHADER": {
-            "Brightness": "-0.224299",
-            "Contrast": "0.747215",
-            "Glow_Amount": "0.3983",
-            "Glow_Size": "13.9027",
-            "RGB_Shift_Amt": "0.525697",
-            "Saturation": "0.317194",
-            "Vignt_Darkness": "0.621793",
-            "Vignt_Offset": "0.455089"
+            "Brightness": "-1",
+            "Contrast": "-1",
+            "Glow_Amount": "0",
+            "Glow_Size": "0",
+            "RGB_Shift_Amt": "0",
+            "Saturation": "0",
+            "Vignt_Darkness": "0",
+            "Vignt_Offset": "0"
         },
         "TILT_SHIFT": {
-            "Focus": "0.127686",
-            "Offset": "0.443907",
-            "Range": "0.483874",
-            "Strength": "0.132398"
+            "Focus": "0.158",
+            "Offset": "0.351",
+            "Range": "0.847",
+            "Strength": "0.762"
         },
         "ZOOMBLUR": {
-            "Center_XY": "0.9, 0.9",
-            "Density": "0.504114",
-            "Exposure": "0.48",
-            "Weight": "0.804977"
+            "Center_XY": "1, 0.239",
+            "Density": "0.04",
+            "Exposure": "0.713",
+            "Weight": "0.149"
         }
     }
 }

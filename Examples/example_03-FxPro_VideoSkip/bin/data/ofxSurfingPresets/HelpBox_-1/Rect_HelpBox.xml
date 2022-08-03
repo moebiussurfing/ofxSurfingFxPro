@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <interactiveRect>
 	<path>ofxSurfingPresets/HelpBox_-1//</path>
-	<x>512</x>
-	<y>384</y>
-	<width>400</width>
-	<height>400</height>
+	<x>868</x>
+	<y>367</y>
+	<width>293</width>
+	<height>546</height>
 	<name>_HelpBox</name>
-	<isEditing>0</isEditing>
+	<isEditing>1</isEditing>
 </interactiveRect>

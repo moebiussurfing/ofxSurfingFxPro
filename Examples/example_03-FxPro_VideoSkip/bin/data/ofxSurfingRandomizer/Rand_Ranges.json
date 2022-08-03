@@ -2,12 +2,12 @@
     "Ranges_Editor": {
         "Controls": {
             "Amount": {
-                "Amount": "0.074",
+                "Amount": "0.564",
                 "Max": "0.9",
                 "Min": "0.1"
             },
             "Angle": {
-                "Angle": "2.08532",
+                "Angle": "2.05138",
                 "Max": "5.65487",
                 "Min": "0.628319"
             },
@@ -55,7 +55,7 @@
                 "Min": "0.9, 0.9"
             },
             "Column": {
-                "Column": "0.106306",
+                "Column": "0.937835",
                 "Max": "0.9",
                 "Min": "0.1"
             },
@@ -70,27 +70,27 @@
                 "Min": "1000.9"
             },
             "Density": {
-                "Density": "0.149",
+                "Density": "0.441",
                 "Max": "0.9",
                 "Min": "0.1"
             },
             "Distort_1": {
-                "Distort_1": "0.99",
+                "Distort_1": "14.257",
                 "Max": "18",
                 "Min": "2"
             },
             "Distort_2": {
-                "Distort_2": "3.465",
+                "Distort_2": "11.089",
                 "Max": "18",
                 "Min": "2"
             },
             "Distort_X": {
-                "Distort_X": "-0.000393853",
+                "Distort_X": "0.370797",
                 "Max": "0.8",
                 "Min": "-0.8"
             },
             "Distort_Y": {
-                "Distort_Y": "0.109257",
+                "Distort_Y": "0.0413435",
                 "Max": "0.8",
                 "Min": "-0.8"
             },
@@ -171,7 +171,7 @@
             "Phase": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "Phase": "0.819407"
+                "Phase": "0.059"
             },
             "Pos": {
                 "Max": "0.9, 0.9, 0.9",
@@ -201,7 +201,7 @@
             "Roll_Speed": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "Roll_Speed": "0"
+                "Roll_Speed": "0.243"
             },
             "S_Intensity": {
                 "Max": "0.9",
@@ -276,7 +276,7 @@
             "Weight": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "Weight": "0.411"
+                "Weight": "0.782"
             }
         },
         "Params": {

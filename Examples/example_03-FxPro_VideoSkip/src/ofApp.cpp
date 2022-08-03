@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup() 
 {
-	w.setFrameRate(50);
+	w.setFrameRate(60);
 	w.setVerticalSync(false);
 
 	ofSetBackgroundColor(20);

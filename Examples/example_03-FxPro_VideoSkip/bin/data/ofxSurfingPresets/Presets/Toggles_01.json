@@ -18,10 +18,10 @@
         "RGBSHIFT": "0",
         "RIMBLIGHTING": "0",
         "SPACE_COLORS_SHADER": "0",
-        "SSAO": "0",
+        "SSAO": "1",
         "STROBBER": "1",
         "SUPER_SHADER": "0",
         "TILT_SHIFT": "0",
-        "ZOOMBLUR": "0"
+        "ZOOMBLUR": "1"
     }
 }

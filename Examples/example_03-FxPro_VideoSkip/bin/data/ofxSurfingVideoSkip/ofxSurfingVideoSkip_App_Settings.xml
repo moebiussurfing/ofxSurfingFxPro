@@ -2,10 +2,10 @@
     "AppSettings": {
         "AutoHide_Bar": "1",
         "Control_Bar": "1",
-        "FILE": "\"NightmoVES4.mov\"",
+        "FILE": "\"LETPOLICE.mov\"",
         "Keys": "1",
         "PLAY": "1",
-        "SKIP_TIMERS": "0",
-        "videoFilePath": "E:\\_DATA\\VIDEO\\NightmoVES4.mov"
+        "SKIP_TIMERS": "1",
+        "videoFilePath": "Z:\\_DATA\\VIDEO\\LETPOLICE\\LETPOLICE.mov"
     }
 }

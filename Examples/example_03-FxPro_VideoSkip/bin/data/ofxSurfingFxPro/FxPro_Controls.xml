@@ -28,22 +28,22 @@
             "Span_Max": "42.0278"
         },
         "GLITCH_AUTOMATED": {
-            "Amount": "0.074",
-            "Speed": "0"
+            "Amount": "0.564",
+            "Speed": "0.733"
         },
         "GLITCH_BAD_TV": {
-            "Distort_1": "0.99",
-            "Distort_2": "3.465",
-            "Roll_Speed": "0",
-            "Speed": "0.198"
+            "Distort_1": "14.257",
+            "Distort_2": "11.089",
+            "Roll_Speed": "0.243",
+            "Speed": "6.634"
         },
         "GLITCH_DIGITAL": {
             "Amount": "0",
-            "Angle": "2.08532",
+            "Angle": "2.05138",
             "Bypass": "0",
-            "Column": "0.106306",
-            "Distort_X": "-0.000393853",
-            "Distort_Y": "0.109257",
+            "Column": "0.937835",
+            "Distort_X": "0.370797",
+            "Distort_Y": "0.0413435",
             "Seed": "0",
             "Seed_X": "0",
             "Seed_Y": "0"
@@ -56,8 +56,8 @@
             "Segments": "8.949"
         },
         "NOISE_GRAINS": {
-            "Amount": "0.364852",
-            "Speed": "0.26248"
+            "Amount": "0.653",
+            "Speed": "0.609"
         },
         "RGBSHIFT": {
             "Amount": "0.015",
@@ -82,7 +82,7 @@
             "LumInfluence": "0.561391"
         },
         "STROBBER": {
-            "Phase": "0.819407",
+            "Phase": "0.059",
             "Volume": "0"
         },
         "SUPER_SHADER": {
@@ -103,9 +103,9 @@
         },
         "ZOOMBLUR": {
             "Center_XY": "0.471, 0.58",
-            "Density": "0.149",
-            "Exposure": "0.416",
-            "Weight": "0.411"
+            "Density": "0.441",
+            "Exposure": "0.757",
+            "Weight": "0.782"
         }
     }
 }

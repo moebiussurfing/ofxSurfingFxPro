@@ -1,0 +1,16 @@
+{
+    "LayoutsPresets": {
+        "Extra_Params": {
+            "LINK": "0",
+            "Log": "0",
+            "Menu": "0"
+        },
+        "PanelsVisible": {
+            "CLOCK": "1",
+            "FX_PRO": "0",
+            "MOODS": "1",
+            "PRESETS": "0",
+            "VIDEO_SKIP": "0"
+        }
+    }
+}

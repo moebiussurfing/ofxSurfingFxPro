@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <AppSettings>
-	<CLOCK>1</CLOCK>
+	<CLOCK>0</CLOCK>
 	<CLOCK_MONITOR>1</CLOCK_MONITOR>
 	<CLOCK_BPM>1</CLOCK_BPM>
 	<CLOCK_SOURCES>0</CLOCK_SOURCES>
 	<INTERNAL>1</INTERNAL>
 	<EXTERNAL>0</EXTERNAL>
 	<PLAY>1</PLAY>
-	<Tick_Sound>0</Tick_Sound>
+	<Tick_Sound>1</Tick_Sound>
 	<Volume>0.5</Volume>
 	<Debug>0</Debug>
 	<Keys>1</Keys>
