@@ -21,8 +21,8 @@ void ofApp::setup()
 
 	// Gui
 
-	guiManager.setName("ofApp");
-	guiManager.setup();
+	ui.setName("ofApp");
+	ui.setup();
 
 	//--
 
@@ -57,18 +57,18 @@ void ofApp::drawGui()
 {
 	// ofApp ImGui Window
 
-	guiManager.begin();
+	ui.Begin();
 	{
 		IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_SMALL;
 
-		if (guiManager.beginWindow("ofApp"))
+		if (ui.BeginWindow("ofApp"))
 		{
-			guiManager.Add(player.bGui, OFX_IM_TOGGLE_BIG_XXL_BORDER_BLINK);
+			ui.Add(player.bGui, OFX_IM_TOGGLE_BIG_XXL_BORDER_BLINK);
 
-			guiManager.endWindow();
+			ui.EndWindow();
 		}
 	}
-	guiManager.end();
+	ui.End();
 }
 
 //--------------------------------------------------------------

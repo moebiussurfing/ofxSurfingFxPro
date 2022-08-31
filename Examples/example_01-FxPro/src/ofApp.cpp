@@ -14,7 +14,7 @@ void ofApp::setup() {
 	// App Session Settings
 
 #ifdef USE_WEBCAM
-	webcam.bKeys.makeReferenceTo(guiManager.bKeys);
+	webcam.bKeys.makeReferenceTo(ui.bKeys);
 	params_Camera.add(bWebcamMode);
 #endif
 	params_Camera.add(bCamMouse);
@@ -30,8 +30,8 @@ void ofApp::setup() {
 	//--
 
 	// Gui
-	guiManager.setName("ofApp");
-	guiManager.setup();
+	ui.setName("ofApp");
+	ui.setup();
 }
 
 //--------------------------------------------------------------
@@ -147,7 +147,7 @@ void ofApp::drawGui()
 	//--
 
 	// ofApp ImGui Window
-	guiManager.begin();
+	ui.Begin();
 	{
 		// Set Window Shape
 		{
@@ -161,26 +161,26 @@ void ofApp::drawGui()
 		// Constraint size
 		IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_SMALL;
 
-		if (guiManager.beginWindow("ofApp"))
+		if (ui.BeginWindow("ofApp"))
 		{
-			guiManager.Add(fxPro.bGui, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
+			ui.Add(fxPro.bGui, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
 
 			//--
 
 			// Webcam
 #ifdef USE_WEBCAM
 			{
-				guiManager.AddSpacingBigSeparated();
-				guiManager.AddLabelBig("Webcam", true, true);
-				guiManager.Add(bWebcamMode);
+				ui.AddSpacingBigSeparated();
+				ui.AddLabelBig("Webcam", true, true);
+				ui.Add(bWebcamMode);
 				if (bWebcamMode)
 				{
-					guiManager.Add(guiManager.bKeys, OFX_IM_TOGGLE_ROUNDED);
-					if (guiManager.AddButton("Next", OFX_IM_BUTTON, 2, true))
+					ui.Add(ui.bKeys, OFX_IM_TOGGLE_ROUNDED);
+					if (ui.AddButton("Next", OFX_IM_BUTTON, 2, true))
 					{
 						webcam.doNextWebcam();
 					}
-					if (guiManager.AddButton("Restart", OFX_IM_BUTTON, 2))
+					if (ui.AddButton("Restart", OFX_IM_BUTTON, 2))
 					{
 						webcam.doRestartWebcam();
 					}
@@ -192,18 +192,18 @@ void ofApp::drawGui()
 			if (!bWebcamMode)
 #endif
 			{
-				guiManager.AddSpacingBigSeparated();
-				guiManager.AddLabelBig("Camera", true, true);
-				guiManager.Add(bCamMouse);
-				guiManager.Add(bRotate);
-				if (bRotate) guiManager.Add(rotateSpeed);
-				guiManager.Add(bLight);
+				ui.AddSpacingBigSeparated();
+				ui.AddLabelBig("Camera", true, true);
+				ui.Add(bCamMouse);
+				ui.Add(bRotate);
+				if (bRotate) ui.Add(rotateSpeed);
+				ui.Add(bLight);
 			}
 
-			guiManager.endWindow();
+			ui.EndWindow();
 		}
 	}
-	guiManager.end();
+	ui.End();
 }
 
 //--------------------------------------------------------------

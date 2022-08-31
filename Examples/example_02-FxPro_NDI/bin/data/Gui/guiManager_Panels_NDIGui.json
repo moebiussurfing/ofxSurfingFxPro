@@ -1,5 +1,5 @@
 {
-    "guiManager": {
+    "ui": {
         "Params_Advanced": {
             "Auto_Resize": "1",
             "Debug": "0",

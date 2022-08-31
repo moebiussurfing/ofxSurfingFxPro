@@ -24,7 +24,7 @@ public:
 	void exit();
 
 	ofxSurfingFxPro fxPro;
-	ofxSurfing_ImGui_Manager guiManager;
+	ofxSurfingGui ui;
 	SurfingNDIManager ndi;
 	ofxWindowApp w;
 

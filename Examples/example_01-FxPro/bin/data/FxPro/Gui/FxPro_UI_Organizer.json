@@ -1,0 +1,26 @@
+{
+    "Organizer": {
+        "GuiToggles": {
+            "CONTROLS": "1",
+            "FX_PRO": "1",
+            "PRESETS": "0",
+            "TOGGLES": "1"
+        },
+        "Organizer_Settings": {
+            "Align_Shapes": "1",
+            "Headers": "1",
+            "Link_Windows": "1",
+            "Orientation": "0",
+            "Pad": "0",
+            "Panels": {
+                "FxPro_ALIGNERS": "0",
+                "FxPro_ORGANIZER": "0",
+                "FxPro_SPECIALW": "0",
+                "GLOBAL": "1"
+            },
+            "Position_Anchor": "10, 10",
+            "ShapesX": "1",
+            "ShapesY": "0"
+        }
+    }
+}

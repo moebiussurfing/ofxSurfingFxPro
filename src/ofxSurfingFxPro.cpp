@@ -39,20 +39,20 @@ void ofxSurfingFxPro::setPathGlobal(string s) // must call before setup. disable
 void ofxSurfingFxPro::setupGui()
 {
 
-	guiManager.setWindowsMode(IM_GUI_MODE_WINDOWS_SPECIAL_ORGANIZER);
-	guiManager.setName("FxPro");
+	ui.setWindowsMode(IM_GUI_MODE_WINDOWS_SPECIAL_ORGANIZER);
+	ui.setName("FxPro");
 	
-	guiManager.setup();
-	//guiManager.setup(IM_GUI_MODE_INSTANTIATED_DOCKING);
+	ui.setup();
+	//ui.setup(IM_GUI_MODE_INSTANTIATED_DOCKING);
 
-	guiManager.addWindowSpecial(bGui);
-	guiManager.addWindowSpecial(bGui_Toggles);
-	guiManager.addWindowSpecial(bGui_Controls);
-	guiManager.addWindowSpecial(presetsManager.bGui);
+	ui.addWindowSpecial(bGui);
+	ui.addWindowSpecial(bGui_Toggles);
+	ui.addWindowSpecial(bGui_Controls);
+	ui.addWindowSpecial(presetsManager.bGui);
 
-	guiManager.startup();
+	ui.startup();
 
-	//bKeys_FX.makeReferenceTo(guiManager.bKeys);
+	//bKeys_FX.makeReferenceTo(ui.bKeys);
 
 	//--
 
@@ -267,7 +267,7 @@ void ofxSurfingFxPro::buildHelp()
 		helpInfo += "from different add-ons at the same time. \n";
 		helpInfo += "Key commands could collide! \n";
 
-		guiManager.setHelpInfoApp(helpInfo);
+		ui.setHelpInfoApp(helpInfo);
 	}
 }
 
@@ -278,13 +278,13 @@ void ofxSurfingFxPro::setupGuiStyles()
 
 	//--
 
-	guiManager.clearStyles();
+	ui.clearStyles();
 
 	// Customize all toggles inside the group 
-	guiManager.AddStyleGroupForBools(manager.params_Toggles, bEnable ? OFX_IM_TOGGLE_MEDIUM_BORDER_BLINK : OFX_IM_TOGGLE_MEDIUM);
+	ui.AddStyleGroupForBools(manager.params_Toggles, bEnable ? OFX_IM_TOGGLE_MEDIUM_BORDER_BLINK : OFX_IM_TOGGLE_MEDIUM);
 
 	// Hide groups header
-	guiManager.AddStyleGroup(manager.params_Toggles, OFX_IM_GROUP_HIDDEN_HEADER);
+	ui.AddStyleGroup(manager.params_Toggles, OFX_IM_GROUP_HIDDEN_HEADER);
 
 	//--
 
@@ -292,40 +292,40 @@ void ofxSurfingFxPro::setupGuiStyles()
 
 	//ImGuiTreeNodeFlags fg = ImGuiTreeNodeFlags_DefaultOpen;
 
-	SurfingImGuiTypesGroups tON = (bExpanded ? OFX_IM_GROUP_TREE_EX : OFX_IM_GROUP_COLLAPSED);
-	//SurfingImGuiTypesGroups tON = OFX_IM_GROUP_COLLAPSED;
+	SurfingGuiTypesGroups tON = (bExpanded ? OFX_IM_GROUP_TREE_EX : OFX_IM_GROUP_COLLAPSED);
+	//SurfingGuiTypesGroups tON = OFX_IM_GROUP_COLLAPSED;
 
-	SurfingImGuiTypesGroups tOFF = OFX_IM_GROUP_HIDDEN;
+	SurfingGuiTypesGroups tOFF = OFX_IM_GROUP_HIDDEN;
 
-	guiManager.AddStyleGroup(manager.gFxaaGroup, (manager.bEnablers[0] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gBloomGroup, (manager.bEnablers[1] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gKaliGroup, (manager.bEnablers[2] ? tON : tOFF), fg);
+	ui.AddStyleGroup(manager.gFxaaGroup, (manager.bEnablers[0] ? tON : tOFF), fg);
+	ui.AddStyleGroup(manager.gBloomGroup, (manager.bEnablers[1] ? tON : tOFF), fg);
+	ui.AddStyleGroup(manager.gKaliGroup, (manager.bEnablers[2] ? tON : tOFF), fg);
 	// #3, #4 // don't have params
-	guiManager.AddStyleGroup(manager.gGodRaysGroup, (manager.bEnablers[5] ? tON : tOFF), fg);
+	ui.AddStyleGroup(manager.gGodRaysGroup, (manager.bEnablers[5] ? tON : tOFF), fg);
 	// #6 // don't have params
-	guiManager.AddStyleGroup(manager.gSsaoGroup, (manager.bEnablers[7] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gZoomBlurGroup, (manager.bEnablers[8] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gRGBGroup, (manager.bEnablers[9] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gFilmGrainGroup, (manager.bEnablers[10] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gDotScreenGroup, (manager.bEnablers[11] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gGlicthGroup, (manager.bEnablers[12] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gBadTVGroup, (manager.bEnablers[13] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gcolorACESGroup, (manager.bEnablers[14] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gNoiseGroup, (manager.bEnablers[15] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gTiltShiftGroup, (manager.bEnablers[16] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gSupGroup, (manager.bEnablers[17] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gGliAutoGroup, (manager.bEnablers[18] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gSpaceColorGroup, (manager.bEnablers[19] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gDitherGroup, (manager.bEnablers[20] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gStrobberGroup, (manager.bEnablers[21] ? tON : tOFF), fg);
-	guiManager.AddStyleGroup(manager.gRimbLightGroup, (manager.bEnablers[22] ? tON : tOFF), fg);
+	ui.AddStyleGroup(manager.gSsaoGroup, (manager.bEnablers[7] ? tON : tOFF), fg);
+	ui.AddStyleGroup(manager.gZoomBlurGroup, (manager.bEnablers[8] ? tON : tOFF), fg);
+	ui.AddStyleGroup(manager.gRGBGroup, (manager.bEnablers[9] ? tON : tOFF), fg);
+	ui.AddStyleGroup(manager.gFilmGrainGroup, (manager.bEnablers[10] ? tON : tOFF), fg);
+	ui.AddStyleGroup(manager.gDotScreenGroup, (manager.bEnablers[11] ? tON : tOFF), fg);
+	ui.AddStyleGroup(manager.gGlicthGroup, (manager.bEnablers[12] ? tON : tOFF), fg);
+	ui.AddStyleGroup(manager.gBadTVGroup, (manager.bEnablers[13] ? tON : tOFF), fg);
+	ui.AddStyleGroup(manager.gcolorACESGroup, (manager.bEnablers[14] ? tON : tOFF), fg);
+	ui.AddStyleGroup(manager.gNoiseGroup, (manager.bEnablers[15] ? tON : tOFF), fg);
+	ui.AddStyleGroup(manager.gTiltShiftGroup, (manager.bEnablers[16] ? tON : tOFF), fg);
+	ui.AddStyleGroup(manager.gSupGroup, (manager.bEnablers[17] ? tON : tOFF), fg);
+	ui.AddStyleGroup(manager.gGliAutoGroup, (manager.bEnablers[18] ? tON : tOFF), fg);
+	ui.AddStyleGroup(manager.gSpaceColorGroup, (manager.bEnablers[19] ? tON : tOFF), fg);
+	ui.AddStyleGroup(manager.gDitherGroup, (manager.bEnablers[20] ? tON : tOFF), fg);
+	ui.AddStyleGroup(manager.gStrobberGroup, (manager.bEnablers[21] ? tON : tOFF), fg);
+	ui.AddStyleGroup(manager.gRimbLightGroup, (manager.bEnablers[22] ? tON : tOFF), fg);
 
 	//--
 
 	//// Hide group headers
 	////TODO: fix heritate
-	//guiManager.AddStyleGroup(manager.params_Controls, OFX_IM_GROUP_HIDDEN_HEADER);
-	////guiManager.AddStyleGroup(manager.params_Toggles, OFX_IM_GROUP_HIDDEN_HEADER);
+	//ui.AddStyleGroup(manager.params_Controls, OFX_IM_GROUP_HIDDEN_HEADER);
+	////ui.AddStyleGroup(manager.params_Toggles, OFX_IM_GROUP_HIDDEN_HEADER);
 
 	//--
 
@@ -392,8 +392,8 @@ void ofxSurfingFxPro::setupGuiStyles()
 		//if (g)
 		//	if (g.getName() == n)
 		//	{
-		//		if (_b) guiManager.AddStyleGroup(g, OFX_IM_GROUP_DEFAULT);
-		//		else guiManager.AddStyleGroup(g, OFX_IM_GROUP_HIDDEN);
+		//		if (_b) ui.AddStyleGroup(g, OFX_IM_GROUP_DEFAULT);
+		//		else ui.AddStyleGroup(g, OFX_IM_GROUP_HIDDEN);
 		//	}
 	}
 	*/
@@ -436,11 +436,11 @@ void ofxSurfingFxPro::setupGuiStyles()
 
 			if (bEnable)
 			{
-				guiManager.AddStyleGroup(*_g, OFX_IM_GROUP_DEFAULT);
+				ui.AddStyleGroup(*_g, OFX_IM_GROUP_DEFAULT);
 			}
 			else
 			{
-				guiManager.AddStyleGroup(*_g, OFX_IM_GROUP_HIDDEN);
+				ui.AddStyleGroup(*_g, OFX_IM_GROUP_HIDDEN);
 
 			}
 		}
@@ -541,137 +541,137 @@ void ofxSurfingFxPro::drawImGuiMain()
 	//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW;
 	IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_SMALL;
 
-	//if (guiManager.beginWindow(bGui))
-	if (guiManager.beginWindowSpecial(bGui))
+	//if (ui.BeginWindow(bGui))
+	if (ui.BeginWindowSpecial(bGui))
 	{
-		guiManager.AddLabelHuge("FX PRO");
-		guiManager.Add(bEnable, OFX_IM_TOGGLE_BIG_BORDER);
-		guiManager.AddSpacingBigSeparated();
+		ui.AddLabelHuge("FX PRO");
+		ui.Add(bEnable, OFX_IM_TOGGLE_BIG_BORDER);
+		ui.AddSpacingBigSeparated();
 
-		guiManager.Add(guiManager.bMinimize, OFX_IM_TOGGLE_BUTTON_ROUNDED_MEDIUM);
-		guiManager.Add(bKeys_FX, OFX_IM_TOGGLE_BUTTON_ROUNDED_MEDIUM);
+		ui.Add(ui.bMinimize, OFX_IM_TOGGLE_BUTTON_ROUNDED_MEDIUM);
+		ui.Add(bKeys_FX, OFX_IM_TOGGLE_BUTTON_ROUNDED_MEDIUM);
 
 		if (bKeys_FX)
 		{
 			string s = string("Key controls goes from ") + getFirstKey() + string(" to ") + getLastKey();
-			guiManager.AddTooltip(s);
+			ui.AddTooltip(s);
 
-			guiManager.Indent();
-			guiManager.Add(bKeys_FX_ToggleMode, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
-			if (!bKeys_FX_ToggleMode) guiManager.AddTooltip("Press SHIFT before release key to latch");
-			guiManager.Unindent();
+			ui.Indent();
+			ui.Add(bKeys_FX_ToggleMode, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
+			if (!bKeys_FX_ToggleMode) ui.AddTooltip("Press SHIFT before release key to latch");
+			ui.Unindent();
 		}
-		guiManager.AddSpacingBigSeparated();
+		ui.AddSpacingBigSeparated();
 
 		//--
 
-		guiManager.AddLabelBig("Panels");
+		ui.AddLabelBig("Panels");
 
 		// Toggles
-		guiManager.Add(bGui_Toggles, OFX_IM_TOGGLE_ROUNDED_BIG);
+		ui.Add(bGui_Toggles, OFX_IM_TOGGLE_ROUNDED_BIG);
 
 		// Controls
-		guiManager.Indent();
-		guiManager.Add(bGui_Controls, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
-		guiManager.Unindent();
+		ui.Indent();
+		ui.Add(bGui_Controls, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
+		ui.Unindent();
 
 
 		// Presets Manager
-		guiManager.AddSpacingSeparated();
-		guiManager.Add(presetsManager.bGui, OFX_IM_TOGGLE_ROUNDED_BIG);
+		ui.AddSpacingSeparated();
+		ui.Add(presetsManager.bGui, OFX_IM_TOGGLE_ROUNDED_BIG);
 		//if (!presetsManager.bGui) {
-		//	guiManager.Indent();
+		//	ui.Indent();
 		//	presetsManager.draw_ImGui_ClickerSimple(true, false, true, false);
-		//	guiManager.Unindent();
+		//	ui.Unindent();
 		//}
-		guiManager.AddSpacingSeparated();
+		ui.AddSpacingSeparated();
 
 		// Randomizer
-		guiManager.Add(randomizer.bGui, OFX_IM_TOGGLE_ROUNDED_BIG);
+		ui.Add(randomizer.bGui, OFX_IM_TOGGLE_ROUNDED_BIG);
 
 		//--
 
-		if (!guiManager.bMinimize)
+		if (!ui.bMinimize)
 		{
 			if (bGui_Controls) {
-				guiManager.AddSpacingSeparated();
+				ui.AddSpacingSeparated();
 
-				guiManager.AddLabelBig("Controls"/*, true, true*/);
-				if (guiManager.AddButton("SAVE", OFX_IM_BUTTON_MEDIUM, 2))
+				ui.AddLabelBig("Controls"/*, true, true*/);
+				if (ui.AddButton("SAVE", OFX_IM_BUTTON_MEDIUM, 2))
 				{
 					ofxSurfingHelpers::save(manager.params_Controls);
 				}
-				guiManager.AddTooltip("Save Controls. \nHandled independently of the Toggle states, \nthat are handled by Presets Manager.");
-				guiManager.SameLine();
-				if (guiManager.AddButton("LOAD", OFX_IM_BUTTON_MEDIUM, 2))
+				ui.AddTooltip("Save Controls. \nHandled independently of the Toggle states, \nthat are handled by Presets Manager.");
+				ui.SameLine();
+				if (ui.AddButton("LOAD", OFX_IM_BUTTON_MEDIUM, 2))
 				{
 					ofxSurfingHelpers::load(manager.params_Controls);
 				}
-				guiManager.AddTooltip("Load Controls. \nHandled independently of the Toggle states, \nthat are handled by Presets Manager.");
-				guiManager.Add(bAutoSave);
-				guiManager.AddTooltip("Auto Store and Recall Controls Settings on the next App session.\nExcept for Toggles, that are handled by the Presets Manager!");
+				ui.AddTooltip("Load Controls. \nHandled independently of the Toggle states, \nthat are handled by Presets Manager.");
+				ui.Add(bAutoSave);
+				ui.AddTooltip("Auto Store and Recall Controls Settings on the next App session.\nExcept for Toggles, that are handled by the Presets Manager!");
 			}
 
-			guiManager.AddSpacingBigSeparated();
+			ui.AddSpacingBigSeparated();
 
 			//--
 
 			// Extra
 
-			guiManager.Add(guiManager.bExtra, OFX_IM_TOGGLE_BUTTON_ROUNDED);
-			if (guiManager.bExtra)
+			ui.Add(ui.bExtra, OFX_IM_TOGGLE_BUTTON_ROUNDED);
+			if (ui.bExtra)
 			{
-				guiManager.Indent();
+				ui.Indent();
 
-				//guiManager.AddLabelBig("Helpers"/*, true, true*/);
-				//guiManager.Add(manager.bNone, OFX_IM_BUTTON, 2, true);
-				//guiManager.Add(manager.bAll, OFX_IM_BUTTON, 2);
-				//guiManager.AddSpacingSeparated();
+				//ui.AddLabelBig("Helpers"/*, true, true*/);
+				//ui.Add(manager.bNone, OFX_IM_BUTTON, 2, true);
+				//ui.Add(manager.bAll, OFX_IM_BUTTON, 2);
+				//ui.AddSpacingSeparated();
 
 				static bool bOpen = false;
 				ImGuiColorEditFlags _flagw = (bOpen ? ImGuiWindowFlags_NoCollapse : ImGuiWindowFlags_None);
 				if (ImGui::CollapsingHeader("RANDOMIZERS", _flagw))
 				{
-					guiManager.refreshLayout();
-					//guiManager.AddLabelBig("Randomizers", true, true);
-					guiManager.Add(randomProb);
-					guiManager.Add(bRandom, OFX_IM_BUTTON_MEDIUM);
-					guiManager.AddTooltip("Randomize params but using Prob: \nWhen bigger too much toggles will be ON");
+					ui.refreshLayout();
+					//ui.AddLabelBig("Randomizers", true, true);
+					ui.Add(randomProb);
+					ui.Add(bRandom, OFX_IM_BUTTON_MEDIUM);
+					ui.AddTooltip("Randomize params but using Prob: \nWhen bigger too much toggles will be ON");
 
-					guiManager.Add(bPlayRandoms, OFX_IM_TOGGLE_MEDIUM_BORDER_BLINK);
+					ui.Add(bPlayRandoms, OFX_IM_TOGGLE_MEDIUM_BORDER_BLINK);
 					if (bPlayRandoms) {
-						guiManager.Add(playSpeed);
-						guiManager.AddTooltip("Faster is 4 random trigs per second. \nSlower is one for each passed 2 seconds.");
+						ui.Add(playSpeed);
+						ui.AddTooltip("Faster is 4 random trigs per second. \nSlower is one for each passed 2 seconds.");
 					}
 				}
-				guiManager.refreshLayout();
-				guiManager.AddSpacingSeparated();
+				ui.refreshLayout();
+				ui.AddSpacingSeparated();
 
 				//--
 
 				//// not required
-				//guiManager.AddLabelBig("Debug", true, true);
-				//guiManager.Add(bGui_Internal, OFX_IM_TOGGLE_ROUNDED_MINI);
-				//guiManager.Add(bDebug, OFX_IM_TOGGLE_ROUNDED_MINI);
+				//ui.AddLabelBig("Debug", true, true);
+				//ui.Add(bGui_Internal, OFX_IM_TOGGLE_ROUNDED_MINI);
+				//ui.Add(bDebug, OFX_IM_TOGGLE_ROUNDED_MINI);
 
-				//guiManager.AddLabelBig("WORKFLOW"/*, true, true*/);
-				guiManager.Add(bGuiWorkflow, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
-				guiManager.AddTooltip("Automatically Hide or Show useful windows, \nor parts of the GUI, depending of the enabled sections \nor the usual App workflow.");
-				guiManager.Add(guiManager.getGuiToggleOrganizer(), OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
-				guiManager.AddTooltip("Panel for organizing and aligning the GUI windows \non the App window layout.");
-				guiManager.Unindent();
+				//ui.AddLabelBig("WORKFLOW"/*, true, true*/);
+				ui.Add(bGuiWorkflow, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
+				ui.AddTooltip("Automatically Hide or Show useful windows, \nor parts of the GUI, depending of the enabled sections \nor the usual App workflow.");
+				ui.Add(ui.bGui_Organizer, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
+				ui.AddTooltip("Panel for organizing and aligning the GUI windows \non the App window layout.");
+				ui.Unindent();
 			}
 		}
 
 		//--
 
 		// Help
-		guiManager.AddSpacingBigSeparated();
-		guiManager.Add(guiManager.bHelp, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
-		//guiManager.Add(guiManager.bDebug, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
+		ui.AddSpacingBigSeparated();
+		ui.Add(ui.bHelp, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
+		//ui.Add(ui.bDebug, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
 
-		//guiManager.endWindow();
-		guiManager.endWindowSpecial();
+		//ui.EndWindow();
+		ui.EndWindowSpecial();
 	}
 }
 
@@ -689,21 +689,21 @@ void ofxSurfingFxPro::drawImGuiControls()
 	//ImVec2 size_max = ImVec2(w + 0, -1);
 	//ImGui::SetNextWindowSizeConstraints(size_min, size_max);
 
-	if (guiManager.beginWindowSpecial(bGui_Controls))
+	if (ui.BeginWindowSpecial(bGui_Controls))
 	{
 		if (manager.getAmountEffectsEnabled() == 0)
 		{
 			string s;
 			
 			s = "You must Enable one or more FX Toggles!";
-			guiManager.AddLabelBig(s, false, true);
-			guiManager.AddSpacing();
+			ui.AddLabelBig(s, false, true);
+			ui.AddSpacing();
 
 			s = "Go to TOGGLES window and Enable some FX. \n";
 			s += "You will see each FX's parameters here.";
-			guiManager.AddLabel(s, false, true);
+			ui.AddLabel(s, false, true);
 
-			guiManager.endWindowSpecial();
+			ui.EndWindowSpecial();
 
 			return;
 		}
@@ -716,17 +716,17 @@ void ofxSurfingFxPro::drawImGuiControls()
 #ifdef SURFING_FIXING_COLLAPSE_GROUP
 		static bool bExpanded_PRE = !bExpanded;
 
-		if (guiManager.AddButton("Collapse", OFX_IM_BUTTON, 2)) {
+		if (ui.AddButton("Collapse", OFX_IM_BUTTON, 2)) {
 			fg = ImGuiTreeNodeFlags_None;
 			bExpanded = false;
 		}
-		guiManager.SameLine();
-		if (guiManager.AddButton("Expand", OFX_IM_BUTTON, 2)) {
+		ui.SameLine();
+		if (ui.AddButton("Expand", OFX_IM_BUTTON, 2)) {
 			fg = ImGuiTreeNodeFlags_DefaultOpen;
 			bExpanded = true;
 		}
 
-		guiManager.AddSpacingSeparated();
+		ui.AddSpacingSeparated();
 
 		ImGuiCond cond = ImGuiCond_None;
 		if (bExpanded_PRE != bExpanded) {
@@ -734,12 +734,12 @@ void ofxSurfingFxPro::drawImGuiControls()
 			cond = ImGuiCond_Once;
 		}
 
-		guiManager.AddGroup(manager.params_Controls, bExpanded, cond);
+		ui.AddGroup(manager.params_Controls, bExpanded, cond);
 #else
-		guiManager.AddGroup(manager.params_Controls);
+		ui.AddGroup(manager.params_Controls);
 #endif
 
-		guiManager.endWindowSpecial();
+		ui.EndWindowSpecial();
 	}
 }
 
@@ -748,27 +748,27 @@ void ofxSurfingFxPro::drawImGuiToggles()
 {
 	IMGUI_SUGAR__WINDOWS_CONSTRAINTSW;
 
-	if (guiManager.beginWindowSpecial(bGui_Toggles))
+	if (ui.BeginWindowSpecial(bGui_Toggles))
 	{
-		guiManager.Add(manager.bNone, OFX_IM_BUTTON, 2, true);
-		guiManager.Add(manager.bAll, OFX_IM_BUTTON, 2);
-		guiManager.AddSpacingSeparated();
+		ui.Add(manager.bNone, OFX_IM_BUTTON, 2, true);
+		ui.Add(manager.bAll, OFX_IM_BUTTON, 2);
+		ui.AddSpacingSeparated();
 
-		guiManager.AddGroup(manager.params_Toggles);
+		ui.AddGroup(manager.params_Toggles);
 
-		guiManager.endWindowSpecial();
+		ui.EndWindowSpecial();
 	}
 }
 
 //--------------------------------------------------------------
 void ofxSurfingFxPro::drawImGui()
 {
-	guiManager.begin();
+	ui.Begin();
 	{
-		//guiManager.beginDocking();
+		//ui.BeginDocking();
 		//{
 		//}
-		//guiManager.endDocking();
+		//ui.EndDocking();
 
 		//--
 
@@ -785,7 +785,7 @@ void ofxSurfingFxPro::drawImGui()
 		// Controls
 		drawImGuiControls();
 	}
-	guiManager.end();
+	ui.End();
 }
 
 //---------------------------------------

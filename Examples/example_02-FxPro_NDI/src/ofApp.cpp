@@ -11,8 +11,8 @@ void ofApp::setup()
 	//--
 
 	// Gui
-	guiManager.setName("ofApp");
-	guiManager.setup();
+	ui.setName("ofApp");
+	ui.setup();
 
 	// NDI Manager
 	ndi.setup();
@@ -92,25 +92,25 @@ void ofApp::drawScene()
 void ofApp::drawGui()
 {
 	// ofApp ImGui Window
-	guiManager.begin();
+	ui.Begin();
 	{
-		if (guiManager.beginWindow("ofApp"))
+		if (ui.BeginWindow("ofApp"))
 		{
 			ImGui::Checkbox("Exclusive", &bExclusive);
 
-			guiManager.AddSpacingBig();
+			ui.AddSpacingBig();
 
-			guiManager.Add(fxPro.bGui, OFX_IM_TOGGLE_BIG_XXL_BORDER_BLINK);
+			ui.Add(fxPro.bGui, OFX_IM_TOGGLE_BIG_XXL_BORDER_BLINK);
 
-			//guiManager.AddSpacingBigSeparated();
-			guiManager.AddSpacingBig();
+			//ui.AddSpacingBigSeparated();
+			ui.AddSpacingBig();
 
-			guiManager.Add(ndi.bGui, OFX_IM_TOGGLE_BIG_XXL_BORDER_BLINK);
+			ui.Add(ndi.bGui, OFX_IM_TOGGLE_BIG_XXL_BORDER_BLINK);
 
-			guiManager.endWindow();
+			ui.EndWindow();
 		}
 	}
-	guiManager.end();
+	ui.End();
 
 	// FxPro
 	fxPro.drawGui();

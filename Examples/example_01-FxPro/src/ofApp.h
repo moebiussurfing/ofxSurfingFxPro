@@ -8,7 +8,7 @@
 
 	TODO:
 
-	add multi layout presets guiManager. 
+	add multi layout presets ui. 
 		app modes workflow
 		app mode: fx / presets. 
 		improve workflow keys/edit/midi..
@@ -29,7 +29,7 @@
 		link player window. rename. clean
 		try to link presets window to parent fx pro
 
-	fix guiManager path settings sometimes
+	fix ui path settings sometimes
 	
 	midi link
 	log silencers
@@ -73,7 +73,7 @@ public:
 
 	ofxSurfingFxPro fxPro;
 
-	ofxSurfing_ImGui_Manager guiManager;
+	ofxSurfingGui ui;
 
 	ofParameterGroup params_ofApp{ "ofApp" };
 	ofParameter<bool> bGui{ "ofApp", true };

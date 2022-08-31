@@ -108,7 +108,7 @@ private:
 	void Changed(ofAbstractParameter& e);
 	void Changed_Enablers(ofAbstractParameter& e);
 
-	ofxSurfing_ImGui_Manager guiManager;
+	ofxSurfingGui ui;
 
 	ofxSurfingRandomizer randomizer;
 

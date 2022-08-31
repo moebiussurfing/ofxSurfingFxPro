@@ -25,7 +25,7 @@ public:
 	ofParameterGroup params_ofApp{ "ofApp" };
 	ofParameter<bool> bGui{ "ofApp", true };
 
-	ofxSurfing_ImGui_Manager guiManager;
+	ofxSurfingGui ui;
 	ofxSurfingVideoSkip player;
 	ofxWindowApp w;
 

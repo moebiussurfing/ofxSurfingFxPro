@@ -14,7 +14,7 @@
         "PLAY": "0",
         "RAND": "1",
         "RAND_INDEX": "0",
-        "RAND_MAIN": "0",
+        "RAND_MAIN": "1",
         "RAND_PARAMS": "0",
         "RAND_RANGES": "1",
         "Speed": "0.46",
