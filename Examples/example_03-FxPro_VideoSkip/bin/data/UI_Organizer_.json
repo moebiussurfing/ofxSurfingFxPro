@@ -1,0 +1,24 @@
+{
+    "Organizer": {
+        "GuiToggles": {
+            "PRESETS": "0",
+            "VIDEO_SKIP": "1"
+        },
+        "Organizer_Settings": {
+            "Align_Shapes": "1",
+            "Headers": "1",
+            "LINK": "1",
+            "Orientation": "0",
+            "Pad": "0",
+            "Panels": {
+                "ALIGNERS": "0",
+                "GLOBAL": "1",
+                "ORGANIZER": "0",
+                "SPECIAL_WINDOWS": "0"
+            },
+            "Position_Anchor": "10, 10",
+            "ShapesX": "1",
+            "ShapesY": "0"
+        }
+    }
+}

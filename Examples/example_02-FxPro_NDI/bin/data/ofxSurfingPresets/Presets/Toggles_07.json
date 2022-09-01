@@ -16,10 +16,10 @@
         "NOISE_GRAINS": "1",
         "PIXELATE": "0",
         "RGBSHIFT": "0",
-        "RIMBLIGHTING": "0",
+        "RIMBLIGHTING": "1",
         "SPACE_COLORS_SHADER": "0",
         "SSAO": "0",
-        "STROBBER": "0",
+        "STROBBER": "1",
         "SUPER_SHADER": "0",
         "TILT_SHIFT": "0",
         "ZOOMBLUR": "0"

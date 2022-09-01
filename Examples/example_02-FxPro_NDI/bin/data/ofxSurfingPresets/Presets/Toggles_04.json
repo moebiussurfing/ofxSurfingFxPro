@@ -3,7 +3,7 @@
         "BLOOM": "0",
         "DITHER": "0",
         "DOT_SCREEN": "0",
-        "FILM_GRAIN": "0",
+        "FILM_GRAIN": "1",
         "FILTER_ACES_FILM": "1",
         "FXAA": "1",
         "GLITCH_AUTOMATED": "1",
@@ -22,6 +22,6 @@
         "STROBBER": "0",
         "SUPER_SHADER": "0",
         "TILT_SHIFT": "1",
-        "ZOOMBLUR": "1"
+        "ZOOMBLUR": "0"
     }
 }

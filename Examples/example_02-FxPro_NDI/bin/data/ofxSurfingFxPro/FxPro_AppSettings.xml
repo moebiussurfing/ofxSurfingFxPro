@@ -4,7 +4,7 @@
         "ENABLE": "1",
         "FX_PRO": "1",
         "Gui_Internal": "0",
-        "KEYS_FX": "1",
+        "KEYS_FX": "0",
         "MODE_TOGGLE": "0",
         "PLAY_RANDOMS": "0",
         "Prob": "0.5",

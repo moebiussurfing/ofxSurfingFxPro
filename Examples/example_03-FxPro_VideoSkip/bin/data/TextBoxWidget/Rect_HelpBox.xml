@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <interactiveRect>
 	<path>TextBoxWidget//</path>
-	<x>512</x>
-	<y>384</y>
+	<x>10</x>
+	<y>10</y>
 	<width>400</width>
 	<height>400</height>
 	<name>_HelpBox</name>

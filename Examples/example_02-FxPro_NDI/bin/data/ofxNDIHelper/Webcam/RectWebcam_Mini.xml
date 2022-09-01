@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <interactiveRect>
 	<path>ofxNDIHelper/Webcam//</path>
-	<x>154.44</x>
-	<y>74.717</y>
+	<x>144.44</x>
+	<y>242.717</y>
 	<width>337.414</width>
 	<height>189.795</height>
 	<name>Webcam_Mini</name>
-	<isEditing>1</isEditing>
+	<isEditing>0</isEditing>
 </interactiveRect>

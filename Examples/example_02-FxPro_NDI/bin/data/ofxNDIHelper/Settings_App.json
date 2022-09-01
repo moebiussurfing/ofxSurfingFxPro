@@ -7,8 +7,8 @@
         },
         "NDI_OUTPUT": {
             "DRAW": "0",
-            "EDIT_BOX": "0",
             "ENABLE": "1",
+            "Edit_Box": "0",
             "MINI": "0",
             "NAME": "oF"
         },
@@ -20,8 +20,8 @@
         },
         "WEBCAM": {
             "DRAW": "1",
-            "EDIT_BOX": "1",
             "ENABLE": "1",
+            "Edit_Box": "0",
             "LOCK_ASPECT": "1",
             "MINI": "1",
             "SCALE_MODE": "0"

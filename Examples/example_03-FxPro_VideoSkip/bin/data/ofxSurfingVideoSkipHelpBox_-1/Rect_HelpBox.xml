@@ -3,8 +3,8 @@
 	<path>ofxSurfingVideoSkipHelpBox_-1//</path>
 	<x>960</x>
 	<y>527</y>
-	<width>400</width>
-	<height>400</height>
+	<width>239</width>
+	<height>455</height>
 	<name>_HelpBox</name>
 	<isEditing>0</isEditing>
 </interactiveRect>

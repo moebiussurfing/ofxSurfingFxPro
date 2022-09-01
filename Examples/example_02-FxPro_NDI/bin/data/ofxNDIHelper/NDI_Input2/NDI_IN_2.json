@@ -2,7 +2,7 @@
     "NDI_INPUT": {
         "CONTROL": {
             "DEBUG": "0",
-            "EDIT_BOX": "1",
+            "Edit_Box": "0",
             "GUI_POSITION": "905, 5",
             "LOCK_ASPECT": "1",
             "SCALE_MODE": "0"
