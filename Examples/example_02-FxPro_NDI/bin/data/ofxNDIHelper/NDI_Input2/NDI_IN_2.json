@@ -5,13 +5,13 @@
             "Edit_Box": "0",
             "GUI_POSITION": "905, 5",
             "LOCK_ASPECT": "1",
-            "SCALE_MODE": "0"
+            "SCALE": "0"
         },
         "NDI_INPUT": {
-            "DEVICE": "SURFINGMACHINE (Test Pattern)",
             "DRAW": "0",
             "ENABLE": "0",
-            "MINI": "0"
+            "MINI": "0",
+            "NAME": "ofxNDIHelperIN"
         }
     }
 }

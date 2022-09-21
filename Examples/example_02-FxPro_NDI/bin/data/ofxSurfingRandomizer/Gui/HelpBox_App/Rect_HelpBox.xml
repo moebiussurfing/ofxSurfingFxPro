@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <interactiveRect>
 	<path>ofxSurfingRandomizer/Gui/HelpBox_App//</path>
-	<x>587</x>
-	<y>128</y>
+	<x>1109</x>
+	<y>187</y>
 	<width>400</width>
 	<height>400</height>
 	<name>_HelpBox</name>

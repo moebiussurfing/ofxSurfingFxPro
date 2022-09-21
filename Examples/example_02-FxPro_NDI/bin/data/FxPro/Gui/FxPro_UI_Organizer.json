@@ -2,7 +2,7 @@
     "Organizer": {
         "GuiToggles": {
             "CONTROLS": "0",
-            "FX_PRO": "1",
+            "FX_PRO": "0",
             "PRESETS": "1",
             "TOGGLES": "1"
         },
@@ -18,7 +18,7 @@
                 "FxPro_SPECIALW": "0",
                 "GLOBAL": "1"
             },
-            "Position_Anchor": "187, 18",
+            "Position_Anchor": "266, 53",
             "ShapesX": "1",
             "ShapesY": "0"
         }

@@ -36,6 +36,5 @@ public:
 
 	ofEventListener listener_bGui1;
 	ofEventListener listener_bGui2;
-	void refreshToggles();
 	bool bExclusive = false;
 };

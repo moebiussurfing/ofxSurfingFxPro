@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <interactiveRect>
 	<path>TextBoxWidget//</path>
-	<x>960</x>
-	<y>490</y>
+	<x>1252</x>
+	<y>587</y>
 	<width>302</width>
 	<height>359.96</height>
 	<name>_HelpBox</name>
-	<isEditing>0</isEditing>
+	<isEditing>1</isEditing>
 </interactiveRect>

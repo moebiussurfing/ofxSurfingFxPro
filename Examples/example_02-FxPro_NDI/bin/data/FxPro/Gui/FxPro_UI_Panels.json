@@ -8,8 +8,8 @@
             "Help_App": "0",
             "Help_Internal": "1",
             "Keys": "1",
-            "Log": "0",
-            "Minimize": "1",
+            "LOG": "0",
+            "Minimize": "0",
             "Mouse_Wheel": "1",
             "Solo": "0"
         }

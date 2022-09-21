@@ -2,27 +2,27 @@
     "Ranges_Editor": {
         "Controls": {
             "Amount": {
-                "Amount": "0.2",
+                "Amount": "0.674016",
                 "Max": "0.9",
                 "Min": "0.1"
             },
             "Angle": {
-                "Angle": "2.73536",
+                "Angle": "3.33996",
                 "Max": "5.65487",
                 "Min": "0.628319"
             },
             "AoClamp": {
-                "AoClamp": "0.65",
+                "AoClamp": "0.808737",
                 "Max": "0.9",
                 "Min": "0.1"
             },
             "Blur_X": {
-                "Blur_X": "0.000953125",
+                "Blur_X": "0.00804318",
                 "Max": "0.009",
                 "Min": "0.001"
             },
             "Blur_Y": {
-                "Blur_Y": "0.000953125",
+                "Blur_Y": "0.00485314",
                 "Max": "0.009",
                 "Min": "0.001"
             },
@@ -32,30 +32,30 @@
                 "Min": "-0.8"
             },
             "Bypass": {
-                "Bypass": "0"
+                "Bypass": "1"
             },
             "Cam_Far": {
-                "Cam_Far": "1000",
+                "Cam_Far": "1747.07",
                 "Max": "1800",
                 "Min": "200"
             },
             "Cam_Near": {
-                "Cam_Near": "1",
+                "Cam_Near": "1458.88",
                 "Max": "1800",
                 "Min": "200"
             },
             "Center": {
-                "Center": "0.5, 0.5",
+                "Center": "0.9, 0.9",
                 "Max": "0.9, 0.9",
                 "Min": "0.9, 0.9"
             },
             "Center_XY": {
-                "Center_XY": "0.5, 0.5",
+                "Center_XY": "0.9, 0.9",
                 "Max": "0.9, 0.9",
                 "Min": "0.9, 0.9"
             },
             "Column": {
-                "Column": "0.0310612",
+                "Column": "0.422771",
                 "Max": "0.9",
                 "Min": "0.1"
             },
@@ -65,58 +65,58 @@
                 "Min": "-0.8"
             },
             "Count": {
-                "Count": "1096",
+                "Count": "7084.7",
                 "Max": "9000.1",
                 "Min": "1000.9"
             },
             "Density": {
-                "Density": "0.099",
+                "Density": "0.764034",
                 "Max": "0.9",
                 "Min": "0.1"
             },
             "Distort_1": {
-                "Distort_1": "3",
+                "Distort_1": "12.5726",
                 "Max": "18",
                 "Min": "2"
             },
             "Distort_2": {
-                "Distort_2": "5",
+                "Distort_2": "7.62468",
                 "Max": "18",
                 "Min": "2"
             },
             "Distort_X": {
-                "Distort_X": "-0.19535",
+                "Distort_X": "-0.12293",
                 "Max": "0.8",
                 "Min": "-0.8"
             },
             "Distort_Y": {
-                "Distort_Y": "0.322363",
+                "Distort_Y": "-0.153127",
                 "Max": "0.8",
                 "Min": "-0.8"
             },
             "ENABLE_Ao": {
-                "ENABLE_Ao": "0"
+                "ENABLE_Ao": "1"
             },
             "ENABLE_Fog": {
-                "ENABLE_Fog": "0"
+                "ENABLE_Fog": "1"
             },
             "Exposure": {
-                "Exposure": "1",
+                "Exposure": "0.633512",
                 "Max": "0.9",
                 "Min": "0.1"
             },
             "Focus": {
-                "Focus": "0.35",
+                "Focus": "0.731904",
                 "Max": "0.9",
                 "Min": "0.1"
             },
             "Fog_Far": {
-                "Fog_Far": "1000",
+                "Fog_Far": "869.161",
                 "Max": "1800",
                 "Min": "200"
             },
             "Fog_Near": {
-                "Fog_Near": "1",
+                "Fog_Near": "1323.57",
                 "Max": "1800",
                 "Min": "200"
             },
@@ -134,49 +134,49 @@
                 "GrayScale": "0"
             },
             "Intensity": {
-                "Intensity": "64",
+                "Intensity": "112.239",
                 "Max": "460.8",
                 "Min": "51.2"
             },
             "Light": {
-                "Light": "0.3",
+                "Light": "0.500647",
                 "Max": "0.9",
                 "Min": "0.1"
             },
             "Light_Color": {
-                "Light_Color": "2.9, 1.3, 1.3",
+                "Light_Color": "2.7, 2.7, 2.7",
                 "Max": "2.7, 2.7, 2.7",
                 "Min": "2.7, 2.7, 2.7"
             },
             "LumInfluence": {
-                "LumInfluence": "0.25",
+                "LumInfluence": "0.522034",
                 "Max": "0.9",
                 "Min": "0.1"
             },
             "N_Intensity": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "N_Intensity": "0.5"
+                "N_Intensity": "0.36263"
             },
             "Offset": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "Offset": "0.05"
+                "Offset": "0.225419"
             },
             "Opacity": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "Opacity": "0.1"
+                "Opacity": "0.698358"
             },
             "Phase": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "Phase": "0.15"
+                "Phase": "0.755049"
             },
             "Pos": {
                 "Max": "0.9, 0.9, 0.9",
                 "Min": "0.9, 0.9, 0.9",
-                "Pos": "0, 0, 0"
+                "Pos": "0.9, 0.9, 0.9"
             },
             "RGB_Shift_Amt": {
                 "Max": "0.9",
@@ -186,27 +186,27 @@
             "Range": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "Range": "0.5"
+                "Range": "0.612686"
             },
             "Red_Min_DIV": {
                 "Max": "460.9",
                 "Min": "52.1",
-                "Red_Min_DIV": "128"
+                "Red_Min_DIV": "434.463"
             },
             "Red_Mult_DIV": {
                 "Max": "115.3",
                 "Min": "13.7",
-                "Red_Mult_DIV": "8"
+                "Red_Mult_DIV": "42.2759"
             },
             "Roll_Speed": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "Roll_Speed": "0.1"
+                "Roll_Speed": "0.286846"
             },
             "S_Intensity": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "S_Intensity": "0.5"
+                "S_Intensity": "0.750777"
             },
             "Saturation": {
                 "Max": "0.9",
@@ -216,22 +216,22 @@
             "Scale": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "Scale": "1"
+                "Scale": "0.865013"
             },
             "Seed": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "Seed": "0.02"
+                "Seed": "0.739057"
             },
             "Seed_X": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "Seed_X": "0.02"
+                "Seed_X": "0.425816"
             },
             "Seed_Y": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "Seed_Y": "0.02"
+                "Seed_Y": "0.404916"
             },
             "Segments": {
                 "Max": "16",
@@ -241,22 +241,22 @@
             "Size": {
                 "Max": "900, 900",
                 "Min": "900, 900",
-                "Size": "1000, 1000"
+                "Size": "900, 900"
             },
             "Span_Max": {
                 "Max": "115.3",
                 "Min": "13.7",
-                "Span_Max": "8"
+                "Span_Max": "92.1751"
             },
             "Speed": {
                 "Max": "4.5",
                 "Min": "0.5",
-                "Speed": "1"
+                "Speed": "4.46631"
             },
             "Strength": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "Strength": "0.5"
+                "Strength": "0.707562"
             },
             "Vignt_Darkness": {
                 "Max": "0.9",
@@ -276,7 +276,7 @@
             "Weight": {
                 "Max": "0.9",
                 "Min": "0.1",
-                "Weight": "0.233"
+                "Weight": "0.268633"
             }
         },
         "Params": {

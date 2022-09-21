@@ -548,8 +548,8 @@ void ofxSurfingFxPro::drawImGuiMain()
 		ui.Add(bEnable, OFX_IM_TOGGLE_BIG_BORDER);
 		ui.AddSpacingBigSeparated();
 
-		ui.Add(ui.bMinimize, OFX_IM_TOGGLE_BUTTON_ROUNDED_MEDIUM);
-		ui.Add(bKeys_FX, OFX_IM_TOGGLE_BUTTON_ROUNDED_MEDIUM);
+		ui.Add(ui.bMinimize, OFX_IM_TOGGLE_BUTTON_ROUNDED);
+		ui.Add(bKeys_FX, OFX_IM_TOGGLE_BUTTON_ROUNDED);
 
 		if (bKeys_FX)
 		{
@@ -568,17 +568,17 @@ void ofxSurfingFxPro::drawImGuiMain()
 		ui.AddLabelBig("Panels");
 
 		// Toggles
-		ui.Add(bGui_Toggles, OFX_IM_TOGGLE_ROUNDED_BIG);
+		ui.Add(bGui_Toggles, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
 
 		// Controls
 		ui.Indent();
-		ui.Add(bGui_Controls, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
+		ui.Add(bGui_Controls, OFX_IM_TOGGLE_ROUNDED);
 		ui.Unindent();
 
 
 		// Presets Manager
 		ui.AddSpacingSeparated();
-		ui.Add(presetsManager.bGui, OFX_IM_TOGGLE_ROUNDED_BIG);
+		ui.Add(presetsManager.bGui, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
 		//if (!presetsManager.bGui) {
 		//	ui.Indent();
 		//	presetsManager.draw_ImGui_ClickerSimple(true, false, true, false);
@@ -587,7 +587,7 @@ void ofxSurfingFxPro::drawImGuiMain()
 		ui.AddSpacingSeparated();
 
 		// Randomizer
-		ui.Add(randomizer.bGui, OFX_IM_TOGGLE_ROUNDED_BIG);
+		ui.Add(randomizer.bGui, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
 
 		//--
 
@@ -635,7 +635,7 @@ void ofxSurfingFxPro::drawImGuiMain()
 					ui.refreshLayout();
 					//ui.AddLabelBig("Randomizers", true, true);
 					ui.Add(randomProb);
-					ui.Add(bRandom, OFX_IM_BUTTON_MEDIUM);
+					ui.Add(bRandom, OFX_IM_BUTTON);
 					ui.AddTooltip("Randomize params but using Prob: \nWhen bigger too much toggles will be ON");
 
 					ui.Add(bPlayRandoms, OFX_IM_TOGGLE_MEDIUM_BORDER_BLINK);

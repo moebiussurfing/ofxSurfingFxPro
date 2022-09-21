@@ -1,7 +1,7 @@
 {
     "AppSession": {
         "Border": "1",
-        "Edit_Box": "0",
+        "Edit_Box": "1",
         "Transparent": "0"
     }
 }

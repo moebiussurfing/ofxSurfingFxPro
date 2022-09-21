@@ -3,6 +3,8 @@
 //--------------------------------------------------------------
 void ofApp::setup()
 {
+	ofSetWindowTitle("FxPro_NDI");
+
 	w.setFrameRate(60);
 	w.setVerticalSync(false);
 
@@ -24,11 +26,11 @@ void ofApp::setup()
 	//--
 
 	listener_bGui1 = ndi.bGui.newListener([this](bool& b) {
-		refreshToggles();
+		if (b && bExclusive) fxPro.bGui = false;
 		});
 
 	listener_bGui2 = fxPro.bGui.newListener([this](bool& b) {
-		refreshToggles();
+		if (b && bExclusive) ndi.bGui = false;
 		});
 
 	//--
@@ -38,18 +40,12 @@ void ofApp::setup()
 }
 
 //--------------------------------------------------------------
-void ofApp::refreshToggles()
-{
-	if (bExclusive) {
-		if (ndi.bGui) fxPro.bGui = false;
-		//if (fxPro.bGui) ndi.bGui = false;
-	}
-}
-
-//--------------------------------------------------------------
 void ofApp::update()
 {
+	// Input
+
 	// FxPro
+	// Source
 	{
 		fxPro.begin();
 		{
@@ -61,12 +57,18 @@ void ofApp::update()
 		fxPro.end(false);
 	}
 
-	// Feed processed signal to NDI Out sender
-	ndi.begin_NDI_OUT();
+	//--
+
+	// Output
+	// Processed
 	{
-		fxPro.draw();
+		// Feed processed signal to NDI Out sender
+		ndi.begin_NDI_OUT();
+		{
+			fxPro.draw();
+		}
+		ndi.end_NDI_OUT();
 	}
-	ndi.end_NDI_OUT();
 }
 
 //--------------------------------------------------------------
@@ -102,8 +104,7 @@ void ofApp::drawGui()
 
 			ui.Add(fxPro.bGui, OFX_IM_TOGGLE_BIG_XXL_BORDER_BLINK);
 
-			//ui.AddSpacingBigSeparated();
-			ui.AddSpacingBig();
+			ui.AddSpacing();
 
 			ui.Add(ndi.bGui, OFX_IM_TOGGLE_BIG_XXL_BORDER_BLINK);
 

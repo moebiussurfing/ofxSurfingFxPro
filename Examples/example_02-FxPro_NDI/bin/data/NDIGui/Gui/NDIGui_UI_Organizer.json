@@ -1,11 +1,11 @@
 {
     "Organizer": {
         "GuiToggles": {
-            "IN_1": "0",
+            "IN_1": "1",
             "IN_2": "0",
-            "NDI_HELPER": "0",
-            "OUT": "0",
-            "WEBCAM": "1"
+            "NDI_HELPER": "1",
+            "OUT": "1",
+            "WEBCAM": "0"
         },
         "Organizer_Settings": {
             "Align_Shapes": "1",
@@ -19,7 +19,7 @@
                 "NDIGui_ORGANIZER": "0",
                 "NDIGui_SPECIALW": "0"
             },
-            "Position_Anchor": "634, 123",
+            "Position_Anchor": "1192, 58",
             "ShapesX": "1",
             "ShapesY": "0"
         }
