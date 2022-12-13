@@ -566,3 +566,6 @@ MigrationBackup/
 *.txt
 *.json
 *.xml
+*.xml
+*.json
+*.ini

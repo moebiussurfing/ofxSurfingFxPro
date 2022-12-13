@@ -1,4 +1,22 @@
+/*
+
+	TODO:
+
+	add directive to disable randomizer
+
+
+*/
+
+
 #pragma once
+
+//--
+
+// Optional
+
+//#define USE__ofxSurfingFxPro__ofxSurfingFxPro
+
+//--
 
 #include "ofMain.h"
 
@@ -9,7 +27,10 @@
 #include "ofxSurfingHelpers.h"
 #include "ofxSurfingImGui.h"
 #include "ofxSurfingPresets.h"
+
+#ifdef USE__ofxSurfingFxPro__ofxSurfingFxPro
 #include "ofxSurfingRandomizer.h"
+#endif
 
 //--
 
@@ -110,7 +131,9 @@ private:
 
 	ofxSurfingGui ui;
 
+#ifdef USE__ofxSurfingFxPro__ofxSurfingFxPro
 	ofxSurfingRandomizer randomizer;
+#endif
 
 	// Settings
 	string path_GLOBAL; // this is to folder all files to avoid mixing with other add-ons data

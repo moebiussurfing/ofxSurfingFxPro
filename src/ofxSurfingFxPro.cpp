@@ -16,7 +16,7 @@ ofxSurfingFxPro::ofxSurfingFxPro()
 	//TODO: fix log silencers
 	//ofSetLogLevel("ofxPostProcessingManager", OF_LOG_ERROR);
 	//ofSetLogLevel("ofxSurfingFxPro", OF_LOG_SILENT);
-	ofSetLogLevel(OF_LOG_SILENT);
+	//ofSetLogLevel(OF_LOG_SILENT);
 }
 
 //--------------------------------------------------------------
@@ -38,16 +38,16 @@ void ofxSurfingFxPro::setPathGlobal(string s) // must call before setup. disable
 //--------------------------------------------------------------
 void ofxSurfingFxPro::setupGui()
 {
-
 	ui.setWindowsMode(IM_GUI_MODE_WINDOWS_SPECIAL_ORGANIZER);
 	ui.setName("FxPro");
-	
+
 	ui.setup();
 	//ui.setup(IM_GUI_MODE_INSTANTIATED_DOCKING);
 
 	ui.addWindowSpecial(bGui);
 	ui.addWindowSpecial(bGui_Toggles);
 	ui.addWindowSpecial(bGui_Controls);
+
 	ui.addWindowSpecial(presetsManager.bGui);
 
 	ui.startup();
@@ -105,7 +105,7 @@ void ofxSurfingFxPro::setupParams()
 	listener_bEnable = bEnable.newListener([this](bool&)
 		{
 			ofLogNotice("ofApp") << "bEnable: " << bEnable;
-			setupGuiStyles();
+	setupGuiStyles();
 		});
 
 	//----
@@ -136,22 +136,29 @@ void ofxSurfingFxPro::setupParams()
 	// That's to avoid auto reload the current file preset again.
 	presetsManager.setAutoLoadOnReTrig(false);
 
+	//Colorize
+	presetsManager.setFliped(true);
+	presetsManager.setColorized(true);
+
 	//--
 
+#ifdef USE__ofxSurfingFxPro__ofxSurfingFxPro
 	// Randomizer
+	{
+		randomizer.setup(manager.params_Controls);
+		//randomizer.setup(manager.params_Toggles);
 
-	randomizer.setup(manager.params_Controls);
-	//randomizer.setup(manager.params_Toggles);
+		randomizer.setIndexPtr(presetsManager.index);
 
-	randomizer.setIndexPtr(presetsManager.index);
+		//--
 
-	//--
+		// Target B. 
+		// Index
 
-	// Target B. 
-	// Index
-
-	// Link index with the Presets Manager selector!
-	randomizer.setIndexPtr(presetsManager.index);
+		// Link index with the Presets Manager selector!
+		randomizer.setIndexPtr(presetsManager.index);
+	}
+#endif
 
 }
 
@@ -358,7 +365,9 @@ void ofxSurfingFxPro::setupGuiStyles()
 	if (manager.bEnablers[21]) g.add(manager.gStrobberGroup);
 	if (manager.bEnablers[22]) g.add(manager.gRimbLightGroup);
 
+#ifdef USE__ofxSurfingFxPro__ofxSurfingFxPro
 	randomizer.rebuildParamsGroup(g);
+#endif
 
 	//--
 
@@ -468,6 +477,8 @@ void ofxSurfingFxPro::update(ofEventArgs& args)
 
 	//TODO:
 	// Undo Engine
+
+#ifdef USE__ofxSurfingFxPro__ofxSurfingFxPro
 	if (randomizer.isRandomized())
 	{
 		// Presets only handles toggles!
@@ -475,6 +486,7 @@ void ofxSurfingFxPro::update(ofEventArgs& args)
 //		presetsManager.undoManager.doSaveUndoWhenAuto();
 //#endif
 	}
+#endif
 
 	//--
 
@@ -505,8 +517,8 @@ void ofxSurfingFxPro::update(ofEventArgs& args)
 		presetsManagerbKeys_ = presetsManager.bKeys;
 		bUpdate = true;
 	}
-	
-	if(bUpdate) buildHelp();
+
+	if (bUpdate) buildHelp();
 }
 
 //--------------------------------------------------------------
@@ -532,14 +544,19 @@ void ofxSurfingFxPro::drawGui() {
 
 	presetsManager.drawGui();
 
+#ifdef USE__ofxSurfingFxPro__ofxSurfingFxPro
 	randomizer.drawGui();
+#endif
 }
 
 //--------------------------------------------------------------
 void ofxSurfingFxPro::drawImGuiMain()
 {
-	//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW;
-	IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_SMALL;
+	if (bGui)
+	{
+		//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW;
+		//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_SMALL;
+	}
 
 	//if (ui.BeginWindow(bGui))
 	if (ui.BeginWindowSpecial(bGui))
@@ -549,23 +566,29 @@ void ofxSurfingFxPro::drawImGuiMain()
 		ui.AddSpacingBigSeparated();
 
 		ui.Add(ui.bMinimize, OFX_IM_TOGGLE_BUTTON_ROUNDED);
-		ui.Add(bKeys_FX, OFX_IM_TOGGLE_BUTTON_ROUNDED);
 
-		if (bKeys_FX)
+		if (!ui.bMinimize)
 		{
-			string s = string("Key controls goes from ") + getFirstKey() + string(" to ") + getLastKey();
-			ui.AddTooltip(s);
+			ui.Add(bKeys_FX, OFX_IM_TOGGLE_BUTTON_ROUNDED);
 
-			ui.Indent();
-			ui.Add(bKeys_FX_ToggleMode, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
-			if (!bKeys_FX_ToggleMode) ui.AddTooltip("Press SHIFT before release key to latch");
-			ui.Unindent();
+			if (bKeys_FX)
+			{
+				string s = string("Key controls goes from ") + getFirstKey() + string(" to ") + getLastKey();
+				ui.AddTooltip(s);
+
+				ui.Indent();
+				ui.Add(bKeys_FX_ToggleMode, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
+				if (!bKeys_FX_ToggleMode) ui.AddTooltip("Press SHIFT before release key to latch");
+				ui.Unindent();
+			}
 		}
+
 		ui.AddSpacingBigSeparated();
 
 		//--
 
-		ui.AddLabelBig("Panels");
+		if (!ui.bMinimize)
+			ui.AddLabelBig("Panels");
 
 		// Toggles
 		ui.Add(bGui_Toggles, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
@@ -575,25 +598,32 @@ void ofxSurfingFxPro::drawImGuiMain()
 		ui.Add(bGui_Controls, OFX_IM_TOGGLE_ROUNDED);
 		ui.Unindent();
 
+		ui.AddSpacingSeparated();
 
 		// Presets Manager
-		ui.AddSpacingSeparated();
 		ui.Add(presetsManager.bGui, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
 		//if (!presetsManager.bGui) {
 		//	ui.Indent();
 		//	presetsManager.draw_ImGui_ClickerSimple(true, false, true, false);
 		//	ui.Unindent();
 		//}
-		ui.AddSpacingSeparated();
 
-		// Randomizer
-		ui.Add(randomizer.bGui, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
+#ifdef USE__ofxSurfingFxPro__ofxSurfingFxPro
+		if (!ui.bMinimize)
+		{
+			ui.AddSpacingSeparated();
+
+			// Randomizer
+			ui.Add(randomizer.bGui, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
+		}
+#endif
 
 		//--
 
 		if (!ui.bMinimize)
 		{
-			if (bGui_Controls) {
+			if (bGui_Controls)
+			{
 				ui.AddSpacingSeparated();
 
 				ui.AddLabelBig("Controls"/*, true, true*/);
@@ -609,10 +639,11 @@ void ofxSurfingFxPro::drawImGuiMain()
 				}
 				ui.AddTooltip("Load Controls. \nHandled independently of the Toggle states, \nthat are handled by Presets Manager.");
 				ui.Add(bAutoSave);
+				//ui.Add(bAutoSave, OFX_IM_TOGGLE_SMALL);
 				ui.AddTooltip("Auto Store and Recall Controls Settings on the next App session.\nExcept for Toggles, that are handled by the Presets Manager!");
 			}
 
-			ui.AddSpacingBigSeparated();
+			if (!ui.bMinimize) ui.AddSpacingBigSeparated();
 
 			//--
 
@@ -621,6 +652,7 @@ void ofxSurfingFxPro::drawImGuiMain()
 			ui.Add(ui.bExtra, OFX_IM_TOGGLE_BUTTON_ROUNDED);
 			if (ui.bExtra)
 			{
+				ui.AddSpacing();
 				ui.Indent();
 
 				//ui.AddLabelBig("Helpers"/*, true, true*/);
@@ -657,18 +689,26 @@ void ofxSurfingFxPro::drawImGuiMain()
 				//ui.AddLabelBig("WORKFLOW"/*, true, true*/);
 				ui.Add(bGuiWorkflow, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
 				ui.AddTooltip("Automatically Hide or Show useful windows, \nor parts of the GUI, depending of the enabled sections \nor the usual App workflow.");
-				ui.Add(ui.bGui_Organizer, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
-				ui.AddTooltip("Panel for organizing and aligning the GUI windows \non the App window layout.");
+
+				//TODO:
+				//ui.Add(ui.bGui_Organizer, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
+				//ui.AddTooltip("Panel for organizing and aligning the GUI windows \non the App window layout.");
+
 				ui.Unindent();
 			}
 		}
 
 		//--
 
-		// Help
-		ui.AddSpacingBigSeparated();
-		ui.Add(ui.bHelp, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
-		//ui.Add(ui.bDebug, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
+		if (!ui.bMinimize)
+		{
+			// Help
+			ui.AddSpacingBigSeparated();
+			ui.Add(ui.bHelp, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
+			//ui.Add(ui.bDebug, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
+		}
+
+		//--
 
 		//ui.EndWindow();
 		ui.EndWindowSpecial();
@@ -681,20 +721,32 @@ void ofxSurfingFxPro::drawImGuiControls()
 
 	//if (manager.getAmountEffectsEnabled() == 0) return;
 
-	IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_MEDIUM;
+	if (bGui_Controls)
+	{
+		//crashes
 
-	//// Constraint Window Shape
-	//float w = 275;
-	//ImVec2 size_min = ImVec2(w, -1);
-	//ImVec2 size_max = ImVec2(w + 0, -1);
-	//ImGui::SetNextWindowSizeConstraints(size_min, size_max);
+		//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW;
+		//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_MEDIUM;
+		//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_SMALL;
+
+		//float w = 220;
+		//ImVec2 size_min = ImVec2(w, -1);
+		//ImVec2 size_max = ImVec2(w, -1);
+		//ImGui::SetNextWindowSizeConstraints(size_min, size_max);
+
+		//// Constraint Window Shape
+		//float w = 275;
+		//ImVec2 size_min = ImVec2(w, -1);
+		//ImVec2 size_max = ImVec2(w + 0, -1);
+		//ImGui::SetNextWindowSizeConstraints(size_min, size_max);
+	}
 
 	if (ui.BeginWindowSpecial(bGui_Controls))
 	{
 		if (manager.getAmountEffectsEnabled() == 0)
 		{
 			string s;
-			
+
 			s = "You must Enable one or more FX Toggles!";
 			ui.AddLabelBig(s, false, true);
 			ui.AddSpacing();
@@ -739,6 +791,8 @@ void ofxSurfingFxPro::drawImGuiControls()
 		ui.AddGroup(manager.params_Controls);
 #endif
 
+		//--
+
 		ui.EndWindowSpecial();
 	}
 }
@@ -746,12 +800,25 @@ void ofxSurfingFxPro::drawImGuiControls()
 //--------------------------------------------------------------
 void ofxSurfingFxPro::drawImGuiToggles()
 {
-	IMGUI_SUGAR__WINDOWS_CONSTRAINTSW;
+	if (bGui_Toggles)
+	{
+		//crashes
+
+		//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW;
+		//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_MEDIUM;
+		//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_SMALL;
+
+		//float w = 150;
+		//ImVec2 size_min = ImVec2(w, -1);
+		//ImVec2 size_max = ImVec2(w, -1);
+		//ImGui::SetNextWindowSizeConstraints(size_min, size_max);
+	}
 
 	if (ui.BeginWindowSpecial(bGui_Toggles))
 	{
 		ui.Add(manager.bNone, OFX_IM_BUTTON, 2, true);
 		ui.Add(manager.bAll, OFX_IM_BUTTON, 2);
+
 		ui.AddSpacingSeparated();
 
 		ui.AddGroup(manager.params_Toggles);
@@ -827,7 +894,10 @@ void ofxSurfingFxPro::keyPressed(int key)
 	if (key == OF_KEY_F1) bGui_Toggles = !bGui_Toggles;
 	if (key == OF_KEY_F2) bGui_Controls = !bGui_Controls;
 	if (key == OF_KEY_F3) presetsManager.bGui = !presetsManager.bGui;
+
+#ifdef USE__ofxSurfingFxPro__ofxSurfingFxPro
 	if (key == OF_KEY_F4) randomizer.bGui = !randomizer.bGui;
+#endif
 
 	//--
 
