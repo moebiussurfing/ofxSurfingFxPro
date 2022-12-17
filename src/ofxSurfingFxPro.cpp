@@ -588,7 +588,7 @@ void ofxSurfingFxPro::drawImGuiMain()
 		//--
 
 		if (!ui.bMinimize)
-			ui.AddLabelBig("Panels");
+			ui.AddLabelBig("PANELS");
 
 		// Toggles
 		ui.Add(bGui_Toggles, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
@@ -626,13 +626,21 @@ void ofxSurfingFxPro::drawImGuiMain()
 			{
 				ui.AddSpacingSeparated();
 
-				ui.AddLabelBig("Controls"/*, true, true*/);
+				ui.AddLabelBig("CONTROLS"/*, true, true*/);
+
+				if (ui.Add(manager.bReset, OFX_IM_BUTTON_MEDIUM, 2))
+				{
+				}
+				ui.AddTooltip("Reset the controls of each FX");
+
 				if (ui.AddButton("SAVE", OFX_IM_BUTTON_MEDIUM, 2))
 				{
 					ofxSurfingHelpers::save(manager.params_Controls);
 				}
 				ui.AddTooltip("Save Controls. \nHandled independently of the Toggle states, \nthat are handled by Presets Manager.");
+				
 				ui.SameLine();
+
 				if (ui.AddButton("LOAD", OFX_IM_BUTTON_MEDIUM, 2))
 				{
 					ofxSurfingHelpers::load(manager.params_Controls);
@@ -665,12 +673,17 @@ void ofxSurfingFxPro::drawImGuiMain()
 				if (ImGui::CollapsingHeader("RANDOMIZERS", _flagw))
 				{
 					ui.refreshLayout();
+
 					//ui.AddLabelBig("Randomizers", true, true);
 					ui.Add(randomProb);
+					ui.AddTooltip("How much toggles will be TRUE \nafter randomize");
+
 					ui.Add(bRandom, OFX_IM_BUTTON);
 					ui.AddTooltip("Randomize params but using Prob: \nWhen bigger too much toggles will be ON");
 
 					ui.Add(bPlayRandoms, OFX_IM_TOGGLE_MEDIUM_BORDER_BLINK);
+					ui.AddTooltip("Play a timed randomized");
+
 					if (bPlayRandoms) {
 						ui.Add(playSpeed);
 						ui.AddTooltip("Faster is 4 random trigs per second. \nSlower is one for each passed 2 seconds.");
@@ -718,7 +731,6 @@ void ofxSurfingFxPro::drawImGuiMain()
 //--------------------------------------------------------------
 void ofxSurfingFxPro::drawImGuiControls()
 {
-
 	//if (manager.getAmountEffectsEnabled() == 0) return;
 
 	if (bGui_Controls)
@@ -726,7 +738,7 @@ void ofxSurfingFxPro::drawImGuiControls()
 		//crashes
 
 		//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW;
-		//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_MEDIUM;
+		IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_MEDIUM;
 		//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_SMALL;
 
 		//float w = 220;

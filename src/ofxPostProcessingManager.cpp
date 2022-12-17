@@ -191,7 +191,7 @@ void ofxPostProcessingManager::initializeFX() {
 //--------------------------------------------------------------
 void ofxPostProcessingManager::doToggleFX(int postId) {
 	if (postId >= bEnablers.size()) return;
-	
+
 	bEnablers[postId] = !bEnablers[postId];
 	post[postId]->setEnabled(bEnablers[postId]);
 }
@@ -465,6 +465,34 @@ void ofxPostProcessingManager::doEnableNone() {
 		post[i]->setEnabled(bEnablers[i]);
 	}
 }
+
+//--------------------------------------------------------------
+void ofxPostProcessingManager::doResetAll() {
+	//for (int i = 0; i < post.size(); i++) {
+	//	post[i]->reset();
+	//}
+
+	doReset_FXAA();
+	doReset_Bloom();
+	doReset_Kaleidoscope();
+	doReset_GodRays();
+	doReset_Ssao();
+	doReset_ZoomBlur();
+	doReset_RGB();
+	doReset_FilmGrainLines();
+	doReset_DotScreen();
+	doReset_DigitalGlitch();
+	doReset_BadTV();
+	doReset_ACESFilmic();
+	doReset_NoiseGrain();
+	doReset_SuperShader();
+	doReset_GlitchAutomated();
+	doReset_SpaceColor();
+	doReset_Dither();
+	doReset_DitherStrobber();
+	doReset_RimblightPass();
+}
+
 //--------------------------------------------------------------
 void ofxPostProcessingManager::doEnableAll() {
 	for (int i = 0; i < post.size(); i++) {
@@ -487,6 +515,10 @@ void ofxPostProcessingManager::Changed_bNone() {
 	doEnableNone();
 }
 //--------------------------------------------------------------
+void ofxPostProcessingManager::Changed_bReset() {
+	doResetAll();
+}
+//--------------------------------------------------------------
 void ofxPostProcessingManager::Changed_bAll() {
 	doEnableAll();
 }
@@ -504,6 +536,7 @@ void ofxPostProcessingManager::setupGui()
 	gui.add(gDebugDraw.setup("DEBUG", true));
 	gui.add(bAll);
 	gui.add(bNone);
+	gui.add(bReset);
 	gui.add(btnLoad);
 	gui.add(btnSave);
 
@@ -512,6 +545,8 @@ void ofxPostProcessingManager::setupGui()
 		bEnablers.push_back(ofxToggle());
 		string n = post[i]->getName();
 		bEnablers[i].setup(ofToUpper(n), false);
+
+		bResets.push_back(post[i]->bReset);//get reset param from each fx
 	}
 
 	string prefixGroup = "";
@@ -528,6 +563,7 @@ void ofxPostProcessingManager::setupGui()
 	gFxaaGroup.add(gFxaaDivMin.setup("Red Min DIV", 128.0, 1.0, 512.0)->getParameter());
 	gFxaaGroup.add(gFxaaDivMul.setup("Red Mult DIV", 8.0, 1.0, 128.0)->getParameter());
 	gFxaaGroup.add(gFxaaSpanMax.setup("Span Max", 8.0, 1.0, 128.0)->getParameter());
+	gFxaaGroup.add(bResets[0]);
 	gui.add(&bEnablers[0]);
 	gui.add(gFxaaGroup);
 
@@ -537,6 +573,7 @@ void ofxPostProcessingManager::setupGui()
 	gBloomGroup.setName(ng);
 	gBloomGroup.add(gBloomBlurX.setup("Blur X", 0.000953125, 0, 0.01)->getParameter());
 	gBloomGroup.add(gBloomBlurY.setup("Blur Y", 0.000953125, 0, 0.01)->getParameter());
+	gBloomGroup.add(bResets[1]);
 	gui.add(&bEnablers[1]);
 	gui.add(gBloomGroup);
 
@@ -545,6 +582,7 @@ void ofxPostProcessingManager::setupGui()
 	ng = ofToUpper(ng);
 	gKaliGroup.setName(ng);
 	gKaliGroup.add(gKaleiSegments.setup("Segments", 2.f, -20, 20)->getParameter());
+	gKaliGroup.add(bResets[2]);
 	gui.add(&bEnablers[2]);
 	gui.add(gKaliGroup);
 
@@ -560,6 +598,7 @@ void ofxPostProcessingManager::setupGui()
 	gGodRaysGroup.setName(ng);
 	gGodRaysGroup.add(gGodRaysLightDotView.setup("Light", 0.3, 0.0, 1.0)->getParameter());
 	gGodRaysGroup.add(gLightPositionOnScreen.setup("Pos", glm::vec3(0), glm::vec3(0), glm::vec3(1))->getParameter());
+	gGodRaysGroup.add(bResets[5]);
 	gui.add(&bEnablers[5]);
 	gui.add(gGodRaysGroup);
 
@@ -578,6 +617,7 @@ void ofxPostProcessingManager::setupGui()
 	gSsaoGroup.add(gSsaoonlyAO.setup("ENABLE Ao", false)->getParameter());
 	gSsaoGroup.add(gSsaoAoClamp.setup("AoClamp", 0.65, 0.0, 1.0)->getParameter());
 	gSsaoGroup.add(gSsaoLumInfluence.setup("LumInfluence", 0.25, 0.0, 1.0)->getParameter());
+	gSsaoGroup.add(bResets[7]);
 	gui.add(&bEnablers[7]);
 	gui.add(gSsaoGroup);
 
@@ -591,6 +631,7 @@ void ofxPostProcessingManager::setupGui()
 	gZoomBlurGroup.add(gZoomWeight.setup("Weight", 0.25, 0, 1)->getParameter());
 	gZoomBlurGroup.add(gZoomDensity.setup("Density", 0.25, 0, 1)->getParameter());
 	gZoomBlurGroup.add(gZoomExposure.setup("Exposure", 0.48, 0, 1)->getParameter());
+	gZoomBlurGroup.add(bResets[8]);
 	gui.add(&bEnablers[8]);
 	gui.add(gZoomBlurGroup);
 
@@ -600,6 +641,7 @@ void ofxPostProcessingManager::setupGui()
 	gRGBGroup.setName(ng);
 	gRGBGroup.add(gRGBAngle.setup("Angle", 0, 0, TWO_PI)->getParameter());
 	gRGBGroup.add(gRGBAmount.setup("Amount", 0.005, 0, 1)->getParameter());
+	gRGBGroup.add(bResets[9]);
 	gui.add(&bEnablers[9]);
 	gui.add(gRGBGroup);
 
@@ -611,6 +653,7 @@ void ofxPostProcessingManager::setupGui()
 	gFilmGrainGroup.add(gFilmGrainLGrayScale.setup("GrayScale", false)->getParameter());
 	gFilmGrainGroup.add(gFilmGrainLnIntensity.setup("N Intensity", 0.5, 0, 1)->getParameter());
 	gFilmGrainGroup.add(gFilmGrainLsIntensity.setup("S Intensity", 0.5, 0, 1)->getParameter());
+	gFilmGrainGroup.add(bResets[10]);
 	gui.add(&bEnablers[10]);
 	gui.add(gFilmGrainGroup);
 
@@ -622,6 +665,7 @@ void ofxPostProcessingManager::setupGui()
 	gDotScreenGroup.add(gDotScrSize.setup("Size", ofVec2f(1000), ofVec2f(0), ofVec2f(1000))->getParameter());
 	gDotScreenGroup.add(gDotScrScale.setup("Scale", 1.0, 0, 1)->getParameter());
 	gDotScreenGroup.add(gDotScrAngle.setup("Angle", 1.57, 0, TWO_PI)->getParameter());
+	gDotScreenGroup.add(bResets[11]);
 	gui.add(&bEnablers[11]);
 	gui.add(gDotScreenGroup);
 
@@ -638,6 +682,7 @@ void ofxPostProcessingManager::setupGui()
 	gGlicthGroup.add(gGlitchDistX.setup("Distort X", 0.02, -1, 1)->getParameter());
 	gGlicthGroup.add(gGlitchDistY.setup("Distort Y", 0.02, -1, 1)->getParameter());
 	gGlicthGroup.add(gGlitchCol.setup("Column", 0.03, 0, 1)->getParameter());
+	gGlicthGroup.add(bResets[12]);
 	gui.add(&bEnablers[12]);
 	gui.add(gGlicthGroup);
 
@@ -649,6 +694,7 @@ void ofxPostProcessingManager::setupGui()
 	gBadTVGroup.add(gBadTvDist2.setup("Distort 2", 5.0, 0.0, 20.0)->getParameter());
 	gBadTVGroup.add(gBadTvSpeed.setup("Speed", 3.0, 0.0, 20.0)->getParameter());
 	gBadTVGroup.add(gBadTvRoll.setup("Roll Speed", 0.1, 0.0, 1.0)->getParameter());
+	gBadTVGroup.add(bResets[13]);
 	gui.add(&bEnablers[13]);
 	gui.add(gBadTVGroup);
 
@@ -657,6 +703,7 @@ void ofxPostProcessingManager::setupGui()
 	ng = ofToUpper(ng);
 	gcolorACESGroup.setName(ng);
 	gcolorACESGroup.add(gcolorACESExp.setup("Exposure", 1.0, 0.0, 1.0)->getParameter());
+	gcolorACESGroup.add(bResets[14]);
 	gui.add(&bEnablers[14]);
 	gui.add(gcolorACESGroup);
 
@@ -666,6 +713,7 @@ void ofxPostProcessingManager::setupGui()
 	gNoiseGroup.setName(ng);
 	gNoiseGroup.add(gNoiseAmt.setup("Amount", 0.128, 0, 1)->getParameter());
 	gNoiseGroup.add(gNoiseSpeed.setup("Speed", 0.08, 0, 1)->getParameter());
+	gNoiseGroup.add(bResets[15]);
 	gui.add(&bEnablers[15]);
 	gui.add(gNoiseGroup);
 
@@ -677,6 +725,7 @@ void ofxPostProcessingManager::setupGui()
 	gTiltShiftGroup.add(gTitltRange.setup("Range", 0.5, 0, 1)->getParameter());
 	gTiltShiftGroup.add(gTiltOffset.setup("Offset", 0.05, 0, 1)->getParameter());
 	gTiltShiftGroup.add(gTiltStrength.setup("Strength", 0.5, 0, 1)->getParameter());
+	gTiltShiftGroup.add(bResets[16]);
 	gui.add(&bEnablers[16]);
 	gui.add(gTiltShiftGroup);
 
@@ -692,6 +741,7 @@ void ofxPostProcessingManager::setupGui()
 	gSupGroup.add(gSupCont.setup("Contrast", 0.0, -1., 1.)->getParameter());
 	gSupGroup.add(gSupSat.setup("Saturation", 0.0, 0., 1.)->getParameter());
 	gSupGroup.add(gRGBShfAmt.setup("RGB Shift Amt", 0.01, 0., 1.)->getParameter());
+	gSupGroup.add(bResets[17]);
 	gui.add(&bEnablers[17]);
 	gui.add(gSupGroup);
 
@@ -701,6 +751,7 @@ void ofxPostProcessingManager::setupGui()
 	gGliAutoGroup.setName(ng);
 	gGliAutoGroup.add(gGliAutoSpeed.setup("Speed", 0.6, 0, 1)->getParameter());
 	gGliAutoGroup.add(gGliAutoAmt.setup("Amount", 0.2, 0, 1)->getParameter());
+	gGliAutoGroup.add(bResets[18]);
 	gui.add(&bEnablers[18]);
 	gui.add(gGliAutoGroup);
 
@@ -710,6 +761,7 @@ void ofxPostProcessingManager::setupGui()
 	gSpaceColorGroup.setName(ng);
 	gSpaceColorGroup.add(gSpaceColorSpeed.setup("Speed", 1, 0, 5)->getParameter());
 	gSpaceColorGroup.add(gSpaceColorOpacity.setup("Opacity", 0.1, 0, 1)->getParameter());
+	gSpaceColorGroup.add(bResets[19]);
 	gui.add(&bEnablers[19]);
 	gui.add(gSpaceColorGroup);
 
@@ -718,6 +770,7 @@ void ofxPostProcessingManager::setupGui()
 	ng = ofToUpper(ng);
 	gDitherGroup.setName(ng);
 	gDitherGroup.add(gDitherScale.setup("Scale", 1, 0, 1)->getParameter());
+	gDitherGroup.add(bResets[20]);
 	gui.add(&bEnablers[20]);
 	gui.add(gDitherGroup);
 
@@ -727,6 +780,7 @@ void ofxPostProcessingManager::setupGui()
 	gStrobberGroup.setName(ng);
 	gStrobberGroup.add(gStrobberVolume.setup("Volume", 1, 0, 1)->getParameter());
 	gStrobberGroup.add(gStrobberPhase.setup("Phase", 0.15, 0, 1)->getParameter());
+	gStrobberGroup.add(bResets[21]);
 	gui.add(&bEnablers[21]);
 	gui.add(gStrobberGroup);
 
@@ -736,6 +790,7 @@ void ofxPostProcessingManager::setupGui()
 	gRimbLightGroup.setName(ng);
 	gRimbLightGroup.add(gRimbCol.setup("Light Color", glm::vec3(2.9, 1.3, 1.3), glm::vec3(0.0), glm::vec3(3.0))->getParameter());
 	gRimbLightGroup.add(gRimbThres.setup("Intensity", 64, 0, 512)->getParameter());
+	gRimbLightGroup.add(bResets[22]);
 	gui.add(&bEnablers[22]);
 	gui.add(gRimbLightGroup);
 
@@ -759,7 +814,7 @@ void ofxPostProcessingManager::setupGui()
 
 	//--
 
-	//// 24 Fog Filter 
+	//// 24 Fog Filter
 	//gFogGroup.setName(fogFilter->getName() + prefixGroup);
 	//gFogGroup.add(gFogfogStart.setup("Fog Start", 0, 0, 2000)->getParameter());
 	//gFogGroup.add(gFogfogEnd.setup("Fog End", 10, 0, 2000)->getParameter());
@@ -770,10 +825,36 @@ void ofxPostProcessingManager::setupGui()
 
 	//--
 
+	// Callbacks
+	listeners_bReset.unsubscribeAll();
+	listeners_bReset.push(bResets[0].newListener([this]() { doReset_FXAA(); }));
+	listeners_bReset.push(bResets[1].newListener([this]() { doReset_Bloom(); }));
+	listeners_bReset.push(bResets[2].newListener([this]() { doReset_Kaleidoscope(); }));
+	listeners_bReset.push(bResets[5].newListener([this]() { doReset_GodRays(); }));
+	listeners_bReset.push(bResets[7].newListener([this]() { doReset_Ssao(); }));
+	listeners_bReset.push(bResets[8].newListener([this]() { doReset_ZoomBlur(); }));
+	listeners_bReset.push(bResets[9].newListener([this]() { doReset_RGB(); }));
+	listeners_bReset.push(bResets[10].newListener([this]() { doReset_FilmGrainLines(); }));
+	listeners_bReset.push(bResets[11].newListener([this]() { doReset_DotScreen(); }));
+	listeners_bReset.push(bResets[12].newListener([this]() { doReset_DigitalGlitch(); }));
+	listeners_bReset.push(bResets[13].newListener([this]() { doReset_BadTV(); }));
+	listeners_bReset.push(bResets[14].newListener([this]() { doReset_ACESFilmic(); }));
+	listeners_bReset.push(bResets[15].newListener([this]() { doReset_NoiseGrain(); }));
+	listeners_bReset.push(bResets[16].newListener([this]() { doReset_TiltShif(); }));
+	listeners_bReset.push(bResets[17].newListener([this]() { doReset_SuperShader(); }));
+	listeners_bReset.push(bResets[18].newListener([this]() { doReset_GlitchAutomated(); }));
+	listeners_bReset.push(bResets[19].newListener([this]() { doReset_SpaceColor(); }));
+	listeners_bReset.push(bResets[20].newListener([this]() { doReset_Dither(); }));
+	listeners_bReset.push(bResets[21].newListener([this]() { doReset_DitherStrobber(); }));
+	listeners_bReset.push(bResets[22].newListener([this]() { doReset_RimblightPass(); }));
+
+	//--
+
 	gui.minimizeAll();
-	
+
 	bAll.addListener(this, &ofxPostProcessingManager::Changed_bAll);
 	bNone.addListener(this, &ofxPostProcessingManager::Changed_bNone);
+	bReset.addListener(this, &ofxPostProcessingManager::Changed_bReset);
 
 	btnLoad.addListener(this, &ofxPostProcessingManager::loadPreset);
 	btnSave.addListener(this, &ofxPostProcessingManager::savePresetPressed);
@@ -843,7 +924,7 @@ void ofxPostProcessingManager::setupGui()
 	// 22 SlantShift Pass
 	// 23 Rimblight
 	// 24 FogFilter
- 
+
 	//--
 
 	// All
@@ -856,4 +937,11 @@ void ofxPostProcessingManager::setupGui()
 void ofxPostProcessingManager::exit()
 {
 	ofRemoveListener(params_Toggles.parameterChangedE(), this, &ofxPostProcessingManager::Changed_Enablers);
+
+	bAll.removeListener(this, &ofxPostProcessingManager::Changed_bAll);
+	bNone.removeListener(this, &ofxPostProcessingManager::Changed_bNone);
+	bReset.removeListener(this, &ofxPostProcessingManager::Changed_bReset);
+
+	btnLoad.removeListener(this, &ofxPostProcessingManager::loadPreset);
+	btnSave.removeListener(this, &ofxPostProcessingManager::savePresetPressed);
 }
