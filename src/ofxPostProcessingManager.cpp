@@ -369,7 +369,11 @@ void ofxPostProcessingManager::updateFX() {
 		else {
 			gStrobberVolume = 0;
 		}
-		strobber->setVolume(gStrobberVolume);
+		//strobber->setVolume(gStrobberVolume);
+
+		auto v = gStrobberVolume.getParameter().cast<float>();
+		strobber->setVolume(v.get());
+
 	}
 
 	// 22 Rimblight
