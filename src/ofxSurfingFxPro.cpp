@@ -129,6 +129,8 @@ void ofxSurfingFxPro::setupParams()
 
 	//presetsManager.setDiablePlayer();//simplify bc we have the randomizer player
 
+	//presetsManager.setName("PRESETS FXPRO");//avoid collide windows when multiple addons!
+
 	presetsManager.addGroup(manager.params_Toggles);
 
 	//TODO:
@@ -628,25 +630,28 @@ void ofxSurfingFxPro::drawImGuiMain()
 
 				ui.AddLabelBig("CONTROLS"/*, true, true*/);
 
-				if (ui.Add(manager.bReset, OFX_IM_BUTTON_MEDIUM, 2))
-				{
-				}
-				ui.AddTooltip("Reset the controls of each FX");
-
-				if (ui.AddButton("SAVE", OFX_IM_BUTTON_MEDIUM, 2))
+				if (ui.AddButton("SAVE", OFX_IM_BUTTON_MEDIUM, 3))
 				{
 					ofxSurfingHelpers::save(manager.params_Controls);
 				}
 				ui.AddTooltip("Save Controls. \nHandled independently of the Toggle states, \nthat are handled by Presets Manager.");
-				
+
 				ui.SameLine();
 
-				if (ui.AddButton("LOAD", OFX_IM_BUTTON_MEDIUM, 2))
+				if (ui.AddButton("LOAD", OFX_IM_BUTTON_MEDIUM, 3))
 				{
 					ofxSurfingHelpers::load(manager.params_Controls);
 				}
 				ui.AddTooltip("Load Controls. \nHandled independently of the Toggle states, \nthat are handled by Presets Manager.");
-				ui.Add(bAutoSave);
+
+				ui.SameLine();
+
+				if (ui.Add(manager.bReset, OFX_IM_BUTTON_MEDIUM, 3))
+				{
+				}
+				ui.AddTooltip("Reset the controls of each FX");
+		
+				ui.Add(bAutoSave, OFX_IM_TOGGLE_ROUNDED_MINI);
 				//ui.Add(bAutoSave, OFX_IM_TOGGLE_SMALL);
 				ui.AddTooltip("Auto Store and Recall Controls Settings on the next App session.\nExcept for Toggles, that are handled by the Presets Manager!");
 			}
@@ -738,13 +743,15 @@ void ofxSurfingFxPro::drawImGuiControls()
 		//crashes
 
 		//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW;
-		IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_MEDIUM;
+		//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_MEDIUM;
 		//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_SMALL;
 
 		//float w = 220;
-		//ImVec2 size_min = ImVec2(w, -1);
-		//ImVec2 size_max = ImVec2(w, -1);
-		//ImGui::SetNextWindowSizeConstraints(size_min, size_max);
+		float w = 300;
+		//float w = 275;
+		ImVec2 size_min = ImVec2(w, -1);
+		ImVec2 size_max = ImVec2(w, -1);
+		ImGui::SetNextWindowSizeConstraints(size_min, size_max);
 
 		//// Constraint Window Shape
 		//float w = 275;
@@ -828,8 +835,9 @@ void ofxSurfingFxPro::drawImGuiToggles()
 
 	if (ui.BeginWindowSpecial(bGui_Toggles))
 	{
-		ui.Add(manager.bNone, OFX_IM_BUTTON, 2, true);
-		ui.Add(manager.bAll, OFX_IM_BUTTON, 2);
+		ui.Add(manager.bNone, OFX_IM_BUTTON, 3, true);
+		ui.Add(manager.bAll, OFX_IM_BUTTON, 3, true);
+		ui.Add(manager.bSolo, OFX_IM_TOGGLE_BORDER_BLINK, 3);
 
 		ui.AddSpacingSeparated();
 
@@ -952,7 +960,7 @@ void ofxSurfingFxPro::Changed(ofAbstractParameter& e)
 {
 	string name = e.getName();
 
-	ofLogNotice("ofxSurfingFxPro")<<(__FUNCTION__) << name << " : " << e;
+	ofLogNotice("ofxSurfingFxPro") << (__FUNCTION__) << name << " : " << e;
 
 	if (name == bRandom.getName())
 	{
@@ -965,7 +973,7 @@ void ofxSurfingFxPro::Changed_Enablers(ofAbstractParameter& e)
 {
 	string name = e.getName();
 
-	ofLogNotice("ofxSurfingFxPro")<<(__FUNCTION__) << name << " : " << e;
+	//ofLogNotice("ofxSurfingFxPro") << " " << (__FUNCTION__) << name << " : " << e;
 
 	if (bGuiWorkflow) setupGuiStyles();
 }
