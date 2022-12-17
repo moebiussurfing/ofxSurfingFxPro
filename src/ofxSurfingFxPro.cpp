@@ -952,7 +952,7 @@ void ofxSurfingFxPro::Changed(ofAbstractParameter& e)
 {
 	string name = e.getName();
 
-	ofLogNotice(__FUNCTION__) << name << " : " << e;
+	ofLogNotice("ofxSurfingFxPro")<<(__FUNCTION__) << name << " : " << e;
 
 	if (name == bRandom.getName())
 	{
@@ -965,7 +965,7 @@ void ofxSurfingFxPro::Changed_Enablers(ofAbstractParameter& e)
 {
 	string name = e.getName();
 
-	ofLogNotice(__FUNCTION__) << name << " : " << e;
+	ofLogNotice("ofxSurfingFxPro")<<(__FUNCTION__) << name << " : " << e;
 
 	if (bGuiWorkflow) setupGuiStyles();
 }

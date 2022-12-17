@@ -154,31 +154,31 @@ private:
 
 	// 0 Fxaa
 	void doReset_FXAA() {
-		ofLogNotice("Reset FXAA");
+		ofLogNotice("ofxSurfingFxPro")<<("Reset FXAA");
 		gFxaaDivMin = 128.0;
 		gFxaaDivMul = 8.0;
 		gFxaaSpanMax = 8.0;
 	};
 	// 1 Bloom
 	void doReset_Bloom() {
-		ofLogNotice("Reset Bloom");
+		ofLogNotice("ofxSurfingFxPro")<<("Reset Bloom");
 		gBloomBlurX = 0.000953125;
 		gBloomBlurY = 0.000953125;
 	};
 	// 2 Kaleidoscope
 	void doReset_Kaleidoscope() {
-		ofLogNotice("Reset Kaleidoscope");
+		ofLogNotice("ofxSurfingFxPro")<<("Reset Kaleidoscope");
 		gKaleiSegments = 2.f;
 	};
 	// 5 GodRays
 	void doReset_GodRays() {
-		ofLogNotice("Reset GodRays");
+		ofLogNotice("ofxSurfingFxPro")<<("Reset GodRays");
 		gGodRaysLightDotView = 0.3;
 		gLightPositionOnScreen = glm::vec3(0);
 	};
 	// 7 Ssao
 	void doReset_Ssao() {
-		ofLogNotice("Reset Ssao");
+		ofLogNotice("ofxSurfingFxPro")<<("Reset Ssao");
 		gSsaofogEnabled = false;
 		gSsaofogNear = 1;
 		gSsaofogFar = 1000;
@@ -189,7 +189,7 @@ private:
 	};
 	// 8 ZoomBlur
 	void doReset_ZoomBlur() {
-		ofLogNotice("Reset ZoomBlur");
+		ofLogNotice("ofxSurfingFxPro")<<("Reset ZoomBlur");
 		gZoomCenterXY = glm::vec2(0.5, 0.5);
 		gZoomWeight = 0.25;
 		gZoomDensity = 0.25;
@@ -197,13 +197,13 @@ private:
 	};
 	// 9 RGB 
 	void doReset_RGB() {
-		ofLogNotice("Reset RGB");
+		ofLogNotice("ofxSurfingFxPro")<<("Reset RGB");
 		gRGBAngle = 0;
 		gRGBAmount = 0.005;
 	};
 	// 10 FilmGrainLines  
 	void doReset_FilmGrainLines() {
-		ofLogNotice("Reset FilmGrainLines");
+		ofLogNotice("ofxSurfingFxPro")<<("Reset FilmGrainLines");
 		gFilmGrainLCount = 1096;
 		gFilmGrainLGrayScale = false;
 		gFilmGrainLnIntensity = 0.5;
@@ -211,7 +211,7 @@ private:
 	};
 	// 11 DotScreen  
 	void doReset_DotScreen() {
-		ofLogNotice("Reset DotScreen");
+		ofLogNotice("ofxSurfingFxPro")<<("Reset DotScreen");
 		gDotScrCenter = ofVec2f(0.5);
 		gDotScrSize = ofVec2f(1000);
 		gDotScrScale = 1.0;
@@ -219,7 +219,7 @@ private:
 	};
 	// 12 Digital Glitch  
 	void doReset_DigitalGlitch() {
-		ofLogNotice("Reset DigitalGlitch");
+		ofLogNotice("ofxSurfingFxPro")<<("Reset DigitalGlitch");
 		gGlitchAmount = 0.006;
 		gGlitchByp = false;
 		gGlitchAngle = 0.02;
@@ -232,7 +232,7 @@ private:
 	};
 	// 13 Bad TV  
 	void doReset_BadTV() {
-		ofLogNotice("Reset BadTV");
+		ofLogNotice("ofxSurfingFxPro")<<("Reset BadTV");
 		gBadTvDist = 3.0;
 		gBadTvDist2 = 5.0;
 		gBadTvSpeed = 3.0;
@@ -240,18 +240,18 @@ private:
 	};
 	// 14 Color ACES Filmic  
 	void doReset_ACESFilmic() {
-		ofLogNotice("Reset ACESFilmic");
+		ofLogNotice("ofxSurfingFxPro")<<("Reset ACESFilmic");
 		gcolorACESExp = 1.0;
 	};
 	// 15 Noise Grain 
 	void doReset_NoiseGrain() {
-		ofLogNotice("Reset NoiseGrain");
+		ofLogNotice("ofxSurfingFxPro")<<("Reset NoiseGrain");
 		gNoiseAmt = 0.128;
 		gNoiseSpeed = 0.08;
 	};
 	// 16 Tilt Shift Filter 
 	void doReset_TiltShif() {
-		ofLogNotice("Reset TiltShif");
+		ofLogNotice("ofxSurfingFxPro")<<("Reset TiltShif");
 		gTiltFocus = 0.35;
 		gTitltRange = 0.5;
 		gTiltOffset = 0.05;
@@ -263,7 +263,7 @@ private:
 	};
 	// 17 SuperShader  
 	void doReset_SuperShader() {
-		ofLogNotice("Reset SuperShader");
+		ofLogNotice("ofxSurfingFxPro")<<("Reset SuperShader");
 		gSupGlowAmt = 0.5;
 		gSupGlowSize = 4.0;
 		gSupVigOff = 1.0;
@@ -275,30 +275,30 @@ private:
 	};
 	// 18 Glitch Automated
 	void doReset_GlitchAutomated() {
-		ofLogNotice("Reset GlitchAutomated");
+		ofLogNotice("ofxSurfingFxPro")<<("Reset GlitchAutomated");
 		gGliAutoSpeed = 0.6;
 		gGliAutoAmt = 0.2;
 	};
 	// 19 Space Color
 	void doReset_SpaceColor() {
-		ofLogNotice("Reset SpaceColor");
+		ofLogNotice("ofxSurfingFxPro")<<("Reset SpaceColor");
 		gSpaceColorSpeed = 1;
 		gSpaceColorOpacity = 0.1;
 	};
 	// 20 Dither
 	void doReset_Dither() {
-		ofLogNotice("Reset Dither");
+		ofLogNotice("ofxSurfingFxPro")<<("Reset Dither");
 		gDitherScale = 1;
 	};
 	// 21 Color Invert Strobber
 	void doReset_DitherStrobber() {
-		ofLogNotice("Reset ColorInvertStrobber");
+		ofLogNotice("ofxSurfingFxPro")<<("Reset ColorInvertStrobber");
 		gStrobberVolume = 1;
 		gStrobberPhase = 0.15;
 	};
 	// 22 Rimblight Pass
 	void doReset_RimblightPass() {
-		ofLogNotice("Reset RimblightPass");
+		ofLogNotice("ofxSurfingFxPro")<<("Reset RimblightPass");
 		gRimbCol = glm::vec3(2.9, 1.3, 1.3);
 		gRimbThres = 64;
 	};

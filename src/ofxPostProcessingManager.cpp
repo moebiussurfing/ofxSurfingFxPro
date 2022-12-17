@@ -12,14 +12,14 @@ ofxPostProcessingManager::~ofxPostProcessingManager() {
 
 //--------------------------------------------------------------
 void ofxPostProcessingManager::processOpenFileSelection(ofFileDialogResult openFileResult) {
-	ofLogNotice(__FUNCTION__) << "getName(): " + openFileResult.getName();
-	ofLogNotice(__FUNCTION__) << "getPath(): " + openFileResult.getPath();
+	ofLogNotice("ofxSurfingFxPro")<<(__FUNCTION__) << "getName(): " + openFileResult.getName();
+	ofLogNotice("ofxSurfingFxPro")<<(__FUNCTION__) << "getPath(): " + openFileResult.getPath();
 
 	ofFile file(openFileResult.getPath());
 
 	if (file.exists()) {
 
-		ofLogNotice(__FUNCTION__) << "The file exists - now checking the type via file extension";
+		ofLogNotice("ofxSurfingFxPro")<<(__FUNCTION__) << "The file exists - now checking the type via file extension";
 		string fileExtension = ofToUpper(file.getExtension());
 
 		//We only want images
@@ -36,13 +36,13 @@ void ofxPostProcessingManager::loadPreset() {
 	// Check if the user opened a file
 	if (openFileResult.bSuccess) {
 
-		ofLogNotice(__FUNCTION__) << "User selected a file";
+		ofLogNotice("ofxSurfingFxPro")<<(__FUNCTION__) << "User selected a file";
 
 		// We have a file, check it and process it
 		processOpenFileSelection(openFileResult);
 	}
 	else {
-		ofLogNotice(__FUNCTION__) << "User hit cancel";
+		ofLogNotice("ofxSurfingFxPro")<<(__FUNCTION__) << "User hit cancel";
 	}
 }
 
@@ -51,7 +51,7 @@ void ofxPostProcessingManager::savePresetPressed() {
 	// Open the Open File Dialog
 	ofFileDialogResult saveFileResult = ofSystemSaveDialog("fxSettings_" + ofGetTimestampString() + ".json", "Save your file");
 	if (saveFileResult.bSuccess) {
-		ofLogNotice(__FUNCTION__) << "FX Preset Saved As " << saveFileResult.filePath;
+		ofLogNotice("ofxSurfingFxPro")<<(__FUNCTION__) << "FX Preset Saved As " << saveFileResult.filePath;
 		gui.saveToFile(saveFileResult.filePath);
 	}
 }
@@ -64,8 +64,8 @@ int ofxPostProcessingManager::getAmountEffects() {
 //--------------------------------------------------------------
 void ofxPostProcessingManager::saveSettings(std::string fileName) {
 	gui.saveToFile(fileName);
-	ofLogNotice(__FUNCTION__) << "------------------------------------------------";
-	ofLogNotice(__FUNCTION__) << "Settings saved as " << fileName;
+	ofLogNotice("ofxSurfingFxPro")<<(__FUNCTION__) << "------------------------------------------------";
+	ofLogNotice("ofxSurfingFxPro")<<(__FUNCTION__) << "Settings saved as " << fileName;
 }
 
 //--------------------------------------------------------------
@@ -77,8 +77,8 @@ void ofxPostProcessingManager::loadSettings(std::string fileName) {
 	else {
 		gui.loadFromFile(fileName);
 	}
-	ofLogNotice(__FUNCTION__) << "------------------------------------------------";
-	ofLogNotice(__FUNCTION__) << "Settings loaded as " << fileName;
+	ofLogNotice("ofxSurfingFxPro")<<(__FUNCTION__) << "------------------------------------------------";
+	ofLogNotice("ofxSurfingFxPro")<<(__FUNCTION__) << "Settings loaded as " << fileName;
 }
 
 //--------------------------------------------------------------
@@ -436,14 +436,14 @@ void ofxPostProcessingManager::Changed_Enablers(ofAbstractParameter& e)
 {
 	string name = e.getName();
 
-	//ofLogNotice(__FUNCTION__) << name << " : " << e;
+	//ofLogNotice("ofxSurfingFxPro")<<(__FUNCTION__) << name << " : " << e;
 
 	for (int i = 0; i < post.size(); i++)
 	{
 		if (name == bEnablers[i].getName())
 		{
 			post[i]->setEnabled(bEnablers[i]);
-			ofLogNotice(__FUNCTION__) << name << " : " << (bEnablers[i] ? "ON" : "OFF");
+			ofLogNotice("ofxSurfingFxPro")<<(__FUNCTION__) << name << " : " << (bEnablers[i] ? "ON" : "OFF");
 
 			return;
 		}
@@ -503,7 +503,7 @@ void ofxPostProcessingManager::doEnableAll() {
 
 //--------------------------------------------------------------
 void ofxPostProcessingManager::doRefreshFX() {
-	ofLogNotice(__FUNCTION__);
+	ofLogNotice("ofxSurfingFxPro")<<(__FUNCTION__);
 
 	for (int i = 0; i < post.size(); i++) {
 		post[i]->setEnabled(bEnablers[i]);
