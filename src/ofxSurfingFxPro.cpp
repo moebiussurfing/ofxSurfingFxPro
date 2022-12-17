@@ -162,6 +162,20 @@ void ofxSurfingFxPro::setupParams()
 	}
 #endif
 
+	//--
+
+#ifdef INCLUDE__OFX_UNDO_ENGINE
+	undoManager.setPathGlobal(path_GLOBAL);
+
+	params_Undo.setName("FxPro");
+	params_Undo.add(params_Preset);
+	params_Undo.add(manager.params_Controls);
+	undoManager.setup(params_Undo);
+
+	//undoManager.setup(manager.params_Controls);
+	//params_AppState.add(undoManager.getParamsAppState());
+#endif
+
 }
 
 //--------------------------------------------------------------
@@ -610,6 +624,12 @@ void ofxSurfingFxPro::drawImGuiMain()
 		//	ui.Unindent();
 		//}
 
+#ifdef INCLUDE__OFX_UNDO_ENGINE
+		ui.AddSpacingSeparated();
+		ui.Add(undoManager.bGui_UndoEngine, OFX_IM_TOGGLE_BUTTON_ROUNDED_MEDIUM);
+		ui.AddSpacingSeparated();
+#endif
+
 #ifdef USE__ofxSurfingFxPro__ofxSurfingFxPro
 		if (!ui.bMinimize)
 		{
@@ -871,6 +891,12 @@ void ofxSurfingFxPro::drawImGui()
 
 		// Controls
 		drawImGuiControls();
+
+		//--
+
+#ifdef INCLUDE__OFX_UNDO_ENGINE
+		undoManager.drawImGuiWindow();
+#endif
 	}
 	ui.End();
 }
@@ -925,6 +951,16 @@ void ofxSurfingFxPro::keyPressed(int key)
 	//if (key == OF_KEY_F10) doRandomFXAll(randomProb);
 
 	//else if (key == 'G') bGui = !bGui;
+
+	//----
+
+	// TODO: not working on windows.. We need to add int code
+#ifdef INCLUDE__OFX_UNDO_ENGINE
+	ofKeyEventArgs eventArgs;
+	eventArgs.key = key;
+	undoManager.keyPressed(eventArgs);
+#endif
+
 }
 
 //--------------------------------------------------------------

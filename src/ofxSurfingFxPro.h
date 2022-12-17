@@ -15,6 +15,7 @@
 // Optional
 
 //#define USE__ofxSurfingFxPro__ofxSurfingFxPro
+#define INCLUDE__OFX_UNDO_ENGINE // -> Comment to disable feature and his dependency
 
 //--
 
@@ -30,6 +31,10 @@
 
 #ifdef USE__ofxSurfingFxPro__ofxSurfingFxPro
 #include "ofxSurfingRandomizer.h"
+#endif
+
+#ifdef INCLUDE__OFX_UNDO_ENGINE
+#include "ofxSurfingUndoHelper.h"
 #endif
 
 //--
@@ -279,4 +284,12 @@ private:
 
 		else return "-1";
 	}
+
+
+#ifdef INCLUDE__OFX_UNDO_ENGINE
+private:
+
+	ofxSurfingUndoHelper undoManager;
+	ofParameterGroup params_Undo;
+#endif
 };
