@@ -184,8 +184,8 @@ void ofxSurfingFxPro::setupParams()
 	pm.setUiPtr(&ui);
 	pm.setPath(path_GLOBAL + "FxPro/");
 	//TODO: can use sub folders..
-	//pm.AddGroup(params_Undo);//controls and toggles
-	pm.AddGroup(manager.params_Controls);//only controls
+	pm.AddGroup(params_Undo);//controls and toggles
+	//pm.AddGroup(manager.params_Controls);//only controls
 }
 
 //--------------------------------------------------------------
@@ -757,6 +757,7 @@ void ofxSurfingFxPro::drawImGuiMain()
 				}
 
 				//ui.AddSpacingSeparated();
+				ui.AddSpacing();
 
 				//--
 
