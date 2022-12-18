@@ -67,6 +67,7 @@ void ofxSurfingFxPro::setupParams()
 	params.add(bRandom);
 
 	ofAddListener(params.parameterChangedE(), this, &ofxSurfingFxPro::Changed);
+	ofAddListener(manager.params_Controls.parameterChangedE(), this, &ofxSurfingFxPro::Changed);
 
 	//--
 
@@ -170,12 +171,21 @@ void ofxSurfingFxPro::setupParams()
 	params_Undo.setName("FxPro");
 	params_Undo.add(params_Preset);
 	params_Undo.add(manager.params_Controls);
+
 	undoManager.setup(params_Undo);
 
 	//undoManager.setup(manager.params_Controls);
 	//params_AppState.add(undoManager.getParamsAppState());
 #endif
 
+	//--
+
+	// Presets
+	pm.setUiPtr(&ui);
+	pm.setPath(path_GLOBAL + "FxPro/");
+	//TODO: can use sub folders..
+	//pm.AddGroup(params_Undo);//controls and toggles
+	pm.AddGroup(manager.params_Controls);//only controls
 }
 
 //--------------------------------------------------------------
@@ -535,6 +545,16 @@ void ofxSurfingFxPro::update(ofEventArgs& args)
 	}
 
 	if (bUpdate) buildHelp();
+
+	//--
+
+#ifdef INCLUDE__OFX_UNDO_ENGINE
+	if (bFlagUndoState) {
+		bFlagUndoState = false;
+		undoManager.doAddStateToUndo();
+		undoManager.doSaveUndoWhenAuto();
+	}
+#endif
 }
 
 //--------------------------------------------------------------
@@ -609,26 +629,23 @@ void ofxSurfingFxPro::drawImGuiMain()
 		// Toggles
 		ui.Add(bGui_Toggles, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
 
-		// Controls
+		// Presets Manager
 		ui.Indent();
-		ui.Add(bGui_Controls, OFX_IM_TOGGLE_ROUNDED);
+		ui.Add(presetsManager.bGui, OFX_IM_TOGGLE_ROUNDED_SMALL);
 		ui.Unindent();
 
-		ui.AddSpacingSeparated();
+		// Controls
+		//ui.Indent();
+		ui.Add(bGui_Controls, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
+		//ui.Unindent();
 
-		// Presets Manager
-		ui.Add(presetsManager.bGui, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
+		//ui.AddSpacingSeparated();
+
 		//if (!presetsManager.bGui) {
 		//	ui.Indent();
 		//	presetsManager.draw_ImGui_ClickerSimple(true, false, true, false);
 		//	ui.Unindent();
 		//}
-
-#ifdef INCLUDE__OFX_UNDO_ENGINE
-		ui.AddSpacingSeparated();
-		ui.Add(undoManager.bGui_UndoEngine, OFX_IM_TOGGLE_BUTTON_ROUNDED_MEDIUM);
-		ui.AddSpacingSeparated();
-#endif
 
 #ifdef USE__ofxSurfingFxPro__ofxSurfingFxPro
 		if (!ui.bMinimize)
@@ -670,15 +687,39 @@ void ofxSurfingFxPro::drawImGuiMain()
 				{
 				}
 				ui.AddTooltip("Reset the controls of each FX");
-		
+
 				ui.Add(bAutoSave, OFX_IM_TOGGLE_ROUNDED_MINI);
 				//ui.Add(bAutoSave, OFX_IM_TOGGLE_SMALL);
 				ui.AddTooltip("Auto Store and Recall Controls Settings on the next App session.\nExcept for Toggles, that are handled by the Presets Manager!");
 			}
 
 			if (!ui.bMinimize) ui.AddSpacingBigSeparated();
+		}
 
-			//--
+		//--
+
+		if (ui.bMinimize) ui.AddSpacingSeparated();
+
+#ifdef INCLUDE__OFX_UNDO_ENGINE
+		if (ui.BeginTree("UNDO ENGINE")) 
+		{
+			undoManager.drawImGuiWidgetsBrowse(ui.bMinimize);
+
+			if (!ui.bMinimize) {
+				ui.Add(undoManager.bGui_UndoEngine, OFX_IM_TOGGLE_BUTTON_ROUNDED_MINI);
+				undoManager.drawImGuiWidgetsHistoryInfo();
+			}
+
+			ui.EndTree();
+		}
+#endif
+
+		//--
+
+		if (!ui.bMinimize)
+		{
+			ui.AddSpacingSeparated();
+			ui.AddSpacing();
 
 			// Extra
 
@@ -693,9 +734,7 @@ void ofxSurfingFxPro::drawImGuiMain()
 				//ui.Add(manager.bAll, OFX_IM_BUTTON, 2);
 				//ui.AddSpacingSeparated();
 
-				static bool bOpen = false;
-				ImGuiColorEditFlags _flagw = (bOpen ? ImGuiWindowFlags_NoCollapse : ImGuiWindowFlags_None);
-				if (ImGui::CollapsingHeader("RANDOMIZERS", _flagw))
+				if (ui.BeginTree("RANDOMIZERS"))
 				{
 					ui.refreshLayout();
 
@@ -713,9 +752,11 @@ void ofxSurfingFxPro::drawImGuiMain()
 						ui.Add(playSpeed);
 						ui.AddTooltip("Faster is 4 random trigs per second. \nSlower is one for each passed 2 seconds.");
 					}
+
+					ui.EndTree();
 				}
-				ui.refreshLayout();
-				ui.AddSpacingSeparated();
+
+				//ui.AddSpacingSeparated();
 
 				//--
 
@@ -766,8 +807,10 @@ void ofxSurfingFxPro::drawImGuiControls()
 		//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_MEDIUM;
 		//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_SMALL;
 
+		float w = 355;
+		//float w = 365;
 		//float w = 220;
-		float w = 300;
+		//float w = 300;
 		//float w = 275;
 		ImVec2 size_min = ImVec2(w, -1);
 		ImVec2 size_max = ImVec2(w, -1);
@@ -782,6 +825,7 @@ void ofxSurfingFxPro::drawImGuiControls()
 
 	if (ui.BeginWindowSpecial(bGui_Controls))
 	{
+		// warning message
 		if (manager.getAmountEffectsEnabled() == 0)
 		{
 			string s;
@@ -798,6 +842,13 @@ void ofxSurfingFxPro::drawImGuiControls()
 
 			return;
 		}
+
+		//--
+
+		// presets
+		pm.drawImGui();
+
+		ui.AddSpacingSeparated();
 
 		//--
 
@@ -954,14 +1005,14 @@ void ofxSurfingFxPro::keyPressed(int key)
 
 	//----
 
-	// TODO: not working on windows.. We need to add int code
+	// TODO: not working on windows..? We need to add int code?
 #ifdef INCLUDE__OFX_UNDO_ENGINE
 	ofKeyEventArgs eventArgs;
 	eventArgs.key = key;
 	undoManager.keyPressed(eventArgs);
 #endif
 
-}
+	}
 
 //--------------------------------------------------------------
 void ofxSurfingFxPro::keyReleased(int key)
@@ -984,6 +1035,7 @@ void ofxSurfingFxPro::exit()
 	ofxSurfingHelpers::saveGroup(params_AppSettings, path_GLOBAL + path_Params_AppSettings);
 
 	ofRemoveListener(params.parameterChangedE(), this, &ofxSurfingFxPro::Changed);
+	ofRemoveListener(manager.params_Controls.parameterChangedE(), this, &ofxSurfingFxPro::Changed);
 
 	ofRemoveListener(manager.params_Toggles.parameterChangedE(), this, &ofxSurfingFxPro::Changed_Enablers);
 
@@ -996,12 +1048,29 @@ void ofxSurfingFxPro::Changed(ofAbstractParameter& e)
 {
 	string name = e.getName();
 
-	ofLogNotice("ofxSurfingFxPro") << (__FUNCTION__) << name << " : " << e;
-
 	if (name == bRandom.getName())
 	{
 		doRandomFXAll(randomProb);
 	}
+
+	//--
+
+#ifdef INCLUDE__OFX_UNDO_ENGINE
+	// exclude bc are automated
+	if (name == manager.gGlitchAngle.getParameter().getName() ||
+		name == manager.gGlitchDistX.getParameter().getName() ||
+		name == manager.gGlitchDistY.getParameter().getName() ||
+		name == manager.gStrobberVolume.getParameter().getName() ||
+		name == manager.gGlitchCol.getParameter().getName())
+	{
+		return;
+	}
+	bFlagUndoState = true;
+#endif
+
+	//--
+
+	ofLogNotice("ofxSurfingFxPro") << (__FUNCTION__) << name << " : " << e;
 }
 
 //--------------------------------------------------------------
@@ -1012,6 +1081,12 @@ void ofxSurfingFxPro::Changed_Enablers(ofAbstractParameter& e)
 	//ofLogNotice("ofxSurfingFxPro") << " " << (__FUNCTION__) << name << " : " << e;
 
 	if (bGuiWorkflow) setupGuiStyles();
+
+	//--
+
+#ifdef INCLUDE__OFX_UNDO_ENGINE
+	bFlagUndoState = true;
+#endif
 }
 
 //--

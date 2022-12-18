@@ -854,7 +854,7 @@ void ofxPostProcessingManager::setupGui()
 
 	//--
 
-	// Callbacks
+	// Reset Callbacks
 	listeners_bReset.unsubscribeAll();
 	listeners_bReset.push(bResets[0].newListener([this]() { doReset_FXAA(); }));
 	listeners_bReset.push(bResets[1].newListener([this]() { doReset_Bloom(); }));

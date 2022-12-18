@@ -28,6 +28,7 @@
 #include "ofxSurfingHelpers.h"
 #include "ofxSurfingImGui.h"
 #include "ofxSurfingPresets.h"
+#include "ofxSurfingPresetsLite.h"
 
 #ifdef USE__ofxSurfingFxPro__ofxSurfingFxPro
 #include "ofxSurfingRandomizer.h"
@@ -162,7 +163,9 @@ private:
 
 public:
 
-	ofxSurfingPresets presetsManager; // -> To handle presets.
+	ofxSurfingPresets presetsManager; // -> To handle presets for the toggles!
+	
+	ofxSurfingPresetsLite pm; // presets manager for controls!
 
 	//----
 
@@ -288,8 +291,8 @@ private:
 
 #ifdef INCLUDE__OFX_UNDO_ENGINE
 private:
-
 	ofxSurfingUndoHelper undoManager;
 	ofParameterGroup params_Undo;
+	bool bFlagUndoState = true;
 #endif
 };

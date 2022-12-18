@@ -24,6 +24,7 @@ public:
 	void begin(ofCamera& cam);
 	void end(bool autoDraw = true);
 
+	//--------------------------------------------------------------
 	void draw(bool bEnabled = true)
 	{
 		if (bEnabled) {
@@ -423,6 +424,7 @@ public:
 	ofParameterGroup params_Toggles;
 	ofParameterGroup params_Controls;
 
+	//--------------------------------------------------------------
 	int getAmountEffectsEnabled()
 	{
 		int c = 0;
@@ -441,7 +443,6 @@ private:
 	void Changed_Enablers(ofAbstractParameter& e);
 
 };
-
 
 // 00 Fxaa
 // 01 Bloom
