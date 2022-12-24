@@ -442,7 +442,7 @@ private:
 
 	void Changed_Enablers(ofAbstractParameter& e);
 
-};
+}; 
 
 // 00 Fxaa
 // 01 Bloom

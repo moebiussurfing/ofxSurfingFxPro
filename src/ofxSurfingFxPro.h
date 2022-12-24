@@ -106,6 +106,8 @@ private:
 
 public:
 
+	void draw_ImGui_GameMode();
+
 	ofParameter<bool> bGui{ "FX PRO", true };
 	ofParameter<bool> bDebug{ "Debug", false };
 

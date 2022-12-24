@@ -701,7 +701,7 @@ void ofxSurfingFxPro::drawImGuiMain()
 		if (ui.bMinimize) ui.AddSpacingSeparated();
 
 #ifdef INCLUDE__OFX_UNDO_ENGINE
-		if (ui.BeginTree("UNDO ENGINE")) 
+		if (ui.BeginTree("UNDO ENGINE"))
 		{
 			undoManager.drawImGuiWidgetsBrowse(ui.bMinimize);
 
@@ -846,7 +846,7 @@ void ofxSurfingFxPro::drawImGuiControls()
 
 		//--
 
-		// presets
+		// Presets
 		pm.drawImGui();
 
 		ui.AddSpacingSeparated();
@@ -916,6 +916,17 @@ void ofxSurfingFxPro::drawImGuiToggles()
 		ui.AddGroup(manager.params_Toggles);
 
 		ui.EndWindowSpecial();
+	}
+}
+
+//--------------------------------------------------------------
+void ofxSurfingFxPro::draw_ImGui_GameMode()
+{
+	//if (ui.bGui_GameMode)
+	{
+		// presets
+		//pm.drawImGui();
+		pm.drawImGuiClicker();
 	}
 }
 
@@ -1013,7 +1024,7 @@ void ofxSurfingFxPro::keyPressed(int key)
 	undoManager.keyPressed(eventArgs);
 #endif
 
-	}
+}
 
 //--------------------------------------------------------------
 void ofxSurfingFxPro::keyReleased(int key)
