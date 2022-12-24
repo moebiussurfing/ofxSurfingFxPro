@@ -49,6 +49,7 @@ void ofxSurfingFxPro::setupGui()
 	ui.addWindowSpecial(bGui_Controls);
 
 	ui.addWindowSpecial(presetsManager.bGui);
+	ui.addWindowSpecial(presetsManagerLite.bGui);
 
 	ui.startup();
 
@@ -128,6 +129,8 @@ void ofxSurfingFxPro::setupParams()
 
 	*/
 
+	presetsManager.setName("PRESETS T");
+
 	//presetsManager.setDiablePlayer();//simplify bc we have the randomizer player
 
 	//presetsManager.setName("PRESETS FXPRO");//avoid collide windows when multiple addons!
@@ -160,7 +163,7 @@ void ofxSurfingFxPro::setupParams()
 
 		// Link index with the Presets Manager selector!
 		randomizer.setIndexPtr(presetsManager.index);
-	}
+}
 #endif
 
 	//--
@@ -181,11 +184,13 @@ void ofxSurfingFxPro::setupParams()
 	//--
 
 	// Presets
-	pm.setUiPtr(&ui);
-	pm.setPath(path_GLOBAL + "FxPro/");
+
+	presetsManagerLite.setName("PRESETS C");
+	presetsManagerLite.setUiPtr(&ui);
+	presetsManagerLite.setPath(path_GLOBAL + "FxPro/");
 	//TODO: can use sub folders..
-	pm.AddGroup(params_Undo);//controls and toggles
-	//pm.AddGroup(manager.params_Controls);//only controls
+	presetsManagerLite.AddGroup(params_Undo);//controls and toggles
+	//presetsManagerLite.AddGroup(manager.params_Controls);//only controls
 }
 
 //--------------------------------------------------------------
@@ -511,7 +516,7 @@ void ofxSurfingFxPro::update(ofEventArgs& args)
 //#ifdef USE__OFX_SURFING__OFX_SURFING_UNDO_HELPER 
 //		presetsManager.undoManager.doSaveUndoWhenAuto();
 //#endif
-	}
+}
 #endif
 
 	//--
@@ -583,7 +588,7 @@ void ofxSurfingFxPro::drawGui() {
 #ifdef USE__ofxSurfingFxPro__ofxSurfingFxPro
 	randomizer.drawGui();
 #endif
-}
+	}
 
 //--------------------------------------------------------------
 void ofxSurfingFxPro::drawImGuiMain()
@@ -637,6 +642,9 @@ void ofxSurfingFxPro::drawImGuiMain()
 		// Controls
 		//ui.Indent();
 		ui.Add(bGui_Controls, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
+		ui.Indent();
+		ui.Add(presetsManagerLite.bGui, OFX_IM_TOGGLE_ROUNDED_SMALL);
+		ui.Unindent();
 		//ui.Unindent();
 
 		//ui.AddSpacingSeparated();
@@ -846,10 +854,10 @@ void ofxSurfingFxPro::drawImGuiControls()
 
 		//--
 
-		// Presets
-		pm.drawImGui();
+		//// Presets
+		//presetsManagerLite.drawImGui();
 
-		ui.AddSpacingSeparated();
+		//ui.AddSpacingSeparated();
 
 		//--
 
@@ -924,9 +932,12 @@ void ofxSurfingFxPro::draw_ImGui_GameMode()
 {
 	//if (ui.bGui_GameMode)
 	{
-		// presets
-		//pm.drawImGui();
-		pm.drawImGuiClicker();
+		// Presets
+		 
+		//presetsManagerLite.drawImGui();
+		//presetsManagerLite.drawImGuiClicker();
+
+		presetsManager.draw_ImGui_GameMode();//toggles
 	}
 }
 
@@ -954,6 +965,12 @@ void ofxSurfingFxPro::drawImGui()
 
 		// Controls
 		drawImGuiControls();
+
+		// Presets Controls
+		if (presetsManagerLite.bGui) presetsManagerLite.drawImGuiClicker(true, true);
+		//if (presetsManagerLite.bGui) presetsManagerLite.drawImGuiClicker(true, false);
+
+		//ui.AddSpacingSeparated();
 
 		//--
 
