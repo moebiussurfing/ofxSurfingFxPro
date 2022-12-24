@@ -129,13 +129,14 @@ void ofxSurfingFxPro::setupParams()
 
 	*/
 
-	presetsManager.setName("PRESETS T");
 
 	//presetsManager.setDiablePlayer();//simplify bc we have the randomizer player
 
 	//presetsManager.setName("PRESETS FXPRO");//avoid collide windows when multiple addons!
 
 	presetsManager.addGroup(manager.params_Toggles);
+
+	presetsManager.setName("PRESETS T");
 
 	//TODO:
 	// In some scenarios we will prefer to disable this feature/mode.
@@ -639,6 +640,8 @@ void ofxSurfingFxPro::drawImGuiMain()
 		ui.Add(presetsManager.bGui, OFX_IM_TOGGLE_ROUNDED_SMALL);
 		ui.Unindent();
 
+		ui.AddSpacing();
+
 		// Controls
 		//ui.Indent();
 		ui.Add(bGui_Controls, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
@@ -954,20 +957,30 @@ void ofxSurfingFxPro::drawImGui()
 		//--
 
 		// Main
+		
 		drawImGuiMain();
 
 		//--
 
 		// Toggles 
+		
 		drawImGuiToggles();
 
 		//--
 
 		// Controls
+		
 		drawImGuiControls();
 
 		// Presets Controls
-		if (presetsManagerLite.bGui) presetsManagerLite.drawImGuiClicker(true, true);
+
+		if (presetsManagerLite.bGui) {
+			if (ui.BeginWindowSpecial(presetsManagerLite.bGui)) {
+				presetsManagerLite.drawImGuiClicker(false, false);
+				ui.EndWindowSpecial();
+			}
+		}
+
 		//if (presetsManagerLite.bGui) presetsManagerLite.drawImGuiClicker(true, false);
 
 		//ui.AddSpacingSeparated();
