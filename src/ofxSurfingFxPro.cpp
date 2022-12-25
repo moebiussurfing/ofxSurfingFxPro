@@ -169,12 +169,12 @@ void ofxSurfingFxPro::setupParams()
 
 	//--
 
-#ifdef INCLUDE__OFX_UNDO_ENGINE
-	undoManager.setPathGlobal(path_GLOBAL);
-
 	params_Undo.setName("FxPro");
 	params_Undo.add(params_Preset);
 	params_Undo.add(manager.params_Controls);
+
+#ifdef INCLUDE__OFX_UNDO_ENGINE
+	undoManager.setPathGlobal(path_GLOBAL);
 
 	undoManager.setup(params_Undo);
 

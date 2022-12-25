@@ -13,9 +13,10 @@
 //--
 
 // Optional
+ 
+//#define INCLUDE__OFX_UNDO_ENGINE // -> Comment to disable feature and his dependency
 
-//#define USE__ofxSurfingFxPro__ofxSurfingFxPro
-#define INCLUDE__OFX_UNDO_ENGINE // -> Comment to disable feature and his dependency
+//#define USE__ofxSurfingFxPro__ofxSurfingFxPro  // -> Un comment to enasble randomize engine
 
 //--
 
@@ -290,11 +291,13 @@ private:
 		else return "-1";
 	}
 
+	//--
+
+	ofParameterGroup params_Undo;
 
 #ifdef INCLUDE__OFX_UNDO_ENGINE
 private:
 	ofxSurfingUndoHelper undoManager;
-	ofParameterGroup params_Undo;
 	bool bFlagUndoState = true;
 #endif
 };
