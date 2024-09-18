@@ -4,6 +4,7 @@
 void ofApp::setup() {
 	//w.setFrameRate(50);
 	//w.setVerticalSync(false);
+	w.setup();
 
 	ofSetBackgroundColor(20);
 
@@ -83,7 +84,7 @@ void ofApp::update()
 	{
 		fxPro.begin();
 		{
-			webcam.drawWebcam();
+			webcam.drawWebCam();
 		}
 		fxPro.end(false);
 	}
@@ -178,13 +179,13 @@ void ofApp::drawGui()
 					ui.Add(ui.bKeys, OFX_IM_TOGGLE_ROUNDED);
 					if (ui.AddButton("Next", OFX_IM_BUTTON, 2, true))
 					{
-						webcam.doNextWebcam();
+						webcam.doNextWebCam();
 					}
 					if (ui.AddButton("Restart", OFX_IM_BUTTON, 2))
 					{
-						webcam.doRestartWebcam();
+						webcam.doRestartWebCam();
 					}
-					ImGui::Checkbox("Draw info", &webcam.bDrawWebcamInfo);
+					ImGui::Checkbox("Draw info", &webcam.bDrawWebCamInfo);
 				}
 			}
 
@@ -258,10 +259,10 @@ void ofApp::keyPressed(int key)
 		if (webcam.bKeys)
 		{
 			// Open next device
-			if (key == 'D') webcam.doNextWebcam();
+			if (key == 'D') webcam.doNextWebCam();
 
 			// Restart devices
-			if (key == 'R') webcam.doRestartWebcam();
+			if (key == 'R') webcam.doRestartWebCam();
 		}
 	}
 #endif
@@ -283,4 +284,6 @@ void ofApp::windowResized(int w, int h) {
 //--------------------------------------------------------------
 void ofApp::exit() {
 	ofxSurfingHelpers::save(params_ofApp);
+
+	w.save();
 }

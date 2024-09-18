@@ -306,7 +306,7 @@ void ofxSurfingFxPro::buildHelp()
 		helpInfo += "from different add-ons at the same time. \n";
 		helpInfo += "Key commands could collide! \n";
 
-		ui.setHelpInfoApp(helpInfo);
+		ui.setHelpAppText(helpInfo);
 	}
 }
 

@@ -49,9 +49,11 @@
 
 #include "ofxSurfingFxPro.h"
 #include "ofxSurfingImGui.h"
+
 #ifdef USE_WEBCAM
 #include "SurfingWebcam.h"
 #endif
+
 #include "ofxWindowApp.h"
 
 #define NUM_BOXES 100
@@ -103,7 +105,7 @@ public:
 
 	// Webcam
 #ifdef USE_WEBCAM
-	SurfingWebcam webcam;
+	SurfingWebCam webcam;
 	
 	ofParameter<bool> bWebcamMode{ "Webcam Mode", false };
 #endif
