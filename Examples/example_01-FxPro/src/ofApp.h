@@ -96,7 +96,9 @@ public:
 	ofParameterGroup params_Camera{ "Camera" };
 	ofEventListener listener_bCamMouse;
 
-	// Boxes
+	//--
+
+	// Scene Boxes
 	vector<ofVec3f> posns;
 	vector<ofColor> cols;
 	ofVboMesh boxMesh;

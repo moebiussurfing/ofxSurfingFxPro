@@ -1,10 +1,5 @@
 /*
-
 	TODO:
-
-	add directive to disable randomizer
-
-
 */
 
 
@@ -14,9 +9,9 @@
 
 // Optional
  
-//#define INCLUDE__OFX_UNDO_ENGINE // -> Comment to disable feature and his dependency
+//#define USE__SURFING_UNDO_ENGINE__FX_PRO // -> Comment to disable feature and his dependency
 
-//#define USE__ofxSurfingFxPro__ofxSurfingFxPro  // -> Un comment to enasble randomize engine
+//#define USE__SURFING_RANDOMIZER__FX_PRO  // -> Un comment to enasble randomize engine
 
 //--
 
@@ -31,11 +26,11 @@
 #include "ofxSurfingPresets.h"
 #include "ofxSurfingPresetsLite.h"
 
-#ifdef USE__ofxSurfingFxPro__ofxSurfingFxPro
+#ifdef USE__SURFING_RANDOMIZER__FX_PRO
 #include "ofxSurfingRandomizer.h"
 #endif
 
-#ifdef INCLUDE__OFX_UNDO_ENGINE
+#ifdef USE__SURFING_UNDO_ENGINE__FX_PRO
 #include "ofxSurfingUndoHelper.h"
 #endif
 
@@ -68,8 +63,11 @@ private:
 
 public:
 
-	void keyPressed(int key);
-	void keyReleased(int key);
+	//void keyPressed(int key);
+	//void keyReleased(int key);
+	void keyPressed(ofKeyEventArgs & args);
+	void keyReleased(ofKeyEventArgs & args);
+	void windowResized(ofResizeEventArgs & args);
 
 private:
 
@@ -140,7 +138,7 @@ private:
 
 	ofxSurfingGui ui;
 
-#ifdef USE__ofxSurfingFxPro__ofxSurfingFxPro
+#ifdef USE__SURFING_RANDOMIZER__FX_PRO
 	ofxSurfingRandomizer randomizer;
 #endif
 
@@ -295,7 +293,7 @@ private:
 
 	ofParameterGroup params_Undo;
 
-#ifdef INCLUDE__OFX_UNDO_ENGINE
+#ifdef USE__SURFING_UNDO_ENGINE__FX_PRO
 private:
 	ofxSurfingUndoHelper undoManager;
 	bool bFlagUndoState = true;

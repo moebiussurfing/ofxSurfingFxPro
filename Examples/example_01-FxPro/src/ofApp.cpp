@@ -164,6 +164,7 @@ void ofApp::drawGui()
 
 		if (ui.BeginWindow("ofApp"))
 		{
+			ui.DrawWidgetsGlobalScaleMini();
 			ui.Add(fxPro.bGui, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
 
 			//--
@@ -172,7 +173,7 @@ void ofApp::drawGui()
 #ifdef USE_WEBCAM
 			{
 				ui.AddSpacingBigSeparated();
-				ui.AddLabelBig("Webcam", true, true);
+				ui.AddLabelBig("Webcam/3D Sceme", true, true);
 				ui.Add(bWebcamMode);
 				if (bWebcamMode)
 				{
@@ -248,7 +249,7 @@ void ofApp::keyPressed(int key)
 
 	//--
 
-	fxPro.keyPressed(key);
+	//fxPro.keyPressed(key);
 
 	//--
 
@@ -273,12 +274,12 @@ void ofApp::keyReleased(int key)
 {
 	if (key == 'M') bModeControl = false;
 
-	fxPro.keyReleased(key);
+	//fxPro.keyReleased(key);
 }
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h) {
-	fxPro.windowResized(w, h);
+	//fxPro.windowResized(w, h);
 }
 
 //--------------------------------------------------------------

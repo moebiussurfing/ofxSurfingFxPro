@@ -4,6 +4,9 @@
 ofxSurfingFxPro::ofxSurfingFxPro()
 {
 	ofAddListener(ofEvents().update, this, &ofxSurfingFxPro::update);
+	ofAddListener(ofEvents().keyPressed, this, &ofxSurfingFxPro::keyPressed);
+	ofAddListener(ofEvents().keyReleased, this, &ofxSurfingFxPro::keyReleased);
+	ofAddListener(ofEvents().windowResized, this, &ofxSurfingFxPro::windowResized);
 
 	path_GLOBAL = "ofxSurfingFxPro/"; // this is to folder all files to avoid mixing with other add-ons data
 	path_Params_AppSettings = "FxPro_AppSettings.xml";
@@ -23,6 +26,9 @@ ofxSurfingFxPro::ofxSurfingFxPro()
 ofxSurfingFxPro::~ofxSurfingFxPro()
 {
 	ofRemoveListener(ofEvents().update, this, &ofxSurfingFxPro::update);
+	ofRemoveListener(ofEvents().keyPressed, this, &ofxSurfingFxPro::keyPressed);
+	ofRemoveListener(ofEvents().keyReleased, this, &ofxSurfingFxPro::keyReleased);
+	ofRemoveListener(ofEvents().windowResized, this, &ofxSurfingFxPro::windowResized);
 
 	exit();
 }
@@ -149,7 +155,7 @@ void ofxSurfingFxPro::setupParams()
 
 	//--
 
-#ifdef USE__ofxSurfingFxPro__ofxSurfingFxPro
+#ifdef USE__SURFING_RANDOMIZER__FX_PRO
 	// Randomizer
 	{
 		randomizer.setup(manager.params_Controls);
@@ -173,7 +179,7 @@ void ofxSurfingFxPro::setupParams()
 	params_Undo.add(params_Preset);
 	params_Undo.add(manager.params_Controls);
 
-#ifdef INCLUDE__OFX_UNDO_ENGINE
+#ifdef USE__SURFING_UNDO_ENGINE__FX_PRO
 	undoManager.setPathGlobal(path_GLOBAL);
 
 	undoManager.setup(params_Undo);
@@ -397,7 +403,7 @@ void ofxSurfingFxPro::setupGuiStyles()
 	if (manager.bEnablers[21]) g.add(manager.gStrobberGroup);
 	if (manager.bEnablers[22]) g.add(manager.gRimbLightGroup);
 
-#ifdef USE__ofxSurfingFxPro__ofxSurfingFxPro
+#ifdef USE__SURFING_RANDOMIZER__FX_PRO
 	randomizer.rebuildParamsGroup(g);
 #endif
 
@@ -510,7 +516,7 @@ void ofxSurfingFxPro::update(ofEventArgs& args)
 	//TODO:
 	// Undo Engine
 
-#ifdef USE__ofxSurfingFxPro__ofxSurfingFxPro
+#ifdef USE__SURFING_RANDOMIZER__FX_PRO
 	if (randomizer.isRandomized())
 	{
 		// Presets only handles toggles!
@@ -554,7 +560,7 @@ void ofxSurfingFxPro::update(ofEventArgs& args)
 
 	//--
 
-#ifdef INCLUDE__OFX_UNDO_ENGINE
+#ifdef USE__SURFING_UNDO_ENGINE__FX_PRO
 	if (bFlagUndoState) {
 		bFlagUndoState = false;
 		undoManager.doAddStateToUndo();
@@ -586,7 +592,7 @@ void ofxSurfingFxPro::drawGui() {
 
 	presetsManager.drawGui();
 
-#ifdef USE__ofxSurfingFxPro__ofxSurfingFxPro
+#ifdef USE__SURFING_RANDOMIZER__FX_PRO
 	randomizer.drawGui();
 #endif
 	}
@@ -603,6 +609,7 @@ void ofxSurfingFxPro::drawImGuiMain()
 	//if (ui.BeginWindow(bGui))
 	if (ui.BeginWindowSpecial(bGui))
 	{
+		ui.DrawWidgetsGlobalScaleMini();
 		ui.AddLabelHuge("FX PRO");
 		ui.Add(bEnable, OFX_IM_TOGGLE_BIG_BORDER);
 		ui.AddSpacingBigSeparated();
@@ -658,7 +665,7 @@ void ofxSurfingFxPro::drawImGuiMain()
 		//	ui.Unindent();
 		//}
 
-#ifdef USE__ofxSurfingFxPro__ofxSurfingFxPro
+#ifdef USE__SURFING_RANDOMIZER__FX_PRO
 		if (!ui.bMinimize)
 		{
 			ui.AddSpacingSeparated();
@@ -711,7 +718,7 @@ void ofxSurfingFxPro::drawImGuiMain()
 
 		if (ui.bMinimize) ui.AddSpacingSeparated();
 
-#ifdef INCLUDE__OFX_UNDO_ENGINE
+#ifdef USE__SURFING_UNDO_ENGINE__FX_PRO
 		if (ui.BeginTree("UNDO ENGINE"))
 		{
 			undoManager.drawImGuiWidgetsBrowse(ui.bMinimize);
@@ -987,7 +994,7 @@ void ofxSurfingFxPro::drawImGui()
 
 		//--
 
-#ifdef INCLUDE__OFX_UNDO_ENGINE
+#ifdef USE__SURFING_UNDO_ENGINE__FX_PRO
 		undoManager.drawImGuiWindow();
 #endif
 	}
@@ -1022,8 +1029,9 @@ void ofxSurfingFxPro::end(bool autoDraw) {//ends the drawn scene and draws proce
 }
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::keyPressed(int key)
-{
+void ofxSurfingFxPro::keyPressed(ofKeyEventArgs & args) {
+	const int key = args.key;
+
 	if (bKeys_FX)
 	{
 		keyPressedFX(key);
@@ -1034,7 +1042,7 @@ void ofxSurfingFxPro::keyPressed(int key)
 	if (key == OF_KEY_F2) bGui_Controls = !bGui_Controls;
 	if (key == OF_KEY_F3) presetsManager.bGui = !presetsManager.bGui;
 
-#ifdef USE__ofxSurfingFxPro__ofxSurfingFxPro
+#ifdef USE__SURFING_RANDOMIZER__FX_PRO
 	if (key == OF_KEY_F4) randomizer.bGui = !randomizer.bGui;
 #endif
 
@@ -1048,7 +1056,7 @@ void ofxSurfingFxPro::keyPressed(int key)
 	//----
 
 	// TODO: not working on windows..? We need to add int code?
-#ifdef INCLUDE__OFX_UNDO_ENGINE
+#ifdef USE__SURFING_UNDO_ENGINE__FX_PRO
 	ofKeyEventArgs eventArgs;
 	eventArgs.key = key;
 	undoManager.keyPressed(eventArgs);
@@ -1057,8 +1065,9 @@ void ofxSurfingFxPro::keyPressed(int key)
 }
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::keyReleased(int key)
-{
+void ofxSurfingFxPro::keyReleased(ofKeyEventArgs & args) {
+	const int key = args.key;
+
 	if (bKeys_FX)
 	{
 		keyReleasedFX(key);
@@ -1067,7 +1076,9 @@ void ofxSurfingFxPro::keyReleased(int key)
 }
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::windowResized(int w, int h) {
+void ofxSurfingFxPro::windowResized(ofResizeEventArgs & args) {
+	int w = args.width;
+	int h = args.height;
 	manager.windowResized(w, h);
 }
 
@@ -1097,7 +1108,7 @@ void ofxSurfingFxPro::Changed(ofAbstractParameter& e)
 
 	//--
 
-#ifdef INCLUDE__OFX_UNDO_ENGINE
+#ifdef USE__SURFING_UNDO_ENGINE__FX_PRO
 	// exclude bc are automated
 	if (name == manager.gGlitchAngle.getParameter().getName() ||
 		name == manager.gGlitchDistX.getParameter().getName() ||
@@ -1126,7 +1137,7 @@ void ofxSurfingFxPro::Changed_Enablers(ofAbstractParameter& e)
 
 	//--
 
-#ifdef INCLUDE__OFX_UNDO_ENGINE
+#ifdef USE__SURFING_UNDO_ENGINE__FX_PRO
 	bFlagUndoState = true;
 #endif
 }

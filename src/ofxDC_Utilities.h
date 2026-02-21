@@ -93,43 +93,43 @@ public:
         string fr = ofToString(ofGetFrameRate(),0);
         
         switch(_position) {
-            case TOP_LEFT:
+		case ofxDC_ALIGNMENT::TOP_LEFT:
                 x = 0;
                 y = bf.getBoundingBox(fr, 0, 0).getHeight();
                 break;
-            case TOP_RIGHT:
+		case ofxDC_ALIGNMENT::TOP_RIGHT:
                 x = ofGetWidth() - bf.getBoundingBox(fr, 0, 0).getWidth();
                 y = bf.getBoundingBox(fr, 0, 0).getHeight();;
                 break;
-            case BOTTOM_RIGHT:
+		case ofxDC_ALIGNMENT::BOTTOM_RIGHT:
                 x = ofGetWidth() - bf.getBoundingBox(fr, 0, 0).getWidth();
                 y = ofGetHeight() - bf.getBoundingBox(fr, 0, 0).getHeight();
                 break;
-            case BOTTOM_LEFT:
+		case ofxDC_ALIGNMENT::BOTTOM_LEFT:
                 x = 0;
                 y = ofGetHeight() - bf.getBoundingBox(fr, 0, 0).getHeight();
                 break;
-            case TOP_MIDDLE:
+		case ofxDC_ALIGNMENT::TOP_MIDDLE:
                 x = ofGetWidth() * 0.5 - bf.getBoundingBox(fr, 0, 0).getWidth() * 0.5;
                 y = bf.getBoundingBox(fr, 0, 0).getHeight();
                 break;
-            case CENTER:
+		case ofxDC_ALIGNMENT::CENTER:
                 x = ofGetWidth() * 0.5 - bf.getBoundingBox(fr, 0, 0).getWidth() * 0.5;
                 y = ofGetHeight() * 0.5 - bf.getBoundingBox(fr, 0, 0).getHeight() * 0.5;
                 break;
-            case CENTER_LEFT:
+		case ofxDC_ALIGNMENT::CENTER_LEFT:
                 x = 0;
                 y = ofGetHeight() * 0.5 - bf.getBoundingBox(fr, 0, 0).getHeight() * 0.5;
                 break;
-            case CENTER_RIGHT:
+		case ofxDC_ALIGNMENT::CENTER_RIGHT:
                 x = ofGetWidth() - bf.getBoundingBox(fr, 0, 0).getWidth();
                 y = ofGetHeight() * 0.5 - bf.getBoundingBox(fr, 0, 0).getHeight() * 0.5;
                 break;
-            case BOTTOM_MIDDLE:
+		case ofxDC_ALIGNMENT::BOTTOM_MIDDLE:
                 x = ofGetWidth() * 0.5 - bf.getBoundingBox(fr, 0, 0).getWidth() * 0.5;
                 y = ofGetHeight() - bf.getBoundingBox(fr, 0, 0).getHeight();
                 break;
-            case CUSTOM_POS:
+		case ofxDC_ALIGNMENT::CUSTOM_POS:
                 x = _x;
                 y = _y;
                 break;

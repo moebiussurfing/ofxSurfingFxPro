@@ -1,0 +1,54 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "${workspaceRoot}/../../../../libs/openFrameworks"
+		},
+		{
+			"path": "${workspaceRoot}/../..\\..\\..\\ofxChildFrame"
+		},
+		{
+			"path": "${workspaceRoot}/../..\\..\\..\\ofxGui"
+		},
+		{
+			"path": "${workspaceRoot}/../..\\..\\..\\ofxImGui"
+		},
+		{
+			"path": "${workspaceRoot}/../..\\..\\..\\ofxNDI"
+		},
+		{
+			"path": "${workspaceRoot}/../..\\..\\..\\ofxNDIHelper"
+		},
+		{
+			"path": "${workspaceRoot}/../..\\..\\..\\ofxSurfingBox"
+		},
+		{
+			"path": "${workspaceRoot}/../..\\.."
+		},
+		{
+			"path": "${workspaceRoot}/../..\\..\\..\\ofxSurfingHelpers"
+		},
+		{
+			"path": "${workspaceRoot}/../..\\..\\..\\ofxSurfingImGui"
+		},
+		{
+			"path": "${workspaceRoot}/../..\\..\\..\\ofxSurfingPlayer"
+		},
+		{
+			"path": "${workspaceRoot}/../..\\..\\..\\ofxSurfingPresets"
+		},
+		{
+			"path": "${workspaceRoot}/../..\\..\\..\\ofxSurfingRandomizer"
+		},
+		{
+			"path": "${workspaceRoot}/../..\\..\\..\\ofxSurfingUndoHelper"
+		},
+		{
+			"path": "${workspaceRoot}/../..\\..\\..\\ofxWindowApp"
+		}
+	],
+	"openFrameworksProjectGeneratorVersion": "0.103.0",
+	"settings": {}
+}
