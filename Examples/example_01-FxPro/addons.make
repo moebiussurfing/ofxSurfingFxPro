@@ -6,6 +6,4 @@ ofxSurfingImGui
 ofxSurfingPlayer
 ofxSurfingPresets
 ofxSurfingPresetsLite
-ofxSurfingRandomizer
-ofxSurfingUndoHelper
 ofxWindowApp

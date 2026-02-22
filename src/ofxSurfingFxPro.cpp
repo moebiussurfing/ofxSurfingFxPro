@@ -1,8 +1,7 @@
 #include "ofxSurfingFxPro.h"
 
 //--------------------------------------------------------------
-ofxSurfingFxPro::ofxSurfingFxPro()
-{
+ofxSurfingFxPro::ofxSurfingFxPro() {
 	ofAddListener(ofEvents().update, this, &ofxSurfingFxPro::update);
 	ofAddListener(ofEvents().keyPressed, this, &ofxSurfingFxPro::keyPressed);
 	ofAddListener(ofEvents().keyReleased, this, &ofxSurfingFxPro::keyReleased);
@@ -23,8 +22,7 @@ ofxSurfingFxPro::ofxSurfingFxPro()
 }
 
 //--------------------------------------------------------------
-ofxSurfingFxPro::~ofxSurfingFxPro()
-{
+ofxSurfingFxPro::~ofxSurfingFxPro() {
 	ofRemoveListener(ofEvents().update, this, &ofxSurfingFxPro::update);
 	ofRemoveListener(ofEvents().keyPressed, this, &ofxSurfingFxPro::keyPressed);
 	ofRemoveListener(ofEvents().keyReleased, this, &ofxSurfingFxPro::keyReleased);
@@ -42,8 +40,7 @@ void ofxSurfingFxPro::setPathGlobal(string s) // must call before setup. disable
 }
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::setupGui()
-{
+void ofxSurfingFxPro::setupGui() {
 	ui.setWindowsMode(IM_GUI_MODE_WINDOWS_SPECIAL_ORGANIZER);
 	ui.setName("FxPro");
 
@@ -55,7 +52,10 @@ void ofxSurfingFxPro::setupGui()
 	ui.addWindowSpecial(bGui_Controls);
 
 	ui.addWindowSpecial(presetsManager.bGui);
+
+#ifdef USE_FX_PRO_ofxSurfingPresetsLite
 	ui.addWindowSpecial(presetsManagerLite.bGui);
+#endif
 
 	ui.startup();
 
@@ -67,8 +67,7 @@ void ofxSurfingFxPro::setupGui()
 }
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::setupParams()
-{
+void ofxSurfingFxPro::setupParams() {
 	// Callbacks
 	params.setName("Callbacks");
 	params.add(bRandom);
@@ -80,8 +79,6 @@ void ofxSurfingFxPro::setupParams()
 
 	randomProb.set("Prob", 0.5f, 0.05f, 1);
 	playSpeed.set("Speed", 0.5f, 0, 1);
-	bKeys_FX.set("KEYS FX", true);
-	bKeys_FX_ToggleMode.set("MODE TOGGLE", false);
 
 	// Session Settings
 	params_AppSettings.setName("FX PRO");
@@ -91,8 +88,6 @@ void ofxSurfingFxPro::setupParams()
 	params_AppSettings.add(bGui_Toggles);
 	params_AppSettings.add(bGui_Internal);
 	params_AppSettings.add(bEnable);
-	params_AppSettings.add(bKeys_FX);
-	params_AppSettings.add(bKeys_FX_ToggleMode);
 
 	//could be removed instead of randomizer addon
 	params_AppSettings.add(playSpeed);
@@ -110,99 +105,42 @@ void ofxSurfingFxPro::setupParams()
 	// Get notified when any toggle changed!
 	ofAddListener(manager.params_Toggles.parameterChangedE(), this, &ofxSurfingFxPro::Changed_Enablers);
 
-	listener_bEnable = bEnable.newListener([this](bool&)
-		{
-			ofLogNotice("ofApp") << "bEnable: " << bEnable;
-	setupGuiStyles();
-		});
+	listener_bEnable = bEnable.newListener([this](bool &) {
+		ofLogNotice("ofApp") << "bEnable: " << bEnable;
+		setupGuiStyles();
+	});
 
 	//----
 
 	// Presets Manager
 
-	/*
-
-	//TODO:
-	// fix recursive nested groups
-
-	params_Preset.setName("FX PRO");
-	params_Preset.add(manager.params_Toggles);
-
-	// For performance issues or to reduce preset files sizes, we can exclude these by commenting!
-	//params_Preset.add(manager.params_Controls);
-
-	presetsManager.addGroup(params_Preset);
-
-	*/
-
-
-	//presetsManager.setDiablePlayer();//simplify bc we have the randomizer player
-
-	//presetsManager.setName("PRESETS FXPRO");//avoid collide windows when multiple addons!
-
 	presetsManager.addGroup(manager.params_Toggles);
 
-	presetsManager.setName("PRESETS T");
+	//presetsManager.setName("PRESETS T");//bug
 
-	//TODO:
-	// In some scenarios we will prefer to disable this feature/mode.
-	// That's to avoid auto reload the current file preset again.
-	presetsManager.setAutoLoadOnReTrig(false);
+	////TODO:
+	//// In some scenarios we will prefer to disable this feature/mode.
+	//// That's to avoid auto reload the current file preset again.
+	//presetsManager.setAutoLoadOnReTrig(false);
 
 	//Colorize
-	presetsManager.setFliped(true);
-	presetsManager.setColorized(true);
-
-	//--
-
-#ifdef USE__SURFING_RANDOMIZER__FX_PRO
-	// Randomizer
-	{
-		randomizer.setup(manager.params_Controls);
-		//randomizer.setup(manager.params_Toggles);
-
-		randomizer.setIndexPtr(presetsManager.index);
-
-		//--
-
-		// Target B. 
-		// Index
-
-		// Link index with the Presets Manager selector!
-		randomizer.setIndexPtr(presetsManager.index);
-}
-#endif
-
-	//--
-
-	params_Undo.setName("FxPro");
-	params_Undo.add(params_Preset);
-	params_Undo.add(manager.params_Controls);
-
-#ifdef USE__SURFING_UNDO_ENGINE__FX_PRO
-	undoManager.setPathGlobal(path_GLOBAL);
-
-	undoManager.setup(params_Undo);
-
-	//undoManager.setup(manager.params_Controls);
-	//params_AppState.add(undoManager.getParamsAppState());
-#endif
+	//presetsManager.setFliped(true);
+	//presetsManager.setColorized(true);
 
 	//--
 
 	// Presets
-
+#ifdef USE_FX_PRO_ofxSurfingPresetsLite
 	presetsManagerLite.setName("PRESETS C");
 	presetsManagerLite.setUiPtr(&ui);
 	presetsManagerLite.setPath(path_GLOBAL + "FxPro/");
-	//TODO: can use sub folders..
-	presetsManagerLite.AddGroup(params_Undo);//controls and toggles
-	//presetsManagerLite.AddGroup(manager.params_Controls);//only controls
+	presetsManagerLite.AddGroup(manager.params_Controls);//only controls
+	//presetsManagerLite.doPopulatePresets(4);
+#endif
 }
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::setup()
-{
+void ofxSurfingFxPro::setup() {
 	ofxSurfingHelpers::setThemeDark_ofxGui();
 
 	// Setup manager
@@ -224,22 +162,14 @@ void ofxSurfingFxPro::setup()
 }
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::startup()
-{
+void ofxSurfingFxPro::startup() {
 	// Load Settings
 	// could be removed. it loads all the settings from the internal ofxGui
 	//manager.loadSettings();
 	ofxSurfingHelpers::loadGroup(params_AppSettings, path_GLOBAL + path_Params_AppSettings);
 
-	//setKeyFirstChar('1');
-
-	setKeyFirstChar('q'); // Default key list starts on '1'. 
-	// but would collide with presets manager keys!
-	// Then we overwrite to start from q key, and will got until b,
-	// bc the amount of FX included on FxPro!
-
 	// Load Control Settings
-	// Not the Toggles! 
+	// Not the Toggles!
 	// Toggles are handled by the Presets Manager!
 	if (bAutoSave) ofxSurfingHelpers::loadGroup(manager.params_Controls, path_GLOBAL + path_Params_Controls);
 
@@ -252,80 +182,64 @@ void ofxSurfingFxPro::startup()
 	//presetsManager.doPopulatePresetsRandomized();
 
 	//TODO: fix
-	// Force visible on first start 
+	// Force visible on first start
 	//randomizer.setGuiVisible(true);
 	//presetsManager.setGuiVisible(true);
 }
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::buildHelp()
-{
+void ofxSurfingFxPro::buildHelp() {
 	// Help Info
 	{
-		std::string helpInfo = "";
+		std::string ss = "";
 
-		helpInfo += "FxPro \n";
-		helpInfo += "HELP \n";
-		helpInfo += "\n";
-		helpInfo += "KEY COMMANDS \n";
-		helpInfo += "\n";
+		ss += "FxPro \n";
+		ss += "HELP \n";
+		ss += "\n";
+		ss += "KEY COMMANDS \n";
+		ss += "\n";
 
-		helpInfo += "G                GUI \n";
-		helpInfo += "H                HELP APP \n";
-		helpInfo += "\n";
+		ss += "G                GUI \n";
+		ss += "H                HELP APP \n";
+		ss += "\n";
 
-		helpInfo += "PANELS \n";
-		helpInfo += "F1               TOGGLES \n";
-		helpInfo += "F2               CONTROLS \n";
-		helpInfo += "F3               PRESETS \n";
-		helpInfo += "F4               RANDOMIZER \n";
-		helpInfo += "\n";
+		ss += "PANELS \n";
+		ss += "F1               TOGGLES \n";
+		ss += "F2               CONTROLS \n";
+		ss += "F3               PRESETS \n";
+		ss += "\n";
 
-		helpInfo += "FX \n";
-		if (!bKeys_FX)
-		{
-			helpInfo += "KEYS FX toggle is disabled. \n";
-			helpInfo += "Enable that toggle! \n";
+		ss += "PRESETS \n";
+		if (!presetsManager.bKeys) {
+			ss += "KEYS toggle is disabled. \n";
+			ss += "Enable that toggle! \n";
+		} else {
+			ss += "1 to 9           BROWSE \n";
+			ss += "< >              \n";
+			ss += "SPACE            NEXT \n";
+			ss += "+Ctrl            PLAY \n";
 		}
-		else {
-			helpInfo += "q to v           FX TOGGLES \n";
-			helpInfo += "SHIFT            Latch on MODE TOGGLE \n";
-		}
-		helpInfo += "\n";
+		ss += "\n";
 
-		helpInfo += "PRESETS \n";
-		if (!presetsManager.bKeys)
-		{
-			helpInfo += "KEYS toggle is disabled. \n";
-			helpInfo += "Enable that toggle! \n";
-		}
-		else {
-			helpInfo += "1 to 9           BROWSE \n";
-			helpInfo += "< >              \n";
-			helpInfo += "SPACE            NEXT \n";
-			helpInfo += "+Ctrl            PLAY \n";
-		}
-		helpInfo += "\n";
+		//ss += "NOTE \n";
+		//ss += "Take care when enabling many KEYS toggles \n";
+		//ss += "from different add-ons at the same time. \n";
+		//ss += "Key commands could collide! \n";
 
-		helpInfo += "NOTE \n";
-		helpInfo += "Take care when enabling many KEYS toggles \n";
-		helpInfo += "from different add-ons at the same time. \n";
-		helpInfo += "Key commands could collide! \n";
-
-		ui.setHelpAppText(helpInfo);
+		ui.setHelpAppText(ss);
+		ui.setHelpAppFontStyle(2); //bigger font
 	}
 }
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::setupGuiStyles()
-{
+void ofxSurfingFxPro::setupGuiStyles() {
 	buildHelp();
 
 	//--
 
 	ui.clearStyles();
 
-	// Customize all toggles inside the group 
+	// Customize all toggles inside the group
 	ui.AddStyleGroupForBools(manager.params_Toggles, bEnable ? OFX_IM_TOGGLE_MEDIUM_BORDER_BLINK : OFX_IM_TOGGLE_MEDIUM);
 
 	// Hide groups header
@@ -402,10 +316,6 @@ void ofxSurfingFxPro::setupGuiStyles()
 	if (manager.bEnablers[20]) g.add(manager.gDitherGroup);
 	if (manager.bEnablers[21]) g.add(manager.gStrobberGroup);
 	if (manager.bEnablers[22]) g.add(manager.gRimbLightGroup);
-
-#ifdef USE__SURFING_RANDOMIZER__FX_PRO
-	randomizer.rebuildParamsGroup(g);
-#endif
 
 	//--
 
@@ -497,13 +407,10 @@ void ofxSurfingFxPro::setupGuiStyles()
 
 //--------------------------------------------------------------
 //void ofxSurfingFxPro::update()
-void ofxSurfingFxPro::update(ofEventArgs& args)
-{
-	if (bPlayRandoms)
-	{
+void ofxSurfingFxPro::update(ofEventArgs & args) {
+	if (bPlayRandoms) {
 		float v = ofMap(playSpeed, 1, 0, 0.2f, 2.f);
-		if (notifier.notifyPerSecond(v))
-		{
+		if (notifier.notifyPerSecond(v)) {
 			doRandomFXAll(randomProb);
 
 			//manager.doEnableNone();
@@ -513,65 +420,17 @@ void ofxSurfingFxPro::update(ofEventArgs& args)
 
 	//--
 
-	//TODO:
-	// Undo Engine
-
-#ifdef USE__SURFING_RANDOMIZER__FX_PRO
-	if (randomizer.isRandomized())
-	{
-		// Presets only handles toggles!
-//#ifdef USE__OFX_SURFING__OFX_SURFING_UNDO_HELPER 
-//		presetsManager.undoManager.doSaveUndoWhenAuto();
-//#endif
-}
-#endif
-
-	//--
-
-	//TODO:
-	if (presetsManager.isRetrigged())
-	{
-
-	}
+	////TODO:
+	//if (presetsManager.isRetrigged()) {
+	//}
 
 	//--
 
 	if (bEnable) manager.updateFX();
-
-	//--
-
-	// Update help info when keys toggle changed
-	// TODO: should link all sections / add-ons
-	// easy callback
-
-	bool bUpdate = false;
-	static bool bKeys_FX_ = !bKeys_FX;
-	static bool presetsManagerbKeys_ = !presetsManager.bKeys;
-	if (bKeys_FX_ != bKeys_FX) {
-		bKeys_FX_ = bKeys_FX;
-		bUpdate = true;
-	}
-	if (presetsManagerbKeys_ != presetsManager.bKeys) {
-		presetsManagerbKeys_ = presetsManager.bKeys;
-		bUpdate = true;
-	}
-
-	if (bUpdate) buildHelp();
-
-	//--
-
-#ifdef USE__SURFING_UNDO_ENGINE__FX_PRO
-	if (bFlagUndoState) {
-		bFlagUndoState = false;
-		undoManager.doAddStateToUndo();
-		undoManager.doSaveUndoWhenAuto();
-	}
-#endif
 }
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::draw()
-{
+void ofxSurfingFxPro::draw() {
 	manager.draw(bEnable);
 }
 
@@ -582,55 +441,41 @@ void ofxSurfingFxPro::drawGui() {
 
 	drawImGui();
 
-	if (bGui_Internal) manager.drawGui(); // original ofxGui 
+	if (bGui_Internal) manager.drawGui(); // original ofxGui
 
-	if (bDebug)
-	{
+	if (bDebug) {
 		manager.drawDebug();
 		notifier.drawFPS(ofxDC_ALIGNMENT::TOP_RIGHT);
 	}
 
 	presetsManager.drawGui();
-
-#ifdef USE__SURFING_RANDOMIZER__FX_PRO
-	randomizer.drawGui();
-#endif
-	}
+}
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::drawImGuiMain()
-{
-	if (bGui)
-	{
-		//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW;
-		//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_SMALL;
-	}
+void ofxSurfingFxPro::drawImGuiMain() {
+	//if (bGui) {
+	//	//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW;
+	//	//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_SMALL;
+	//}
 
-	//if (ui.BeginWindow(bGui))
-	if (ui.BeginWindowSpecial(bGui))
-	{
+	if (ui.BeginWindow(bGui)) {
+		//if (ui.BeginWindowSpecial(bGui)) {
 		ui.DrawWidgetsGlobalScaleMini();
+
+		//ui.drawWidgetsSpecialWindowsToggles();
+		//ui.AddSpacing();
+		//ui.Add(ui.bLinked, OFX_IM_TOGGLE_ROUNDED_SMALL);
+		//ui.AddSpacing();
+		//ui.Add(ui.bGui_Organizer, OFX_IM_TOGGLE_ROUNDED_SMALL);
+		//ui.Add(ui.bGui_Aligners, OFX_IM_TOGGLE_ROUNDED_MINI);
+		//ui.Add(ui.bGui_SpecialWindows, OFX_IM_TOGGLE_ROUNDED_MINI);
+		ui.AddSeparated();
+
 		ui.AddLabelHuge("FX PRO");
 		ui.Add(bEnable, OFX_IM_TOGGLE_BIG_BORDER);
 		ui.AddSpacingBigSeparated();
 
 		ui.Add(ui.bMinimize, OFX_IM_TOGGLE_BUTTON_ROUNDED);
-
-		if (!ui.bMinimize)
-		{
-			ui.Add(bKeys_FX, OFX_IM_TOGGLE_BUTTON_ROUNDED);
-
-			if (bKeys_FX)
-			{
-				string s = string("Key controls goes from ") + getFirstKey() + string(" to ") + getLastKey();
-				ui.AddTooltip(s);
-
-				ui.Indent();
-				ui.Add(bKeys_FX_ToggleMode, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
-				if (!bKeys_FX_ToggleMode) ui.AddTooltip("Press SHIFT before release key to latch");
-				ui.Unindent();
-			}
-		}
 
 		ui.AddSpacingBigSeparated();
 
@@ -650,59 +495,38 @@ void ofxSurfingFxPro::drawImGuiMain()
 		ui.AddSpacing();
 
 		// Controls
-		//ui.Indent();
+		ui.Indent();
 		ui.Add(bGui_Controls, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
+
+#ifdef USE_FX_PRO_ofxSurfingPresetsLite
 		ui.Indent();
 		ui.Add(presetsManagerLite.bGui, OFX_IM_TOGGLE_ROUNDED_SMALL);
+	#endif
 		ui.Unindent();
-		//ui.Unindent();
-
-		//ui.AddSpacingSeparated();
-
-		//if (!presetsManager.bGui) {
-		//	ui.Indent();
-		//	presetsManager.draw_ImGui_ClickerSimple(true, false, true, false);
-		//	ui.Unindent();
-		//}
-
-#ifdef USE__SURFING_RANDOMIZER__FX_PRO
-		if (!ui.bMinimize)
-		{
-			ui.AddSpacingSeparated();
-
-			// Randomizer
-			ui.Add(randomizer.bGui, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
-		}
-#endif
 
 		//--
 
-		if (!ui.bMinimize)
-		{
-			if (bGui_Controls)
-			{
+		if (!ui.bMinimize) {
+			if (bGui_Controls) {
 				ui.AddSpacingSeparated();
 
-				ui.AddLabelBig("CONTROLS"/*, true, true*/);
+				ui.AddLabelBig("CONTROLS" /*, true, true*/);
 
-				if (ui.AddButton("SAVE", OFX_IM_BUTTON_MEDIUM, 3))
-				{
+				if (ui.AddButton("SAVE", OFX_IM_BUTTON_MEDIUM, 2)) {
 					ofxSurfingHelpers::save(manager.params_Controls);
 				}
 				ui.AddTooltip("Save Controls. \nHandled independently of the Toggle states, \nthat are handled by Presets Manager.");
 
 				ui.SameLine();
 
-				if (ui.AddButton("LOAD", OFX_IM_BUTTON_MEDIUM, 3))
-				{
+				if (ui.AddButton("LOAD", OFX_IM_BUTTON_MEDIUM, 2)) {
 					ofxSurfingHelpers::load(manager.params_Controls);
 				}
 				ui.AddTooltip("Load Controls. \nHandled independently of the Toggle states, \nthat are handled by Presets Manager.");
 
-				ui.SameLine();
+				//ui.SameLine();
 
-				if (ui.Add(manager.bReset, OFX_IM_BUTTON_MEDIUM, 3))
-				{
+				if (ui.Add(manager.bReset, OFX_IM_BUTTON_MEDIUM, 1)) {
 				}
 				ui.AddTooltip("Reset the controls of each FX");
 
@@ -718,32 +542,16 @@ void ofxSurfingFxPro::drawImGuiMain()
 
 		if (ui.bMinimize) ui.AddSpacingSeparated();
 
-#ifdef USE__SURFING_UNDO_ENGINE__FX_PRO
-		if (ui.BeginTree("UNDO ENGINE"))
-		{
-			undoManager.drawImGuiWidgetsBrowse(ui.bMinimize);
-
-			if (!ui.bMinimize) {
-				ui.Add(undoManager.bGui_UndoEngine, OFX_IM_TOGGLE_BUTTON_ROUNDED_MINI);
-				undoManager.drawImGuiWidgetsHistoryInfo();
-			}
-
-			ui.EndTree();
-		}
-#endif
-
 		//--
 
-		if (!ui.bMinimize)
-		{
+		if (!ui.bMinimize) {
 			ui.AddSpacingSeparated();
 			ui.AddSpacing();
 
 			// Extra
 
 			ui.Add(ui.bExtra, OFX_IM_TOGGLE_BUTTON_ROUNDED);
-			if (ui.bExtra)
-			{
+			if (ui.bExtra) {
 				ui.AddSpacing();
 				ui.Indent();
 
@@ -752,8 +560,7 @@ void ofxSurfingFxPro::drawImGuiMain()
 				//ui.Add(manager.bAll, OFX_IM_BUTTON, 2);
 				//ui.AddSpacingSeparated();
 
-				if (ui.BeginTree("RANDOMIZERS"))
-				{
+				if (ui.BeginTree("RANDOMIZERS")) {
 					ui.refreshLayout();
 
 					//ui.AddLabelBig("Randomizers", true, true);
@@ -798,8 +605,7 @@ void ofxSurfingFxPro::drawImGuiMain()
 
 		//--
 
-		if (!ui.bMinimize)
-		{
+		if (!ui.bMinimize) {
 			// Help
 			ui.AddSpacingBigSeparated();
 			ui.Add(ui.bHelp, OFX_IM_TOGGLE_BUTTON_ROUNDED_SMALL);
@@ -808,18 +614,16 @@ void ofxSurfingFxPro::drawImGuiMain()
 
 		//--
 
-		//ui.EndWindow();
-		ui.EndWindowSpecial();
+		ui.EndWindow();
+		//ui.EndWindowSpecial();
 	}
 }
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::drawImGuiControls()
-{
+void ofxSurfingFxPro::drawImGuiControls() {
 	//if (manager.getAmountEffectsEnabled() == 0) return;
 
-	if (bGui_Controls)
-	{
+	if (bGui_Controls) {
 		//crashes
 
 		//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW;
@@ -842,11 +646,9 @@ void ofxSurfingFxPro::drawImGuiControls()
 		//ImGui::SetNextWindowSizeConstraints(size_min, size_max);
 	}
 
-	if (ui.BeginWindowSpecial(bGui_Controls))
-	{
+	if (ui.BeginWindowSpecial(bGui_Controls)) {
 		// warning message
-		if (manager.getAmountEffectsEnabled() == 0)
-		{
+		if (manager.getAmountEffectsEnabled() == 0) {
 			string s;
 
 			s = "You must Enable one or more FX Toggles!";
@@ -864,8 +666,10 @@ void ofxSurfingFxPro::drawImGuiControls()
 
 		//--
 
-		//// Presets
-		//presetsManagerLite.drawImGui();
+		// Presets
+#ifdef USE_FX_PRO_ofxSurfingPresetsLite
+		presetsManagerLite.drawImGui();
+#endif
 
 		//ui.AddSpacingSeparated();
 
@@ -907,24 +711,20 @@ void ofxSurfingFxPro::drawImGuiControls()
 }
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::drawImGuiToggles()
-{
-	if (bGui_Toggles)
-	{
-		//crashes
+void ofxSurfingFxPro::drawImGuiToggles() {
+	//if (bGui_Toggles)
+	//{
+	//	//crashes
+	//	//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW;
+	//	//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_MEDIUM;
+	//	//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_SMALL;
+	//	//float w = 150;
+	//	//ImVec2 size_min = ImVec2(w, -1);
+	//	//ImVec2 size_max = ImVec2(w, -1);
+	//	//ImGui::SetNextWindowSizeConstraints(size_min, size_max);
+	//}
 
-		//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW;
-		//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_MEDIUM;
-		//IMGUI_SUGAR__WINDOWS_CONSTRAINTSW_SMALL;
-
-		//float w = 150;
-		//ImVec2 size_min = ImVec2(w, -1);
-		//ImVec2 size_max = ImVec2(w, -1);
-		//ImGui::SetNextWindowSizeConstraints(size_min, size_max);
-	}
-
-	if (ui.BeginWindowSpecial(bGui_Toggles))
-	{
+	if (ui.BeginWindowSpecial(bGui_Toggles)) {
 		ui.Add(manager.bNone, OFX_IM_BUTTON, 3, true);
 		ui.Add(manager.bAll, OFX_IM_BUTTON, 3, true);
 		ui.Add(manager.bSolo, OFX_IM_TOGGLE_BORDER_BLINK, 3);
@@ -938,22 +738,7 @@ void ofxSurfingFxPro::drawImGuiToggles()
 }
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::draw_ImGui_GameMode()
-{
-	//if (ui.bGui_GameMode)
-	{
-		// Presets
-		 
-		//presetsManagerLite.drawImGui();
-		//presetsManagerLite.drawImGuiClicker();
-
-		presetsManager.draw_ImGui_GameMode();//toggles
-	}
-}
-
-//--------------------------------------------------------------
-void ofxSurfingFxPro::drawImGui()
-{
+void ofxSurfingFxPro::drawImGui() {
 	ui.Begin();
 	{
 		//ui.BeginDocking();
@@ -964,39 +749,40 @@ void ofxSurfingFxPro::drawImGui()
 		//--
 
 		// Main
-		
+
 		drawImGuiMain();
 
 		//--
 
-		// Toggles 
-		
+		// Toggles
+
+		// link panels
+		if (bGui && bGui_Toggles) ui.setNextWindowAfterWindowNamed(bGui);
 		drawImGuiToggles();
 
 		//--
 
 		// Controls
-		
+
+		// link windows
+		if (bGui && bGui_Toggles && bGui_Controls)
+			ui.setNextWindowAfterWindowNamed(bGui_Toggles);
+		else if (bGui && bGui_Controls)
+			ui.setNextWindowAfterWindowNamed(bGui);
 		drawImGuiControls();
 
-		// Presets Controls
+		// Presets for Controls
 
-		if (presetsManagerLite.bGui) {
-			if (ui.BeginWindowSpecial(presetsManagerLite.bGui)) {
-				presetsManagerLite.drawImGuiClicker(false, false);
-				ui.EndWindowSpecial();
-			}
-		}
-
+		//if (presetsManagerLite.bGui) {
+		//	if (ui.BeginWindowSpecial(presetsManagerLite.bGui)) {
+		//		presetsManagerLite.drawImGuiClicker(false, false);
+		//		ui.EndWindowSpecial();
+		//	}
+		//}
 		//if (presetsManagerLite.bGui) presetsManagerLite.drawImGuiClicker(true, false);
 
 		//ui.AddSpacingSeparated();
 
-		//--
-
-#ifdef USE__SURFING_UNDO_ENGINE__FX_PRO
-		undoManager.drawImGuiWindow();
-#endif
 	}
 	ui.End();
 }
@@ -1009,7 +795,7 @@ void ofxSurfingFxPro::begin() {
 }
 
 //---------------------------------------
-void ofxSurfingFxPro::begin(ofCamera& cam) {//begin to draw scene inside to process!
+void ofxSurfingFxPro::begin(ofCamera & cam) { //begin to draw scene inside to process!
 	manager.begin(cam);
 
 	//if (bEnable) manager.begin(cam);
@@ -1017,7 +803,7 @@ void ofxSurfingFxPro::begin(ofCamera& cam) {//begin to draw scene inside to proc
 }
 
 //---------------------------------------
-void ofxSurfingFxPro::end(bool autoDraw) {//ends the drawn scene and draws processed image!
+void ofxSurfingFxPro::end(bool autoDraw) { //ends the drawn scene and draws processed image!
 	manager.end(autoDraw);
 
 	//if (bEnable) manager.end(autoDraw);
@@ -1032,19 +818,9 @@ void ofxSurfingFxPro::end(bool autoDraw) {//ends the drawn scene and draws proce
 void ofxSurfingFxPro::keyPressed(ofKeyEventArgs & args) {
 	const int key = args.key;
 
-	if (bKeys_FX)
-	{
-		keyPressedFX(key);
-		if (key == OF_KEY_LEFT_SHIFT) bShiftPressed = true;
-	}
-
 	if (key == OF_KEY_F1) bGui_Toggles = !bGui_Toggles;
 	if (key == OF_KEY_F2) bGui_Controls = !bGui_Controls;
 	if (key == OF_KEY_F3) presetsManager.bGui = !presetsManager.bGui;
-
-#ifdef USE__SURFING_RANDOMIZER__FX_PRO
-	if (key == OF_KEY_F4) randomizer.bGui = !randomizer.bGui;
-#endif
 
 	//--
 
@@ -1052,27 +828,11 @@ void ofxSurfingFxPro::keyPressed(ofKeyEventArgs & args) {
 	//if (key == OF_KEY_F10) doRandomFXAll(randomProb);
 
 	//else if (key == 'G') bGui = !bGui;
-
-	//----
-
-	// TODO: not working on windows..? We need to add int code?
-#ifdef USE__SURFING_UNDO_ENGINE__FX_PRO
-	ofKeyEventArgs eventArgs;
-	eventArgs.key = key;
-	undoManager.keyPressed(eventArgs);
-#endif
-
 }
 
 //--------------------------------------------------------------
 void ofxSurfingFxPro::keyReleased(ofKeyEventArgs & args) {
 	const int key = args.key;
-
-	if (bKeys_FX)
-	{
-		keyReleasedFX(key);
-		if (key == OF_KEY_LEFT_SHIFT) bShiftPressed = false;
-	}
 }
 
 //--------------------------------------------------------------
@@ -1083,8 +843,7 @@ void ofxSurfingFxPro::windowResized(ofResizeEventArgs & args) {
 }
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::exit()
-{
+void ofxSurfingFxPro::exit() {
 	ofxSurfingHelpers::saveGroup(params_AppSettings, path_GLOBAL + path_Params_AppSettings);
 
 	ofRemoveListener(params.parameterChangedE(), this, &ofxSurfingFxPro::Changed);
@@ -1093,33 +852,15 @@ void ofxSurfingFxPro::exit()
 	ofRemoveListener(manager.params_Toggles.parameterChangedE(), this, &ofxSurfingFxPro::Changed_Enablers);
 
 	if (bAutoSave) ofxSurfingHelpers::saveGroup(manager.params_Controls, path_GLOBAL + path_Params_Controls);
-
 }
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::Changed(ofAbstractParameter& e)
-{
+void ofxSurfingFxPro::Changed(ofAbstractParameter & e) {
 	string name = e.getName();
 
-	if (name == bRandom.getName())
-	{
+	if (name == bRandom.getName()) {
 		doRandomFXAll(randomProb);
 	}
-
-	//--
-
-#ifdef USE__SURFING_UNDO_ENGINE__FX_PRO
-	// exclude bc are automated
-	if (name == manager.gGlitchAngle.getParameter().getName() ||
-		name == manager.gGlitchDistX.getParameter().getName() ||
-		name == manager.gGlitchDistY.getParameter().getName() ||
-		name == manager.gStrobberVolume.getParameter().getName() ||
-		name == manager.gGlitchCol.getParameter().getName())
-	{
-		return;
-	}
-	bFlagUndoState = true;
-#endif
 
 	//--
 
@@ -1127,59 +868,13 @@ void ofxSurfingFxPro::Changed(ofAbstractParameter& e)
 }
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::Changed_Enablers(ofAbstractParameter& e)
-{
+void ofxSurfingFxPro::Changed_Enablers(ofAbstractParameter & e) {
 	string name = e.getName();
 
 	//ofLogNotice("ofxSurfingFxPro") << " " << (__FUNCTION__) << name << " : " << e;
 
 	if (bGuiWorkflow) setupGuiStyles();
 
-	//--
-
-#ifdef USE__SURFING_UNDO_ENGINE__FX_PRO
-	bFlagUndoState = true;
-#endif
-}
-
-//--
-
-//--------------------------------------------------------------
-void ofxSurfingFxPro::keyPressedFX(int key)
-{
-	char k0 = keyCommandsChars[keyFirstPos];
-
-	for (size_t k = 0; k < manager.getAmountEffects(); k++)
-	{
-		if (key == keyCommandsChars[k])
-		{
-			// workflow
-			// press SHIFT before release the key
-			// to maintain the fx toggle on!
-			if (bKeys_FX_ToggleMode) doToggleFX(k);
-			else doPowerFX(k, true);
-
-			return;
-		}
-	}
-}
-
-//--------------------------------------------------------------
-void ofxSurfingFxPro::keyReleasedFX(int key)
-{
-	if (bKeys_FX_ToggleMode) return;
-
-	char k0 = keyCommandsChars[keyFirstPos];
-
-	for (size_t k = 0; k < manager.getAmountEffects(); k++)
-	{
-		if (key == keyCommandsChars[k])
-		{
-			if (!bKeys_FX_ToggleMode) if (!bShiftPressed || !bGuiWorkflow) doPowerFX(k, false);
-
-			return;
-		}
-	}
 }
 
 //--
@@ -1187,40 +882,27 @@ void ofxSurfingFxPro::keyReleasedFX(int key)
 // Set / Toggle FX enablers
 
 //--------------------------------------------------------
-void ofxSurfingFxPro::doToggleFX(int postId)
-{
+void ofxSurfingFxPro::doToggleFX(int postId) {
 	manager.doToggleFX(postId);
 }
 
 //--------------------------------------------------------
-void ofxSurfingFxPro::doPowerFX(int postId, bool bState)
-{
+void ofxSurfingFxPro::doPowerFX(int postId, bool bState) {
 	manager.doPowerFX(postId, bState);
 }
 
 // Random FX enablers
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::doRandomFX(int postId, float prob)
-{
+void ofxSurfingFxPro::doRandomFX(int postId, float prob) {
 	if (postId > manager.getAmountEffects()) return;
 
 	manager.doPowerFX(postId, (bool)(ofRandom(1.0f) < prob));
 }
 
 //--------------------------------------------------------------
-void ofxSurfingFxPro::doRandomFXAll(float prob)
-{
-	for (int i = 0; i < manager.getAmountEffects(); i++)
-	{
+void ofxSurfingFxPro::doRandomFXAll(float prob) {
+	for (int i = 0; i < manager.getAmountEffects(); i++) {
 		manager.doPowerFX(i, (bool)(ofRandom(1.0f) < prob));
 	}
-
-	//--
-
-	// Presets only handles toggles!
-//	// Undo Engine
-//#ifdef USE__OFX_SURFING__OFX_SURFING_UNDO_HELPER 
-//	presetsManager.undoManager.doSaveUndoWhenAuto();
-//#endif
 }

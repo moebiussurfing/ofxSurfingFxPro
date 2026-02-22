@@ -7,14 +7,6 @@
 
 //--
 
-// Optional
- 
-//#define USE__SURFING_UNDO_ENGINE__FX_PRO // -> Comment to disable feature and his dependency
-
-//#define USE__SURFING_RANDOMIZER__FX_PRO  // -> Un comment to enasble randomize engine
-
-//--
-
 #include "ofMain.h"
 
 #include "ofxDC_Utilities.h"
@@ -24,14 +16,10 @@
 #include "ofxSurfingHelpers.h"
 #include "ofxSurfingImGui.h"
 #include "ofxSurfingPresets.h"
+
+//#define USE_FX_PRO_ofxSurfingPresetsLite
+#ifdef USE_FX_PRO_ofxSurfingPresetsLite
 #include "ofxSurfingPresetsLite.h"
-
-#ifdef USE__SURFING_RANDOMIZER__FX_PRO
-#include "ofxSurfingRandomizer.h"
-#endif
-
-#ifdef USE__SURFING_UNDO_ENGINE__FX_PRO
-#include "ofxSurfingUndoHelper.h"
 #endif
 
 //--
@@ -63,21 +51,9 @@ private:
 
 public:
 
-	//void keyPressed(int key);
-	//void keyReleased(int key);
 	void keyPressed(ofKeyEventArgs & args);
 	void keyReleased(ofKeyEventArgs & args);
 	void windowResized(ofResizeEventArgs & args);
-
-private:
-
-	void keyPressedFX(int key);
-	void keyReleasedFX(int key);
-	bool bShiftPressed = false;
-
-public:
-
-	void windowResized(int w, int h);
 
 private:
 
@@ -105,8 +81,6 @@ private:
 
 public:
 
-	void draw_ImGui_GameMode();
-
 	ofParameter<bool> bGui{ "FX PRO", true };
 	ofParameter<bool> bDebug{ "Debug", false };
 
@@ -125,8 +99,6 @@ private:
 	ofParameter<bool> bPlayRandoms{ "PLAY RANDOMS", false };
 	ofParameter<float> playSpeed;
 
-	ofParameter<bool> bKeys_FX;
-	ofParameter<bool> bKeys_FX_ToggleMode;
 	ofParameter<bool> bGuiWorkflow{ "GuiWorkflow", true }; // disable tab workflow to improve speed...
 	ofParameter<bool> bAutoSave{ "Auto Save", true };
 
@@ -155,18 +127,14 @@ private:
 	string path_Params_Controls;
 	ofParameterGroup params_AppSettings; // -> To store app settings between sessions
 
-	////--------------------------------------------------------------
-	//ofParameterGroup& getParams() {
-	//	manager.params;
-	//}
-
 	ofParameterGroup params_Preset; // -> We queue params to here!
 
 public:
 
 	ofxSurfingPresets presetsManager; // -> Presets Manager. To handle presets for the toggles!
-	
+#ifdef USE_FX_PRO_ofxSurfingPresetsLite
 	ofxSurfingPresetsLite presetsManagerLite; // -> Presets Manager for all fx controls! (independent of the toggles)
+#endif
 
 	//----
 
@@ -177,125 +145,4 @@ public:
 
 	void doRandomFX(int postId, float prob = 0.5f); // the prob of toggle being true (false by default)
 	void doRandomFXAll(float prob = 0.5f); // the prob of toggle being true (false by default)
-
-	//----
-
-private:
-
-	// Key Commands
-
-	// These methods allows to customize key commands assignments 
-	// In this case to trig the FX toggles.
-
-#define NUM_KEY_COMMANDS 36
-
-	// This is the sorted map of keys:
-	// We will select the starting key, then will follow next ones to assign to next preset index command!
-	// Then we avoid to collide keycommands when using multiple presets manager instances 
-	// or when colliding with other add-ons.
-
-	// Predefined picked keys to assign commands
-	char keysFullMap[NUM_KEY_COMMANDS] = {
-	'1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-	'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p',
-	'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l',
-	'z', 'x', 'c', 'v', 'b', 'n', 'm' };
-
-	int keyFirstPos = -1;
-	char keyFirstChar = '0';
-
-	vector<char> keyCommandsChars; // Prepared chars that will be used as triggers.
-
-public:
-
-	// Default Keys
-	// '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-	// 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p',
-	// 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l',
-	// 'z', 'x', 'c', 'v', 'b', 'n', 'm'
-
-	// Customizable keys to avoid collide with other key commands callbacks
-	// We set the first, next ones are correlative from the above default keys!
-	//--------------------------------------------------------------
-	void setKeyFirstChar(char kChar) {
-		int p = getKeyCommandPosition(kChar);
-		if (p == -1)
-		{
-			ofLogError(__FUNCTION__) << "Can't found key: " << kChar;
-		}
-		else
-		{
-			ofLogNotice(__FUNCTION__) << "Set key first command (to correlative keys starting) at key: " << kChar;
-
-			setKeyFirstPos(p);
-
-			keyCommandsChars.clear();
-			for (size_t i = p; i < NUM_KEY_COMMANDS; i++)
-			{
-				keyCommandsChars.push_back(keysFullMap[i]);
-			}
-		}
-	}
-
-private:
-
-	//--------------------------------------------------------------
-	void setKeyFirstPos(int kPos)
-	{
-		ofLogNotice(__FUNCTION__) << "Set key first position at index: " << kPos;
-
-		keyFirstPos = kPos;
-	}
-
-	//--------------------------------------------------------------
-	int getKeyCommandPosition(char key) {
-		int pos = -1;
-		for (size_t i = 0; i < NUM_KEY_COMMANDS; i++)
-		{
-			if (key == keysFullMap[i])
-			{
-				pos = i;
-				return pos;
-			}
-		}
-		return pos;
-	}
-
-	// Mainly for displaying info purposes
-	//--------------------------------------------------------------
-	string getFirstKey() {
-		if (keyCommandsChars.size() != 0) return ofToString(keyCommandsChars[0]);
-		else return "-1";
-	}
-	//--------------------------------------------------------------
-	string getLastKey() {
-		if (keyCommandsChars.size() != 0)
-		{
-			int amountRequiredKeys = manager.getAmountEffects();
-
-			string s;
-			if (amountRequiredKeys < keyCommandsChars.size()) {
-				s = keyCommandsChars[amountRequiredKeys - 1];
-				return s;
-			}
-			else {
-				// last key is before/less than the last FX
-				// we should need more key commands!
-				// some FX's don't have a key trigger.
-				return ofToString(keyCommandsChars.back());
-			}
-		}
-
-		else return "-1";
-	}
-
-	//--
-
-	ofParameterGroup params_Undo;
-
-#ifdef USE__SURFING_UNDO_ENGINE__FX_PRO
-private:
-	ofxSurfingUndoHelper undoManager;
-	bool bFlagUndoState = true;
-#endif
 };
