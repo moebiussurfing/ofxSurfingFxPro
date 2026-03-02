@@ -209,25 +209,27 @@ void ofxSurfingFxPro::buildHelp() {
 		ss += "F3               PRESETS \n";
 		ss += "\n";
 
-		ss += "PRESETS \n";
-		if (!presetsManager.bKeys) {
-			ss += "KEYS toggle is disabled. \n";
-			ss += "Enable that toggle! \n";
-		} else {
-			ss += "1 to 9           BROWSE \n";
-			ss += "< >              \n";
-			ss += "SPACE            NEXT \n";
-			ss += "+Ctrl            PLAY \n";
-		}
-		ss += "\n";
+		//ss += "PRESETS \n";
+		//if (!presetsManager.bKeys) {
+		//	ss += "KEYS toggle is disabled. \n";
+		//	ss += "Enable that toggle! \n";
+		//} else {
+		//	ss += "0 to 9           BROWSE \n";
+		//	ss += "< >              \n";
+		//	ss += "SPACE            NEXT \n";
+		//	//ss += "+Ctrl            PLAY \n";
+		//}
+		//ss += "\n";
 
 		//ss += "NOTE \n";
 		//ss += "Take care when enabling many KEYS toggles \n";
 		//ss += "from different add-ons at the same time. \n";
 		//ss += "Key commands could collide! \n";
 
+		ui.setHelpAppTitle("FX PRO");
 		ui.setHelpAppText(ss);
-		ui.setHelpAppFontStyle(2); //bigger font
+		ui.setHelpAppFontStyle(1); //bigger font
+		//ui.setHelpAppFontStyle(2); //bigger font
 	}
 }
 
@@ -535,12 +537,12 @@ void ofxSurfingFxPro::drawImGuiMain() {
 				ui.AddTooltip("Auto Store and Recall Controls Settings on the next App session.\nExcept for Toggles, that are handled by the Presets Manager!");
 			}
 
-			if (!ui.bMinimize) ui.AddSpacingBigSeparated();
+			//if (!ui.bMinimize) ui.AddSpacingBigSeparated();
 		}
 
 		//--
 
-		if (ui.bMinimize) ui.AddSpacingSeparated();
+		//if (ui.bMinimize) ui.AddSpacingSeparated();
 
 		//--
 
@@ -757,7 +759,7 @@ void ofxSurfingFxPro::drawImGui() {
 		// Toggles
 
 		// link panels
-		if (bGui && bGui_Toggles) ui.setNextWindowAfterWindowNamed(bGui);
+		//if (bGui && bGui_Toggles) ui.setNextWindowAfterWindowNamed(bGui);
 		drawImGuiToggles();
 
 		//--
@@ -765,10 +767,10 @@ void ofxSurfingFxPro::drawImGui() {
 		// Controls
 
 		// link windows
-		if (bGui && bGui_Toggles && bGui_Controls)
-			ui.setNextWindowAfterWindowNamed(bGui_Toggles);
-		else if (bGui && bGui_Controls)
-			ui.setNextWindowAfterWindowNamed(bGui);
+		//if (bGui && bGui_Toggles && bGui_Controls)
+		//	ui.setNextWindowAfterWindowNamed(bGui_Toggles);
+		//else if (bGui && bGui_Controls)
+		//	ui.setNextWindowAfterWindowNamed(bGui);
 		drawImGuiControls();
 
 		// Presets for Controls

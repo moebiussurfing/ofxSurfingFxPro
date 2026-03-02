@@ -28,14 +28,14 @@ public:
 	void draw(bool bEnabled = true)
 	{
 		if (bEnabled) {
-			//draw processed
-			ofPushStyle();
+			// Draw processed
+			//ofPushStyle();
 			ofSetColor(255, 255, 255);
 			post.draw();
-			ofPopStyle();
+			//ofPopStyle();
 		}
 		else {
-			//draw un-processed
+			// Draw un-processed
 			//requires to be flipped..
 			float w = ofGetWidth();
 			float h = ofGetHeight();
