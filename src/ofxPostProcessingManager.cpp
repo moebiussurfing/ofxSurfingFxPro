@@ -450,7 +450,7 @@ void ofxPostProcessingManager::Changed_Enablers(ofAbstractParameter& e)
 			bool b = bEnablers[i].getParameter().cast<bool>().get();
 			post[i]->setEnabled(b);
 
-			ofLogNotice("ofxSurfingFxPro") << (__FUNCTION__) << " #" << i << " " << name << " : " << (b ? "ON" : "OFF");
+			ofLogVerbose("ofxSurfingFxPro") << (__FUNCTION__) << " #" << i << " " << name << " : " << (b ? "ON" : "OFF");
 
 			// put others to false
 			if (bSolo.get())
@@ -462,7 +462,7 @@ void ofxPostProcessingManager::Changed_Enablers(ofAbstractParameter& e)
 						bEnablers[j].getParameter().cast<bool>().set(false);
 						post[j]->setEnabled(false);
 
-						ofLogNotice("ofxSurfingFxPro") << (__FUNCTION__) << " #" << j << " " << bEnablers[j].getName() << " : " << "OFF";
+						ofLogVerbose("ofxSurfingFxPro") << (__FUNCTION__) << " #" << j << " " << bEnablers[j].getName() << " : " << "OFF";
 					}
 				}
 			}
