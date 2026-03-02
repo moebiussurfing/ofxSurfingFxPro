@@ -53,13 +53,13 @@ void ofxSurfingFxPro::setupGui() {
 
 	ui.addWindowSpecial(presetsManager.bGui);
 
-#ifdef USE_FX_PRO_ofxSurfingPresetsLite
-	ui.addWindowSpecial(presetsManagerLite.bGui);
-#endif
-
 	ui.startup();
 
 	//bKeys_FX.makeReferenceTo(ui.bKeys);
+
+	// Player
+	surfingPlayer.setUiPtr(&ui);
+	surfingPlayer.bGui_WidgetBeat.set(false);
 
 	//--
 
@@ -126,17 +126,6 @@ void ofxSurfingFxPro::setupParams() {
 	//Colorize
 	//presetsManager.setFliped(true);
 	//presetsManager.setColorized(true);
-
-	//--
-
-	// Presets
-#ifdef USE_FX_PRO_ofxSurfingPresetsLite
-	presetsManagerLite.setName("PRESETS C");
-	presetsManagerLite.setUiPtr(&ui);
-	presetsManagerLite.setPath(path_GLOBAL + "FxPro/");
-	presetsManagerLite.AddGroup(manager.params_Controls);//only controls
-	//presetsManagerLite.doPopulatePresets(4);
-#endif
 }
 
 //--------------------------------------------------------------
@@ -150,6 +139,24 @@ void ofxSurfingFxPro::setup() {
 
 	// Params
 	setupParams();
+
+	//--
+
+	// Player
+
+	surfingPlayer.setTrigTypesNames({ "Type #0 - Next", "Type #1 - Random" });
+
+	listener_Beat = surfingPlayer.bPlayerBeatBang.newListener([this](bool & b) {
+		ofLogNotice("Beat Bang : ") << (b ? "TRUE" : "FALSE");
+
+		// Do not know which type triggered, just a bang.
+		// Do something
+		// Flag the Bang! to be processed on update() / next frame.
+
+		bBang = true;
+	});
+
+	//-
 
 	//--
 
@@ -429,6 +436,13 @@ void ofxSurfingFxPro::update(ofEventArgs & args) {
 	//--
 
 	if (bEnable) manager.updateFX();
+
+	// Player. load next preset
+	if (bBang) {
+		bBang = false;
+		ofLogNotice("ofxSurfingFxPro") << "Bang!";
+		presetsManager.doLoadNext();
+	}
 }
 
 //--------------------------------------------------------------
@@ -475,6 +489,8 @@ void ofxSurfingFxPro::drawImGuiMain() {
 
 		ui.AddLabelHuge("FX PRO");
 		ui.Add(bEnable, OFX_IM_TOGGLE_BIG_BORDER);
+		ui.AddSpacing();
+		ui.Add(surfingPlayer.bGui, OFX_IM_TOGGLE_ROUNDED);
 		ui.AddSpacingBigSeparated();
 
 		ui.Add(ui.bMinimize, OFX_IM_TOGGLE_BUTTON_ROUNDED);
@@ -500,10 +516,6 @@ void ofxSurfingFxPro::drawImGuiMain() {
 		ui.Indent();
 		ui.Add(bGui_Controls, OFX_IM_TOGGLE_ROUNDED_MEDIUM);
 
-#ifdef USE_FX_PRO_ofxSurfingPresetsLite
-		ui.Indent();
-		ui.Add(presetsManagerLite.bGui, OFX_IM_TOGGLE_ROUNDED_SMALL);
-	#endif
 		ui.Unindent();
 
 		//--
@@ -668,15 +680,6 @@ void ofxSurfingFxPro::drawImGuiControls() {
 
 		//--
 
-		// Presets
-#ifdef USE_FX_PRO_ofxSurfingPresetsLite
-		presetsManagerLite.drawImGui();
-#endif
-
-		//ui.AddSpacingSeparated();
-
-		//--
-
 		//TODO:
 		// requires deep ofxSurfingImGui API remake
 //#define SURFING_FIXING_COLLAPSE_GROUP
@@ -773,18 +776,9 @@ void ofxSurfingFxPro::drawImGui() {
 		//	ui.setNextWindowAfterWindowNamed(bGui);
 		drawImGuiControls();
 
-		// Presets for Controls
-
-		//if (presetsManagerLite.bGui) {
-		//	if (ui.BeginWindowSpecial(presetsManagerLite.bGui)) {
-		//		presetsManagerLite.drawImGuiClicker(false, false);
-		//		ui.EndWindowSpecial();
-		//	}
-		//}
-		//if (presetsManagerLite.bGui) presetsManagerLite.drawImGuiClicker(true, false);
+		surfingPlayer.draw();
 
 		//ui.AddSpacingSeparated();
-
 	}
 	ui.End();
 }
@@ -866,7 +860,7 @@ void ofxSurfingFxPro::Changed(ofAbstractParameter & e) {
 
 	//--
 
-	ofLogNotice("ofxSurfingFxPro") << (__FUNCTION__) << name << " : " << e;
+	ofLogVerbose("ofxSurfingFxPro") << (__FUNCTION__) << name << " : " << e;
 }
 
 //--------------------------------------------------------------
@@ -876,7 +870,6 @@ void ofxSurfingFxPro::Changed_Enablers(ofAbstractParameter & e) {
 	//ofLogNotice("ofxSurfingFxPro") << " " << (__FUNCTION__) << name << " : " << e;
 
 	if (bGuiWorkflow) setupGuiStyles();
-
 }
 
 //--
