@@ -114,7 +114,9 @@ private:
 
 public:
 	ofxSurfingPresets presetsManager; // -> Presets Manager. To handle presets for the toggles!
-
+//	ofxSurfingPresetsLite presetsManagerLite; // -> Presets Manager for all fx controls! (independent of the toggles)
+//	ofParameterGroup params_Undo;
+	
 	//----
 
 public:

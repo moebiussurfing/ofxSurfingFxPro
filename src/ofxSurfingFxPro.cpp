@@ -52,7 +52,8 @@ void ofxSurfingFxPro::setupGui() {
 	ui.addWindowSpecial(bGui_Controls);
 
 	ui.addWindowSpecial(presetsManager.bGui);
-
+//	ui.addWindowSpecial(presetsManagerLite.bGui);
+	
 	ui.startup();
 
 	//bKeys_FX.makeReferenceTo(ui.bKeys);
@@ -126,6 +127,21 @@ void ofxSurfingFxPro::setupParams() {
 	//Colorize
 	//presetsManager.setFliped(true);
 	//presetsManager.setColorized(true);
+	
+	//--
+	//
+ //	// Presets controls
+
+//	params_Undo.setName("FxPro");
+////	params_Undo.add(params_Preset);
+//	params_Undo.add(manager.params_Controls);
+//
+//	presetsManagerLite.setName("PRESETS C");
+//	presetsManagerLite.setUiPtr(&ui);
+//	presetsManagerLite.setPath(path_GLOBAL + "FxPro/");
+//	//TODO: can use sub folders..
+//	presetsManagerLite.AddGroup(params_Undo);//controls and toggles
+//	//presetsManagerLite.AddGroup(manager.params_Controls);//only controls
 }
 
 //--------------------------------------------------------------
