@@ -13,9 +13,10 @@
 
 #include "ofxSurfingHelpers.h"
 #include "ofxSurfingImGui.h"
-#include "ofxSurfingPlayer.h"
 #include "ofxSurfingPresets.h"
 #include "ofxSurfing_ofxGui.h"
+#include "ofxSurfingPlayer.h"
+#include "SurfingNeoSequencer.h"
 
 //--
 
@@ -127,4 +128,8 @@ public:
 	SurfingPlayer surfingPlayer;
 	ofEventListener listener_Beat; // Be notified when Bang happens
 	bool bBang=false;
+
+	SurfingNeoSequencer sequencer;
+	void onBangEvent(std::size_t lane, ImGui::FrameIndexType step, bool fromTimeline);
+	ofParameter<int> targetBangsInt { "Bang Int", 0, 0, static_cast<int>(SurfingNeoSequencer::kBangCount) - 1 };
 };

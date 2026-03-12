@@ -61,6 +61,11 @@ void ofxSurfingFxPro::setupGui() {
 	surfingPlayer.setUiPtr(&ui);
 	surfingPlayer.bGui_WidgetBeat.set(false);
 
+	sequencer.setup(&ui);
+	sequencer.setBangCallback([this](std::size_t lane, ImGui::FrameIndexType step, bool fromTimeline) {
+		onBangEvent(lane, step, fromTimeline);
+	});
+
 	//--
 
 	setupGuiStyles();
@@ -443,6 +448,8 @@ void ofxSurfingFxPro::update(ofEventArgs & args) {
 		ofLogNotice("ofxSurfingFxPro") << "Bang!";
 		presetsManager.doLoadNext();
 	}
+
+	sequencer.update();
 }
 
 //--------------------------------------------------------------
@@ -491,6 +498,10 @@ void ofxSurfingFxPro::drawImGuiMain() {
 		ui.Add(bEnable, OFX_IM_TOGGLE_BIG_BORDER);
 		ui.AddSpacing();
 		ui.Add(surfingPlayer.bGui, OFX_IM_TOGGLE_ROUNDED);
+		ui.Add(sequencer.bGui, OFX_IM_TOGGLE_ROUNDED);
+		ui.Add(ui.bAutoResize, OFX_IM_TOGGLE_ROUNDED_MINI);
+		ui.Add(ui.bLog, OFX_IM_TOGGLE_ROUNDED_MINI);
+		ui.Add(targetBangsInt, OFX_IM_HSLIDER);
 		ui.AddSpacingBigSeparated();
 
 		ui.Add(ui.bMinimize, OFX_IM_TOGGLE_BUTTON_ROUNDED);
@@ -778,6 +789,8 @@ void ofxSurfingFxPro::drawImGui() {
 
 		surfingPlayer.draw();
 
+		sequencer.drawImGui();
+
 		//ui.AddSpacingSeparated();
 	}
 	ui.End();
@@ -848,6 +861,8 @@ void ofxSurfingFxPro::exit() {
 	ofRemoveListener(manager.params_Toggles.parameterChangedE(), this, &ofxSurfingFxPro::Changed_Enablers);
 
 	if (bAutoSave) ofxSurfingHelpers::saveGroup(manager.params_Controls, path_GLOBAL + path_Params_Controls);
+
+	sequencer.exit();
 }
 
 //--------------------------------------------------------------
@@ -900,4 +915,46 @@ void ofxSurfingFxPro::doRandomFXAll(float prob) {
 	for (int i = 0; i < manager.getAmountEffects(); i++) {
 		manager.doPowerFX(i, (bool)(ofRandom(1.0f) < prob));
 	}
+}
+
+//--------------------------------------------------------------
+void ofxSurfingFxPro::onBangEvent(std::size_t lane, ImGui::FrameIndexType step, bool fromTimeline) {
+	if (lane >= SurfingNeoSequencer::kBangCount) return;
+
+	targetBangsInt = static_cast<int>(lane);
+
+	presetsManager.index.set(targetBangsInt.get());
+
+
+	string message = "bang " + ofToString(lane) + " @ step " + ofToString(step);
+	ui.AddToLog(message, fromTimeline ? "NOTICE" : "WARNING");
+
+	//switch (targetBangsInt) {
+	//case 0:
+	//	ui.AddToLog("action: lane 0", "VERBOSE");
+	//	break;
+	//case 1:
+	//	ui.AddToLog("action: lane 1", "VERBOSE");
+	//	break;
+	//case 2:
+	//	ui.AddToLog("action: lane 2", "VERBOSE");
+	//	break;
+	//case 3:
+	//	ui.AddToLog("action: lane 3", "VERBOSE");
+	//	break;
+	//case 4:
+	//	ui.AddToLog("action: lane 4", "VERBOSE");
+	//	break;
+	//case 5:
+	//	ui.AddToLog("action: lane 5", "VERBOSE");
+	//	break;
+	//case 6:
+	//	ui.AddToLog("action: lane 6", "VERBOSE");
+	//	break;
+	//case 7:
+	//	ui.AddToLog("action: lane 7", "VERBOSE");
+	//	break;
+	//default:
+	//	break;
+	//}
 }

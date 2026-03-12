@@ -1,0 +1,9 @@
+ofxGui
+ofxImGui
+ofxSurfingFxPro
+ofxSurfingHelpers
+ofxSurfingImGui
+ofxSurfingPlayer
+ofxSurfingPresets
+ofxSurfingPresetsLite
+ofxWindowApp
