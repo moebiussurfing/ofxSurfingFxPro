@@ -499,13 +499,9 @@ void ofxSurfingFxPro::drawImGuiMain() {
 		ui.AddSpacing();
 		ui.Add(surfingPlayer.bGui, OFX_IM_TOGGLE_ROUNDED);
 		ui.AddSpacingSeparated();
-		ui.Add(sequencer.bGui, OFX_IM_TOGGLE_ROUNDED);
-		ui.Indent();
-		ui.Add(sequencer.bGuiTimeline, OFX_IM_TOGGLE_ROUNDED);
-		ui.Add(sequencer.bGuiTransport, OFX_IM_TOGGLE_ROUNDED);
-		ui.Unindent();
-		ui.Add(ui.bAutoResize, OFX_IM_TOGGLE_ROUNDED_MINI);
-		ui.Add(ui.bLog, OFX_IM_TOGGLE_ROUNDED_MINI);
+
+		// sequencer
+		sequencer.drawImGuiMainWidgets();
 		ui.Add(targetBangsInt, OFX_IM_HSLIDER);
 		ui.AddSpacingBigSeparated();
 
