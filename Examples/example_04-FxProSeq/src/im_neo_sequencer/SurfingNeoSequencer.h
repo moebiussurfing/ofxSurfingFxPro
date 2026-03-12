@@ -153,7 +153,7 @@ private:
 
 	std::vector<ofParameter<void>> bangs_;
 	std::array<ofEventListener, kBangCount> bangListeners_;
-	std::array<ofEventListener, 5> actionListeners_;
+	std::array<ofEventListener, 6> actionListeners_;
 
 	std::vector<std::vector<ImGui::FrameIndexType>> timelineKeys_;
 	std::vector<bool> lanesOpen_;
@@ -165,6 +165,7 @@ private:
 	ofParameter<float> bpm_ { "BPM", 120.0f, 40.0f, 240.0f };
 	ofParameter<int> bars_ { "Bars", 4, 1, 32 };
 	ofParameter<bool> play_ { "Play", false };
+	ofParameter<bool> replay_ { "Replay", false };
 	ofParameter<bool> loop_ { "Loop", true };
 
 	ofParameter<void> stop_ { "Stop" };
@@ -245,9 +246,10 @@ public:
 private:
 	void drawTransportControls() {
 		ui_->AddLabel("Transport");
-		ui_->Add(play_, OFX_IM_TOGGLE_BIG_BORDER_BLINK, 3, true);
-		ui_->Add(stop_, OFX_IM_BUTTON_BIG, 3, true);
-		ui_->Add(loop_, OFX_IM_TOGGLE_BIG_BORDER, 3);
+		ui_->Add(play_, OFX_IM_TOGGLE_BIG_BORDER_BLINK, 4, true);
+		ui_->Add(replay_, OFX_IM_TOGGLE_BIG, 4, true);
+		ui_->Add(stop_, OFX_IM_BUTTON_BIG, 4, true);
+		ui_->Add(loop_, OFX_IM_TOGGLE_BIG_BORDER, 4);
 
 		ui_->Add(bpm_, OFX_IM_HSLIDER_BIG);
 		ui_->Add(bars_, OFX_IM_STEPPER);
@@ -282,23 +284,29 @@ private:
 	}
 
 	void setupActionListeners() {
-		actionListeners_[0] = stop_.newListener([this](const void *) {
+		actionListeners_[0] = replay_.newListener([this](bool & value) {
+			if (!value) return;
+			replayTransport();
+			replay_ = false;
+		});
+
+		actionListeners_[1] = stop_.newListener([this](const void *) {
 			stopTransport();
 		});
 
-		actionListeners_[1] = clearAll_.newListener([this](const void *) {
+		actionListeners_[2] = clearAll_.newListener([this](const void *) {
 			clearAllLanes();
 		});
 
-		actionListeners_[2] = clearSelected_.newListener([this](const void *) {
+		actionListeners_[3] = clearSelected_.newListener([this](const void *) {
 			clearSelectedLane();
 		});
 
-		actionListeners_[3] = saveScene_.newListener([this](const void *) {
+		actionListeners_[4] = saveScene_.newListener([this](const void *) {
 			saveSceneToDisk();
 		});
 
-		actionListeners_[4] = loadScene_.newListener([this](const void *) {
+		actionListeners_[5] = loadScene_.newListener([this](const void *) {
 			loadSceneFromDisk();
 		});
 	}
@@ -501,6 +509,13 @@ private:
 		currentFrame_ = startFrame_;
 		transportAccumulator_ = 0.0;
 		wasPlaying_ = false;
+	}
+
+	void replayTransport() {
+		currentFrame_ = startFrame_;
+		transportAccumulator_ = 0.0;
+		wasPlaying_ = false;
+		play_ = true;
 	}
 
 	void updateTransport(double deltaSeconds) {
